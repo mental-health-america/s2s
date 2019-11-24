@@ -1,0 +1,16 @@
+{#
+/**
+ * @file
+ * Default theme implementation from form submission score as plain text.
+ *
+ * @ingroup themeable
+ */
+#}
+--------------------------------------------------------------------------------
+{{ 'Overall Score'|t }}: {{ submission_score.score }} / {{ submission_score.max_score }}
+
+{{ 'Score Breakdown'|t }}:
+{% for element in score_breakdown %}
+    {{ element.name }}: {{ element.score }}
+{% endfor %}
+--------------------------------------------------------------------------------

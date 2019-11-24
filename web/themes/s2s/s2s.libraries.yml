@@ -1,0 +1,15 @@
+global-styling:
+  css:
+    theme:
+      css/s2s_general.css: {}
+      css/style.css: {}
+      //translate.google.com/translate_a/element.js?cb=googleTranslateElementInit: { type: external }
+global-js:
+    js:
+        js/s2s_footer_menu.js: {scope: footer}
+    dependencies:
+        - core/jquery
+fonts:
+  css:
+    theme:
+      //fonts.googleapis.com/css?family=Montserrat:300,400,400i,500,700: { type: external }

@@ -1,0 +1,48 @@
+
+#views-exposed-form-screening-reports-page-1 .form-item-webform-submission-value-2,
+#views-exposed-form-screening-reports-page-1 .form-item-created-min,
+#views-exposed-form-screening-reports-page-1 .form-item-created-max { clear: both; padding: 0 0 10px 0; float: right !important; }
+
+#views-exposed-form-screening-reports-page-1, 
+#views-exposed-form-screening-reports-page-1 #edit-secondary { padding: 10px; background: #810262; color: #FFFFFF; border: 1px solid #CCCCCC; margin: 0 0 15px 0; }
+#views-exposed-form-screening-reports-page-1 fieldset { border-color: #FFFFFF; }
+#views-exposed-form-screening-reports-page-1 .form-wrapper legend span.fieldset-legend { color: #ffffff; }
+#views-exposed-form-screening-reports-page-1 a  { color: #FFFFFF; float: left; width: 100%; padding: 0 0 10px; }
+
+#views-exposed-form-screening-reports-page-1 label { float: left; font-size: 1.25em; font-weight: 300; padding: 5px 10px 0 0; }
+#views-exposed-form-screening-reports-page-1 #edit-secondary label { float: left; font-size: 1.25em; font-weight: 300; width: 165px; padding: 5px 0 0 0; }
+#views-exposed-form-screening-reports-page-1 #edit-secondary .form-item,
+#views-exposed-form-screening-reports-page-1 #edit-secondary .form-item-webform-submission-value-1.form-group:last-child
+#views-exposed-form-screening-reports-page-1 #edit-secondary .form-item-webform-submission-value-5,
+#views-exposed-form-screening-reports-page-1 #edit-secondary .form-item-webform-submission-value-6,
+#views-exposed-form-screening-reports-page-1 #edit-secondary .form-item-webform-submission-value-7,
+#views-exposed-form-screening-reports-page-1 #edit-secondary .form-item-webform-submission-value-8,
+#views-exposed-form-screening-reports-page-1 #edit-secondary .form-item-webform-submission-value-9 { clear: both; display: block; padding: 10px 0 0 0; }
+/*#views-exposed-form-screening-reports-page-1 #edit-secondary  { float: none; }*/
+#views-exposed-form-screening-reports-page-1 #edit-secondary,
+#views-exposed-form-screening-reports-page-1 .views-submit-button { clear: both; }
+
+#views-exposed-form-screening-reports-page-1 #edit-secondary #edit-webform-submission-value,
+#views-exposed-form-screening-reports-page-1 #edit-secondary #edit-webform-submission-value-3 { background: #810262; padding: 0; }
+
+#views-exposed-form-screening-reports-page-1 #edit-secondary #edit-webform-submission-value .panel-title,
+#views-exposed-form-screening-reports-page-1 #edit-secondary #edit-webform-submission-value-3 .panel-title { color: #FFFFFF; float: left; font-size: 1.25em; font-weight: 300; width: 165px; padding: 20px 0 5px; }
+#views-exposed-form-screening-reports-page-1 #edit-secondary #edit-webform-submission-value .panel-body,
+#views-exposed-form-screening-reports-page-1 #edit-secondary #edit-webform-submission-value-3 .panel-body { float: left; width: 165px; }
+
+#views-exposed-form-screening-reports-page-1 .form-submit { margin-top: 0; }
+div.csv-feed.views-data-export-feed.form-group a.feed-icon {width: 140px; background: url("../export_report.png") 0px 3px no-repeat;;}
+
+div.view-content div.table-responsive table.table.table-hover.table-striped thead { background: #efefef; border-bottom: #CCCCCC; }
+
+/* Screening Disclaimer blocks */
+#block-anxietydisclaimer > div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field--item.quickedit-field,
+#block-bipolardisclaimer > div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field--item.quickedit-field,
+#block-depressiondisclaimer > div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field--item.quickedit-field,
+#block-eatingdisorderdisclaimer > div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field--item.quickedit-field,
+#block-parentdisclaimer > div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field--item.quickedit-field,
+#block-psychosisdisclaimer > div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field--item.quickedit-field,
+#block-ptsddisclaimer > div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field--item.quickedit-field,
+#block-substanceusedisclaimer > div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field--item.quickedit-field,
+#block-youthdisclaimer > div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field--item.quickedit-field {padding: 0 2em}
+

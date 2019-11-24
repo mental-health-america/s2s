@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Default theme implementation from webform submission score as HTML.
+ *
+ * Available variables:
+ * - data: The webform submission's data.
+
+ * @see template_preprocess_webform_submission_score_html()
+ *
+ * @ingroup themeable
+ */
+#}
+<details data-webform-element-id="{{ webform_id }}--submission_score"{% if open %} open="open"{% endif %}>
+    <summary role="button"{% if open %} aria-expanded="true" aria-pressed="true"{% endif %}>{{ 'Submission Score'|t }}</summary>
+    <div class="details-wrapper">
+    {% if submission_score %}
+        <div><strong>{{ 'Overall Score'|t }}:</strong> {{ submission_score.score }} / {{ submission_score.max_score }}</div>
+    {% endif %}
+    {% if score_breakdown %}
+        <details data-webform-element-id="{{ webform_id }}--submission_elements_score" open="open">
+            <summary role="button" aria-expanded="true" aria-pressed="true">{{ 'Score Breakdown'|t }}</summary>
+            <div class="details-wrapper">
+            {% for element in score_breakdown %}
+               <div><strong>{{ element.name }}:</strong> {{ element.score }}</div>
+                <br />
+            {% endfor %}
+            </div>
+        </details>
+    {% endif %}
+    </div>
+</details>

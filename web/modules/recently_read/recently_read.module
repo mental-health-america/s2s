@@ -1,0 +1,80 @@
+<?php
+/**
+ * @file
+ * Recently read module file.
+ * Displays a history of recently read entities.
+ */
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_menu().
+ */
+function recently_read_menu() {
+  $items['admin/config/system/recently-read'] = array(
+    'title' => 'Recently Read Config',
+    'description' => 'Tracks the history of recently read entities by each user.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('recently_read_settings'),
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+/**
+ * Implements of hook_views_api().
+ */
+function recently_read_views_api() {
+  return array(
+    'api' => 3.0,
+    'path' => drupal_get_path('module','recently_read') . '/includes',
+  );
+}
+/**
+ * Implements hook_entity_type_alter().
+ */
+function recently_read_entity_type_alter(array &$entity_types) {
+  $entity_types['node']->set('render_cache', FALSE);
+}
+/**
+ * Implements hook_entity_view().
+ */
+function recently_read_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
+  $entity_type = $entity->getEntityTypeId();
+  $config = &drupal_static(__FUNCTION__);
+  if (!isset($config)) {
+    $config = \Drupal::config('recently_read.settings')->get();
+  }
+  //If the entity is not config for recently read track...
+  if (!isset($config[$entity_type])) {
+    return;
+  }
+  if (isset($config[$entity_type]) && !$config[$entity_type]['enable']) {
+    return;
+  }
+  //If the currently view mode is not support recently read track...
+  if (!in_array($view_mode, array_filter($config[$entity_type]['view_mode']))) {
+    return;
+  }
+
+  //Write the record to DB.
+  //TODO::implements hook_cron to clean up the outdated data from the DB.
+  $langcode = \Drupal::languageManager()->getCurrentLanguage()->getId();
+  $sid = \Drupal::currentUser()->id();
+  if ($entity_id = $entity->Id()) {
+    \Drupal\Core\Database\Database::getConnection()
+      ->merge('recently_read')
+      ->key(array(
+        'sid' => $sid,
+        'entity_id' => $entity_id,
+        'type' => $entity_type
+      ))
+      ->fields(array(
+        'type' => $entity_type,
+        'language' => $langcode,
+        'timestamp' => REQUEST_TIME,
+      ))
+      ->execute();
+  }
+}
+

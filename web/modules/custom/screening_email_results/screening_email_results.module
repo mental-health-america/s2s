@@ -1,0 +1,448 @@
+<?php 
+use Drupal\Core\Form\FormStateInterface;
+
+function custom_webform_validate(array &$form, FormStateInterface $form_state){
+    $value = $form_state->getValues();
+    if(isset($value['ref']) && empty($value['ref'])){
+        if(isset($_SERVER['HTTP_REFERER'])){
+            $referral = substr(htmlspecialchars(strip_tags($_SERVER['HTTP_REFERER']), ENT_COMPAT, 'UTF-8'),0,250);
+        } else {
+            $referral = 'n/a';
+        }
+        $value['ref'] = $referral;
+    }if(isset($value['ipiden']) && empty($value['ipiden']))
+        $value['ipiden'] = md5($_SERVER['REMOTE_ADDR']);
+    $form_state->setValues($value);
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function screening_email_results_form_alter(&$form, FormStateInterface $form_state, $form_id) {   
+	if(!empty($_SESSION['result']) && $form_id == "webform_submission_screening_tools_email_result_add_form"){
+		$answers_value = "";
+		if(isset($_SESSION['answers_psychosis'])){
+		$answers = $_SESSION['answers_psychosis'];
+			$i = 1;
+			while($i <= 30){
+				$key = "q".$i;
+				$key2 = "q".$i."_1";
+				if(isset($answers[$key])){
+					$answers_value .= $answers[$key] . "\n";
+				}
+				if(isset($answers[$key2])){
+					$answers_value .= $answers[$key2] . "\n";
+				}		
+				$i++;
+			}	
+		}
+		if(!empty($_SESSION['answers_bipolar'])){
+			$answers = $_SESSION['answers_bipolar'];
+			$i = 1;
+			while($i<=5){
+				$key = "q".$i;
+		   		if($i == 1){
+		   			$j = 1;
+		   			while ($j <= 13) {
+		   				$key2 = "q".$i."_".$j;
+		   				if(isset($answers[$key2])){
+		   					$answers_value .=  $answers[$key2] . "\n";
+		   				}
+		   				$j++;
+		   			}	
+		   		} 
+		   		else{
+		   			$answers_value .= $answers[$key] . "\n";	   		
+		   		}		   		
+				$i++;
+			} 
+		}
+		
+		if(!empty($_SESSION['answers'])){
+			$answers = $_SESSION['answers'];
+			$i = 1;
+
+			while($i <= 50) {
+				$key = "q".$i;
+				if(isset($answers[$key])){
+					$answers_value .= $answers[$key] . "\n";	
+				}
+				$i++;
+			}
+		}
+
+		if(!empty($_SESSION['answers_alcohol'])) {
+			$answers = $_SESSION['answers_alcohol'];
+			$i = 1;
+			while ($i<=5){
+				if($i == 5){
+					$key = "what_substance_or_addiction_are_you_concerned_about_";
+				}
+				else{
+					$key = "q".$i;
+				}
+				$answers_value .= $answers[$key] . "\n";	
+				$i++;
+			}
+		}
+
+		if(!empty($_SESSION['answers_eating_disorder'])){
+			$answers = $_SESSION['answers_eating_disorder'];
+			$i = 1;
+			while ($i<=18) {
+				$key = 'q'.$i;
+				if(isset($answers[$key])){
+					$answers_value .= $answers[$key] . "\n";
+				}
+				foreach (range('a', 'e') as $apha) {
+					$key2  = "q". $i . $apha;
+					if(isset($answers[$key2])){
+						$answers_value .= $answers[$key2] . "\n";		
+					}
+				}
+				$i++;
+			}
+		}
+
+		if(!empty($_SESSION['answers_workplace'])) {
+			$answers = $_SESSION['answers_workplace'];
+			$answers_value .= isset($answers['q2']) ? $answers['q2'] . "\n" : null;
+			$answers_value .= isset($answers['q1']) ? $answers['q1'] . "\n" : null;
+			$answers_value .= isset($answers['q3']) ? $answers['q3'] . "\n" : null;
+			$answers_value .= isset($answers['q6']) ? $answers['q6'] . "\n" : null;
+			$answers_value .= isset($answers['q13']) ? $answers['q13'] . "\n" : null;
+			$answers_value .= isset($answers['q15']) ? $answers['q15'] . "\n" : null;
+			$answers_value .= isset($answers['q12']) ? $answers['q12'] . "\n" : null;
+			$answers_value .= isset($answers['q7']) ? $answers['q7'] . "\n" : null;
+			$answers_value .= isset($answers['q8']) ? $answers['q8'] . "\n" : null;
+			$answers_value .= isset($answers['q4']) ? $answers['q4'] . "\n" : null;
+			$answers_value .= isset($answers['q14']) ? $answers['q14'] . "\n" : null;
+			$answers_value .= isset($answers['q9']) ? $answers['q9'] . "\n" : null;
+			$answers_value .= isset($answers['q10']) ? $answers['q10'] . "\n" : null;
+			$answers_value .= isset($answers['q11']) ? $answers['q11'] . "\n" : null;
+			$answers_value .= isset($answers['q5']) ? $answers['q5'] . "\n" : null;
+			$answers_value .= isset($answers['q5_1']) ? $answers['q5_1'] . "\n" : null;
+		}
+		
+		
+		$result_value = "<textarea class='form-textarea form-control resize-vertical' id='edit-result' rows='5' cols='60'>" . strip_tags($_SESSION['result']) . "</textarea>";
+		
+                $form['elements']['result_twig']['#value'] = $result_value;
+		$form['elements']['result_twig']['#template'] = $result_value;
+		$form['elements']['answers']['#value'] = $answers_value;
+		$_SESSION['result'] = "";
+		$_SESSION['answers'] = "";
+		$_SESSION['answers_alcohol'] = "";
+		$_SESSION['answers_bipolar'] = "";
+		$_SESSION['answers_psychosis'] = "";
+		$_SESSION['answers_eating_disorder'] = "";
+		$_SESSION['answers_workplace'] = "";                
+	}
+        
+	switch ($form_id) { 
+		case 'webform_submission_depression_screening_add_form':
+                        $form['actions']['submit']['#validate'][] = 'custom_webform_validate';
+			$form['actions']['submit']['#submit'][] = 'custom_webform_submit';
+			break;
+		case 'webform_submission_anxiety_screening_add_form':
+                        $form['actions']['submit']['#validate'][] = 'custom_webform_validate';
+			$form['actions']['submit']['#submit'][] = 'custom_webform_submit';
+			break;
+		case 'webform_submission_psychosis_screening_add_form':
+                        $form['actions']['submit']['#validate'][] = 'custom_webform_validate';
+			$form['actions']['submit']['#submit'][] = 'custom_psychosis_webform_submit';
+			break;
+		case 'webform_submission_ptsd_screening_add_form':
+                        $form['actions']['submit']['#validate'][] = 'custom_webform_validate';
+			$form['actions']['submit']['#submit'][] = 'custom_webform_submit';
+			break;
+		case 'webform_submission_parent_screening_add_form':
+                        $form['actions']['submit']['#validate'][] = 'custom_webform_validate';
+			$form['actions']['submit']['#submit'][] = 'custom_webform_submit';
+			break;
+		case 'webform_submission_youth_screening_add_form':
+			$form['actions']['submit']['#submit'][] = 'custom_webform_submit';
+			break;
+		case 'webform_submission_bipolar_screening_add_form':
+                        $form['actions']['submit']['#validate'][] = 'custom_webform_validate';
+			$form['actions']['submit']['#submit'][] = 'custom_bipolar_webform_submit';
+			break;
+		case 'webform_submission_eating_disorder_screening_add_form':
+                        $form['actions']['submit']['#validate'][] = 'custom_webform_validate';
+			$form['actions']['submit']['#submit'][] = 'custom_eating_disorder_webform_submit';
+			break;
+		case 'webform_submission_alcohol_or_substance_use_screeni_add_form':
+                        $form['actions']['submit']['#validate'][] = 'custom_webform_validate';
+			$form['actions']['submit']['#submit'][] = 'custom_alcohol_or_substance_use_webform_submit';
+			break;
+		case 'webform_submission_workplace_health_survey_add_form':
+                        $form['actions']['submit']['#validate'][] = 'custom_webform_validate';
+			$form['actions']['submit']['#submit'][] = 'custom_workplace_webform_submit';
+			break;
+	}
+}
+
+
+/*
+* Function to set custom webform submit handler..
+*/
+function custom_workplace_webform_submit(array $form, FormStateInterface $form_state) {
+	$value = $form_state->getValues();
+    $answers = array();
+    $i = 1;
+    while($i <= 20) { 
+   		$key = "q".$i;
+   		$key2 = "q".$i."_1";
+   		if(isset($value[$key])){
+		  	$que = $form['elements']['page1'][$key]['#title'];
+		   	$options = $form['elements']['page1'][$key]['#options'];
+		   	$answers[$key] = _get_screening_tools_answer($value[$key], $que, $options);
+   		}
+   		if(isset($value[$key2])){
+   			$que = $form['elements']['page1'][$key2]['#title'];
+		   	$options = $form['elements']['page1'][$key2]['#options'];
+		   	$answers[$key2] = _get_screening_tools_answer($value[$key2], $que, $options);	
+   		}
+		$i++;
+    }
+    $_SESSION['result'] =  " ";
+    $_SESSION['answers_workplace'] = $answers;	 	
+}
+
+
+/*
+* Function to set custom webform submit handler..
+*/
+function custom_webform_submit(array $form, FormStateInterface $form_state) {
+	$value = $form_state->getValues();
+	$result = $value['result'];
+    $message = $value['message'];
+    $message2 = $value['message2'];
+    $answers = array();
+    $i = 1;
+    while($i <= 50) { 
+   		$key = "q".$i;
+   		if(isset($value[$key])){
+		   	$result = str_replace('data.'.$key." ", $value[$key], $result);
+		   	$message = str_replace('data.'.$key." ", $value[$key], $message);
+		   	$message2 = str_replace('data.'.$key." ", $value[$key], $message2);
+		   	$que = $form['elements']['page1'][$key]['#title'];
+		   	$options = $form['elements']['page1'][$key]['#options'];
+		   	$answers[$key] = _get_screening_tools_answer($value[$key], $que, $options);
+   		}
+		$i++;
+    }
+    $_SESSION['result'] = "\n" . "<b> " . $result . "</b>" . "\n" . $message . "\n" . $message2;
+    $_SESSION['answers'] = $answers;	 	
+}
+
+
+/*
+* Function to set custom webform submit handler..
+*/
+function custom_bipolar_webform_submit(array $form, FormStateInterface $form_state) {  	
+	$value = $form_state->getValues();
+	$result = $value['result'];
+    $message = $value['message'];
+    $message2 = $value['message2'];
+    $answers = array();
+    $i = 1;
+    while($i <= 5) {
+    	if($i == 1){
+    		$j = 1;
+   			while ($j <= 13) {
+   				$key2 = "q1_".$j;
+   				if(isset($value[$key2])){
+	   				$result = str_replace('data.'.$key2." ", $value[$key2], $result);
+				   	$message = str_replace('data.'.$key2." ", $value[$key2], $message);
+				   	$message2 = str_replace('data.'.$key2." ", $value[$key2], $message2);	
+	   				$que = $form['elements']['page1']['q1_div'][$key2]['#title'];
+				   	$options = $form['elements']['page1']['q1_div'][$key2]['#options'];
+				   	$answers[$key2] = _get_screening_tools_answer($value[$key2], $que, $options);
+   				}
+   				$j++;
+   			}   				
+   		}
+    	$key = "q".$i;
+   		if($i == 2 || $i == 3){
+   			$result = str_replace('data.'.$key, $value[$key], $result);
+		   	$message = str_replace('data.'.$key, $value[$key], $message);
+		   	$message2 = str_replace('data.'.$key, $value[$key], $message2);
+		   	$que = $form['elements']['page1'][$key]['#title'];
+		   	$options = $form['elements']['page1'][$key]['#options'];
+		   	$answers[$key] = _get_screening_tools_answer($value[$key], $que, $options);
+   		}
+   		if($i == 4 || $i == 5){
+   			$que = $form['elements']['page1'][$key]['#title'];
+		   	$options = $form['elements']['page1'][$key]['#options'];
+		   	$answers[$key] = _get_screening_tools_answer($value[$key], $que, $options);
+   		}
+		$i++;
+   	}
+ 	$_SESSION['result'] = "\n" . "<b>" . $result . "</b>" . "\n" . $message . "\n" . $message2;
+    $_SESSION['answers_bipolar'] = $answers;
+}
+
+
+/*
+* Function to set custom webform submit handler..
+*/
+function custom_eating_disorder_webform_submit(array $form, FormStateInterface $form_state) {  
+	$value = $form_state->getValues();
+	$result = $value['result'];
+	$message = $value['message'];
+    $message2 = $value['message2'];
+    $answers = array();
+	
+	$i = 1;
+	while($i <= 18) {
+		
+		$key = "q".$i;
+		if(isset($value[$key])){
+			if($i == 5){
+				$result = str_replace('data.'.$key, $value[$key], $result);
+			   	$message = str_replace('data.'.$key, $value[$key], $message);
+			   	$message2 = str_replace('data.'.$key, $value[$key], $message2);
+			   	$que = $form['elements']['page1'][$key]['#title'];
+			   	$options = $form['elements']['page1'][$key]['#options'];
+			   	$answers[$key] = _get_screening_tools_answer($value[$key], $que, $options);	
+			}
+			else{
+				$result = str_replace('data.'.$key." ", $value[$key], $result);
+			   	$message = str_replace('data.'.$key." ", $value[$key], $message);
+			   	$message2 = str_replace('data.'.$key." ", $value[$key], $message2);
+			   	$que = $form['elements']['page1'][$key]['#title'];
+			   	$options = null; 
+			   	if(isset($form['elements']['page1'][$key]['#options'])){	
+			   		$options = $form['elements']['page1'][$key]['#options'];
+			   	}
+			   	$answers[$key] = _get_screening_tools_answer($value[$key], $que, $options);	
+			}
+		}
+		foreach (range('a', 'e') as $apha) {
+			$key2  = "q". $i . $apha;
+			$index = 'q'.$i."_div";
+			if(isset($value[$key2])){
+				$result = str_replace('data.'.$key2, $value[$key2], $result);
+			   	$message = str_replace('data.'.$key2, $value[$key2], $message);
+			   	$message2 = str_replace('data.'.$key2, $value[$key2], $message2);
+			   	$que = $form['elements']['page1'][$index][$key2]['#title'];
+			   	$options = null; 
+			   	if(isset($form['elements']['page1'][$index][$key2]['#options'])){	
+			   		$options = $form['elements']['page1'][$index][$key2]['#options'];
+			   	}
+			   	$answers[$key2] = _get_screening_tools_answer($value[$key2], $que, $options);
+			}
+		}
+		$i++;
+	}
+	$_SESSION['result'] = "\n" . "<b>" . $result . "</b>" . "\n" . $message . "\n" . $message2;
+    $_SESSION['answers_eating_disorder'] = $answers;
+}
+
+
+/*
+* Function to set custom webform submit handler..
+*/
+function custom_psychosis_webform_submit(array $form, FormStateInterface $form_state) {  
+	$value = $form_state->getValues();
+	
+	$result = $value['result'];
+    $message = $value['message'];
+    $message2 = $value['message2'];
+    $answers = array();
+    $i = 1;
+    while($i<=50) { 
+
+	   	$key = "q".$i."_1";
+	   	$key2 = "q".$i;
+   		if(isset($value[$key2])){
+   			if($value[$key2] == 0){
+	   			$result = str_replace('data.'.$key, 0, $result);
+			   	$message = str_replace('data.'.$key, 0, $message);
+			   	$message2 = str_replace('data.'.$key, 0, $message2);
+   			}
+		   	$que = $form['elements']['page1'][$key2]['#title'];
+		   	$options = $form['elements']['page1'][$key2]['#options'];
+		   	$answers[$key2] = _get_screening_tools_answer($value[$key2], $que, $options);
+   		}
+   		if(isset($value[$key])){
+   			$result = str_replace('data.'.$key, $value[$key], $result);
+		   	$message = str_replace('data.'.$key, $value[$key], $message);
+		   	$message2 = str_replace('data.'.$key, $value[$key], $message2);
+		   	$que = $form['elements']['page1'][$key]['#title'];
+		   	$options = $form['elements']['page1'][$key]['#options'];
+		   	$answers[$key] = _get_screening_tools_answer($value[$key], $que, $options);	
+   		}
+   
+	   	$i++;
+    }
+    $_SESSION['result'] = "\n" . "<b> " . $result . "</b>" . "\n" . $message . "\n" . $message2;
+    $_SESSION['answers_psychosis'] = $answers;
+}		
+
+
+/*
+* Function to set custom webform submit handler..
+*/
+function custom_alcohol_or_substance_use_webform_submit(array $form, FormStateInterface $form_state) {  
+	$value = $form_state->getValues();
+	$result = $value['result'];
+	$message = $value['message'];
+    $message2 = $value['message2'];
+    $answers = array();
+    $i = 1;
+    while($i <= 5) { 
+   		if($i == 5) {
+   			$key = "what_substance_or_addiction_are_you_concerned_about_";
+	   		$que = $form['elements']['page1'][$key]['#title'];
+   			$options = null;
+	   		$answers[$key] = _get_alcohol_answers($value[$key], $que);
+   		}
+   		else {
+   			$key = "q".$i;
+		   	$result = str_replace('data.'.$key, $value[$key], $result);
+		   	$message = str_replace('data.'.$key, $value[$key], $message);
+		   	$message2 = str_replace('data.'.$key, $value[$key], $message2);
+		   	$que = $form['elements']['page1'][$key]['#title'];
+		   	$options = $form['elements']['page1'][$key]['#options'];
+		   	$answers[$key] = _get_screening_tools_answer($value[$key], $que, $options);
+   		}
+	   	$i++;
+    }
+    $_SESSION['result'] = "\n" . "<b> " . $result . "</b>" . "\n" . $message . "\n" . $message2;
+    $_SESSION['answers_alcohol'] = $answers;
+}		
+
+
+/*
+* Function return Queations with answers for only alcohol_or_substance webform.
+*/
+function _get_alcohol_answers($value, $queation) {
+	$answers = "";
+	$answers .= $queation ."\n";
+	$i = 0;
+	while ($i <= 9) {
+		if(isset($value[$i])){
+			$answers .= $value[$i] . "\n";
+		}
+		$i++;
+	}
+	return($answers);
+}
+
+
+/*
+* Function return Queations with answers.
+*/
+function _get_screening_tools_answer($value, $queation, $options) {
+	if($options == null){
+		$answers = $queation . "\n" . $value;
+		return($answers);
+	}
+	else{
+		$answers = $queation . "\n" . $options[$value];
+		return($answers);
+	}
+}
+
