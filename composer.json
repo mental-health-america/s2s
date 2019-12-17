@@ -29,7 +29,7 @@
         "drupal/conditional_fields": "^1.0",
         "drupal/console": "^1.0.2",
         "drupal/contribute": "^1.0",
-        "drupal/core": "^8.7.0",
+        "drupal/core": "^8.7||^9.0",
         "drupal/csv_serialization": "^1.4",
         "drupal/ctools": "^3.1",
         "drupal/draggableviews": "^1.2",
