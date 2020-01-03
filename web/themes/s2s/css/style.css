@@ -46,3 +46,9 @@ div.view-content div.table-responsive table.table.table-hover.table-striped thea
 #block-substanceusedisclaimer > div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field--item.quickedit-field,
 #block-youthdisclaimer > div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field--item.quickedit-field {padding: 0 2em}
 
+/* quick fix for lists in wikihow reposts */
+/* this shouldn't cause any problems because we don't have nested lists in our articles. */
+/* the li > p part will affect our native articles, but hopefully only positively, since this selector has caused problems in the past. */
+.field.field--name-body ol ul, li > p {
+	font-size: inherit !important
+}
