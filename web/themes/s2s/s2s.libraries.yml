@@ -7,6 +7,7 @@ global-styling:
 global-js:
     js:
         js/s2s_footer_menu.js: {scope: footer}
+        js/siteimprove.js: {}        
     dependencies:
         - core/jquery
 fonts:
