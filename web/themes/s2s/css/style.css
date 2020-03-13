@@ -2706,3 +2706,21 @@ a.ui-button:active,
 .field.field--name-body ol ul, li > p {
 	font-size: inherit !important
 }
+
+
+/* quick fix for webform element descriptions */
+/* extra class/span added onto elements of type "checkboxes" and "radios", but not "checkboxes--other" or "radios-other"... unclear where this is coming from */
+.input-group-addon {
+    border: initial;
+    background: initial;
+    text-align: initial;
+    white-space: initial;
+    padding: initial;
+    font-size: inherit;
+    color: inherit;
+    display: inline;
+}
+/* descriptions are a hard-to-read gray without this */
+.description.help-block {
+    color: inherit;
+}
