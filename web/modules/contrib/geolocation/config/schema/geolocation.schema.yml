@@ -409,5 +409,5 @@ field.value.geolocation:
       type: text
       label: 'Support value'
     data:
-      type: sequence
+      type: text
       label: 'Catchall'

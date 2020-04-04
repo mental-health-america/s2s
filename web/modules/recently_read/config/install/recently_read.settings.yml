@@ -1,5 +1,0 @@
-node:
-  enable: 1
-  max_record: 10
-  view_mode:
-    full: full

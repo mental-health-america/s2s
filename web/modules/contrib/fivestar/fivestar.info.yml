@@ -2,13 +2,12 @@ name: Fivestar
 description: Enables fivestar ratings on content, users, etc.
 type: module
 package: Voting
-# core: 8.x
+core: 8.x
 dependencies:
-  - votingapi
+  - votingapi:votingapi
 configure: fivestar.admin_overview
 
-# Information added by Drupal.org packaging script on 2017-06-22
-version: '8.x-1.x-dev'
-core: '8.x'
+# Information added by Drupal.org packaging script on 2020-01-25
+version: '8.x-1.0-alpha1'
 project: 'fivestar'
-datestamp: 1498146545
+datestamp: 1579974486
