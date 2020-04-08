@@ -1,766 +1,570 @@
-
-#views-exposed-form-screening-reports-page-1 .form-item-webform-submission-value-2,
-#views-exposed-form-screening-reports-page-1 .form-item-created-min,
-#views-exposed-form-screening-reports-page-1 .form-item-created-max { clear: both; padding: 0 0 10px 0; float: right !important; }
-
-#views-exposed-form-screening-reports-page-1, 
-#views-exposed-form-screening-reports-page-1 #edit-secondary { padding: 10px; background: #810262; color: #FFFFFF; border: 1px solid #CCCCCC; margin: 0 0 15px 0; }
-#views-exposed-form-screening-reports-page-1 fieldset { border-color: #FFFFFF; }
-#views-exposed-form-screening-reports-page-1 .form-wrapper legend span.fieldset-legend { color: #ffffff; }
-#views-exposed-form-screening-reports-page-1 a  { color: #FFFFFF; float: left; width: 100%; padding: 0 0 10px; }
-
-#views-exposed-form-screening-reports-page-1 label { float: left; font-size: 1.25em; font-weight: 300; padding: 5px 10px 0 0; }
-#views-exposed-form-screening-reports-page-1 #edit-secondary label { float: left; font-size: 1.25em; font-weight: 300; width: 165px; padding: 5px 0 0 0; }
-#views-exposed-form-screening-reports-page-1 #edit-secondary .form-item,
-#views-exposed-form-screening-reports-page-1 #edit-secondary .form-item-webform-submission-value-1.form-group:last-child
-#views-exposed-form-screening-reports-page-1 #edit-secondary .form-item-webform-submission-value-5,
-#views-exposed-form-screening-reports-page-1 #edit-secondary .form-item-webform-submission-value-6,
-#views-exposed-form-screening-reports-page-1 #edit-secondary .form-item-webform-submission-value-7,
-#views-exposed-form-screening-reports-page-1 #edit-secondary .form-item-webform-submission-value-8,
-#views-exposed-form-screening-reports-page-1 #edit-secondary .form-item-webform-submission-value-9 { clear: both; display: block; padding: 10px 0 0 0; }
-/*#views-exposed-form-screening-reports-page-1 #edit-secondary  { float: none; }*/
-#views-exposed-form-screening-reports-page-1 #edit-secondary,
-#views-exposed-form-screening-reports-page-1 .views-submit-button { clear: both; }
-
-#views-exposed-form-screening-reports-page-1 #edit-secondary #edit-webform-submission-value,
-#views-exposed-form-screening-reports-page-1 #edit-secondary #edit-webform-submission-value-3 { background: #810262; padding: 0; }
-
-#views-exposed-form-screening-reports-page-1 #edit-secondary #edit-webform-submission-value .panel-title,
-#views-exposed-form-screening-reports-page-1 #edit-secondary #edit-webform-submission-value-3 .panel-title { color: #FFFFFF; float: left; font-size: 1.25em; font-weight: 300; width: 165px; padding: 20px 0 5px; }
-#views-exposed-form-screening-reports-page-1 #edit-secondary #edit-webform-submission-value .panel-body,
-#views-exposed-form-screening-reports-page-1 #edit-secondary #edit-webform-submission-value-3 .panel-body { float: left; width: 165px; }
-
-#views-exposed-form-screening-reports-page-1 .form-submit { margin-top: 0; }
-div.csv-feed.views-data-export-feed.form-group a.feed-icon {width: 140px; background: url("../export_report.png") 0px 3px no-repeat;;}
-
-div.view-content div.table-responsive table.table.table-hover.table-striped thead { background: #efefef; border-bottom: #CCCCCC; }
-
-/* Screening Disclaimer blocks */
-#block-anxietydisclaimer > div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field--item.quickedit-field,
-#block-bipolardisclaimer > div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field--item.quickedit-field,
-#block-depressiondisclaimer > div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field--item.quickedit-field,
-#block-eatingdisorderdisclaimer > div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field--item.quickedit-field,
-#block-parentdisclaimer > div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field--item.quickedit-field,
-#block-psychosisdisclaimer > div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field--item.quickedit-field,
-#block-ptsddisclaimer > div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field--item.quickedit-field,
-#block-substanceusedisclaimer > div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field--item.quickedit-field,
-#block-youthdisclaimer > div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field--item.quickedit-field {padding: 0 2em}
-
-
-/* CODE FROM S2S-STYLES.CSS BEGINS HERE */
-
-
-/* written in vanilla CSS */
-/* uses Bootstrap 3.4.1   */
-
-/* import Adobe Fonts */
-/* @import url("https://use.typekit.net/gnr2sio.css"); */
-
-/* download link for diy tools */
-/* should really be styling, not an image! */
-#download-here {
-	background-image: url('/sites/default/files/images/download_here_button.png');
+/*=============================================
+=            GENERAL TOP LEVEL                =
+=============================================*/
+html {
+  font-size: medium;
 }
 
-/* same as #download-here, but i'm not sure this ever gets used */
-#access-here {
-	background-image: url('/sites/default/files/images/access_here_button.png');
-}
-
-/* combined for convenience */
-#download-here, #access-here {
-	background-repeat: no-repeat;
-	background-size: 160px;
-	display: block;
-	text-indent:-9999px;
-  	width: 180px;
-  	margin: 0 auto;
-	height: 42px;
-
-	/* no underline, since this is styled as a button */
-	border: none;
-}
-
-/* should apply to all list items within any content type, right? */
-/* applies to: */
-/* - "about mha" block */
-/* doesn't apply to: */
-/* - navbar */
-/* - confirmation pages text (inside <section>, .region, .region-content, .row, .main-container, .container... but not inside .field */
-.field.field--name-body li {
-	/* responsible for weird sizing/weight in lists */
-	/* font-size: 1.03em; */
-	/* font-weight: 500; */
-
-	/* unnecessary? */
-	line-height: inherit;
-	
-	/* without this, there's no indentation at all, and no extra spacing between items */
-    margin: .25em 1em;
-}
-
-.field.field--name-body ul {
-	/* doesn't seem to do anything */
-	padding-left: 1.5em;
-
-	/* don't want this extra space */
-	/* margin: 1em 0 3em; */
-
-	/* this is what causes the weird space after a list */
-	/* margin: 1em 0 3em; */
-
-	/* same as body, p; */
-	/* not sure why this doesn't inherit from body */
-	/* ^ it does if you change it to an <ol> */
-	/* is it because we're using ems, not rems? */
-	font-size: 1.25em;
-
-	/* redundant? same as font-weight: inherit, at least within articles */
-    font-weight: 300;
-}
-
-.field.field--name-body ol {
-	/* caused weird sizing */
-	/* font-size: inherit; */
-	
-	/* redundant? */
-    font-weight: inherit;
-}
-
-/* this is the "see all [anxiety]" link on the screening results view. */
-/* it's styled a million different ways depending on the screen size because otherwise it won't line up properly with the rest of the links. */
-@media (max-width: 767px) {
-  .more-link.form-group a {
-    margin: 0 0 0 .3em;
-  }
-
-  /* these are the links to the articles themselves. they are naked <a> elements, with no <div> wrapper. this controls the size and positioning; it doesn't make them look like .btn-salmon. */
-  .region.region-sidebar-second .field--item a:link,
-  .region.region-sidebar-second .field--item a:visited,
-  .region.region-sidebar-second .field-content a:link,
-  .region.region-sidebar-second .field-content a:visited {
-    float: left !important;
-  }
-
-  /* this is the entire sidebar region that contains the "screening results ___ right column" block. */
-  .region.region-sidebar-second {
-    border-top: 1px solid #eee;
-    margin: 0 0 0 1em;
-  }
-
-  /* this is the "see all ___" box in the "more ___ information" block. the div wrapper holds the classes, but the <a> receives the styling. */
-  .more-link.form-group a {
-    margin: 0 0 0 1.3em !important;
-  }
-
-  /* this selectors are identical to the ones 3 blocks up... consolidate */
-  .region.region-sidebar-second .field--item a:link,
-  .region.region-sidebar-second .field--item a:visited,
-  .region.region-sidebar-second .field-content a:link,
-  .region.region-sidebar-second .field-content a:visited {
-    margin: 0 4px 15px 7px !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .more-link.form-group a {
-    width: 340px !important;
-  }
-
-  /* these are the links to the articles themselves. they are naked <a> elements, with no <div> wrapper. this controls the size and positioning; it doesn't make them look like .btn-salmon. */
-  .region.region-sidebar-second .field--item a:link,
-  .region.region-sidebar-second .field--item a:visited,
-  .region.region-sidebar-second .field-content a:link,
-  .region.region-sidebar-second .field-content a:visited {
-    height: 150px !important;
-    width: 96% !important;
-  }
-
-  /* this is the "see all ___" box in the "more ___ information" block. the div wrapper holds the classes, but the <a> receives the styling. */
-  .more-link.form-group a {
-    margin: 0 0 0 1.1em!important;
-    width: 93% !important;
-  }
-}
-/* --------------------------------- */
-
-/*           General Top Level       */
-
-/* --------------------------------- */
-
-
-
-/* deprecated; overriden by an identical block below. (the other block is also useless anyway) */
-/* 
-#block-views-block-screening-tools-list-block-1 {
-  max-width: 1170px !important;
-  margin: 0 auto;
-  padding-bottom: 4em;
-}
-*/
-
-/* this can be safely deprecated; this region is hidden on the live site--as it should be! */
-/* region-second is the sidebar on the right, which only contains the "screening results" blocks under "secondary" in the block layout. */
-/* this is an exact duplicate of the .btn-salmon styles. but here the styles are applied directly to the <a>, with no <div> wrapper. */
-/*
-.region.region-sidebar-second .field--item a:link,
-.region.region-sidebar-second .field--item a:visited,
-.region.region-sidebar-second .field-content a:link,
-.region.region-sidebar-second .field-content a:visited {
-  background-color: rgb(255, 255, 255);
-  border: 2px solid #000;
-  display: block;
-  float: left;
+body {
+  color: #333333;
   font-family: 'Montserrat', sans-serif;
-  height: 100px;
-  margin: 0 4px 15px;
-  overflow: hidden;
-  padding: .75em;
-  width: 200px;
-  color: #000;
-  font-size: 1.25em;
-  font-weight: 400;
-  line-height: inherit;
-  text-align: center;
-  word-wrap: break-word;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-  -webkit-transition: background 100ms linear;
-  -moz-transition: background 100ms linear;
-  -ms-transition: background 100ms linear;
-  -o-transition: background 100ms linear;
-  transition: background 100ms linear;
-}
-*/
-
-/* exact duplicate of .btn-salmon hover styles; see above */
-.region.region-sidebar-second .field--item a:hover,
-.region.region-sidebar-second .field-content a:hover {
-  background: #ed6963 !important;
-  border: 1px solid #ed6963 !important;
-  color: #fff !important;
-}
-/* ---------- */
-
-/* deprecated */
-/* these h4 styles are overriden in the treatment & resources block by: */
-/* #block-views-block-treatment-block-1 a:link, #block-views-block-treatment-block-1 a:visited */
-/* these styles are also used for headings on /diy, /connect, etc., where they are NOT overriden, but DO appear to be redundant (when removed the colors stay the same due to general a:link and a:visited styling) */
-/*
-h4 a:link {
-	color: #00b4bc;
-}
-h4 a:visited {
-	color: #1b8798;
-}
-*/
-
-/* .form-group applies to treatment & resources block */
-/* .more-link is the "SEE ALL ___" link at the end of the "MORE ___ INFORMATION" block on screening confirmation pages! */
-/* the actual view is called "screening result block" */
-/* it has a "more link" under "pager" */
-/* it's styled a million different ways depending on the screen size because otherwise it won't line up properly with the rest of the links. */
-/* it's irritating that it's spread out in so many different places in the document. */
-.more-link.form-group a {
-    margin: 0 0 0 1.3em;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.5;
 }
 
-/* .btn-salmon.sm applies to the links on the screening confirmation pages. */
-/* at any other screen size, these are the same as any other .btn-salmon */
-/* without a width setting, the width of these depends on their content.  but with a width setting AND being enclosed by a div.col-md-3,    they aren't fully responsive. */
-/* width: 100%; might be better, but only if they're enclosed by div.col-md-3 everywhere else too. */
-/* an even better solution is to remove the .col-md-3 on the wrapper. then the only problem is that they don't quite center properly, but this could be fixed by a flexbox enclosure around the whole thing */
-/* adding a .col-sm-6 is another solution; used under "more anxiety information" */
-@media only screen and (min-width: 994px) and (max-width: 1199px)  {
-  .btn-salmon.sm a, .more-link.sm a {
-   padding: .75em;
-   font-size: 1em;
-   line-height: 1.1;
-   width: 160px;
-   }
-   .more-link.form-group a {
-    font-size: 1em;
-    line-height: 1.1;
-    margin: 0 0 0 1.6em;
-    width: 160px;
-   }
-}
-
-@media (max-width: 767px) {
-	.more-link.form-group a {
-	/* these margin corrections shouldn't apply to this size, but they are specified in two different ways, in two different places each! */
-		margin: 0 0 0 .3em;
-	}
-	#block-screeningresultsdepressionrightcolumn .field--item a:link, 
-	#block-screeningresultsdepressionrightcolumn .field--item a:visited, 
-	#block-screeningresultsdepressionrightcolumn .field-content a:link, 
-	#block-screeningresultsdepressionrightcolumn .field-content a:visited {
-		float: left !important;
-	}
-	#block-screeningresultsdepressionrightcolumn {
-	border-top: 1px solid #eee;   
-	margin: 0 0 0 1em;
-	}
-	.more-link.form-group a {
-		/* these margin corrections shouldn't apply to this size, but they are specified in two different ways, in two different places each! */
-		margin: 0 0 0 1.3em !important;
-	}
-	#block-screeningresultsdepressionrightcolumn .field--item a:link, 
-	#block-screeningresultsdepressionrightcolumn .field--item a:visited, 
-	#block-screeningresultsdepressionrightcolumn .field-content a:link, 
-	#block-screeningresultsdepressionrightcolumn .field-content a:visited {
-		margin: 0 4px 15px 7px !important;
-   }
-}
-
-/* these are all sorts of f***ed up... */
-@media (max-width: 480px) {
-	.more-link.form-group a {
-		width: 340px !important;
-	}
-	#block-screeningresultsdepressionrightcolumn .field--item a:link, 
-	#block-screeningresultsdepressionrightcolumn .field--item a:visited, 
-	#block-screeningresultsdepressionrightcolumn .field-content a:link, 
-	#block-screeningresultsdepressionrightcolumn .field-content a:visited {
-		height: 150px !important;
-		width: 96% !important;
-	}
-	.more-link.form-group a {
-		margin: 0 0 0 1.1em!important;
-		width: 93% !important;
-	}
-}
-/* --------------------------------- */
-
-/*           General Top Level       */
-
-/* --------------------------------- */
-
-/* theoretically, <p> should be redundant. it's only not because of specificity. */
-/* also sometimes because em is relative to the direct parent, not to the root element (<html>) */
-/* there's nothing more specific than this applied to, say, the intro text on the depression screen */
-body, p {
-	color: #333333;
-	font-family: 'Montserrat', sans-serif;
-	font-size: 1.25em;
-	font-weight: 300;
-	line-height: 1.5;
-}
-a:link {
-	color: #00b4bc;
-	/* font-family: 'Montserrat', sans-serif; */
-	font-size: inherit;
-	font-weight: 500;
-	line-height: inherit;
-}
-a:visited {
-	/* better color contrast */
-	color: #1b8798;
-}
-/* I tried this but it didn't work -KR */
-/* a:hover {
-	border: none;
-} */
-/* (already commented out in live version 7/18) */
-/*a:link, a:visited {
-	color: #0370c6;
-	font-family: 'Montserrat', sans-serif;
-	font-size: inherit;
-	font-weight: 400;
-	line-height: inherit;
-}*/
-a:hover {
-	/* when does this happen?? */
-	/* - the body of screening confirmation pages */
-	/* - footer */
-	/* overriden by .condition a:link etc. */
-	color: #ed6963;
-
-	text-decoration: underline !important;
-}
-
-/* the header stuff should be pretty much ok, except it should be in rems. and the font-family is redundant */
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-	/* font-family: 'Montserrat', sans-serif; */
-	line-height: 1.2;
-	color: inherit;
+  line-height: 1.2;
 }
-/* article and page titles */
+
 h1, .h1 {
-	font-size: 2.25em;
-	font-weight: 500;
+  font-size: 1.8rem;
 }
-/* article headings and block titles */
+
 h2, .h2 {
-	font-size: 2em;
-	font-weight: 500;
+  font-size: 1.6rem;
 }
 
 h3, .h3 {
-	font-size: 1.75em;
-	font-weight: 500;
+  font-size: 1.3rem;
 }
-/* article titles on /diy, /connect, /treatment */
+
 h4, .h4 {
-	font-size: 1.5em;
-	font-weight: 400;
+  font-size: 1.15rem;
 }
+
 h5, .h5 {
-	font-size: 1.25em;
-	font-weight: 300;
+  font-size: 1.075rem;
 }
-/* this was used on the old disclaimers, but not anymore. */
+
 h6, .h6 {
-	font-size: 1em;
-	font-weight: 400;
+  font-size: 1rem;
+  font-weight: 600;
 }
+
 hr {
-	border-top: 2px solid #eee;
+  border-top: 2px solid #ddd;
 }
+
 strong {
-	font-weight: 600;
+  font-weight: 600;
 }
 
-/* deprecated */
-/* this (almost?) never applies--it only targets direct descendants, and there are usually (always?) lots of descendants between <body> and <ul> or <ol> */
-/* i looked for this on all pages linked to from /content/debug-links and couldn't find any instances */
-/*
-body>ul>li,
-body>ol>li {
-	font-family: 'Montserrat', sans-serif;
-	font-size: 1.25em;
-	font-weight: 300;
-	line-height: 1.5;
-}
-*/
-
-/* --------------------------- */
-
-/* --------------------------- */
-
-/* deprecated */
-/* applies to /diy, /connect, /treatment. does nothing on any of them. does not apply to the other instance of exposed-form i know of, which is the search box on /depression, etc. */
-/* maybe related to "better exposed filter" extension (bef)? */
-/*
-.bef-exposed-form .form--inline>.form-item {
-	float: none !important;
-}
-*/
-
-/* deprecated; the first two blocks don't do anything; the h3 block is redundant because <h3> is already set to that weight */
-/* obviously this stuff sets formatting for the "front page columns" block (although it's spelled fornt) */
-/*
-#block-forntpagecolumns p {
-	clear: both;
-}
-#block-forntpagecolumns img {
-	margin: 0 auto;
-	clear: both;
-}
-#block-forntpagecolumns h3 {
-	font-weight: 400;
-}
-*/
-
-/* deprecated; there are no table elements in the slideshow. the th applies to all table headers, no matter where they are! but on the table in the cpprn screener, these styles don't do anything. */
-/*
-#block-views-block-slideshow-block-1 td, th {
-	padding: 0;
-	width: auto;
-}
-*/
-
-/* deprecated; there is no col-md-2 in that block */
-/*
-#block-whichscreentotake .col-md-2 {
-	width: 20% !important;
-}
-*/
-
-/* deprecated; these are overridden two blocks down! two of them are also redundant */
-/*
-#block-forntpagecolumns a:link, #block-forntpagecolumns a:visited {
-	color: #ffffff;
-	font-weight: 500;
-	line-height: 1;
-}
-*/
-
-/* currently redundant because of: @media (max-width: 480px) .col-wrapper img {width: 100%}. but if that is disabled, this becomes necessary to make the images in the "treatment & resources" block not tiny on mobile. */
-/* the margin: 0 auto seems to be unnecessary because of .img-responsive, .center-image {margin: 0 auto} */
-/* the width is actually not redundant for #block-whatsnew img, but it also has an undesirable effect--it stretches the images horizontally. without it the images are too wide in tablet view, so it really needs a height: auto */
-#block-views-block-treatment-block-1 img, #block-whatsnew img, #block-whatsnew-2 img {
-	margin: 0 auto;
-	/* stretches these images on small sizes */
-	/* width: 100%; */
+/*----------  LISTS  ----------*/
+section li {
+  line-height: inherit;
+  margin: .25em 1em;
 }
 
-/* without this the links are blue and slightly less bold */
-#block-views-block-treatment-block-1 a:link, #block-views-block-treatment-block-1 a:visited, #block-forntpagecolumns a:link, #block-forntpagecolumns a:visited, #block-whatsnew a:link, #block-whatsnew a:visited, #block-whatsnew-2 a:link, #block-whatsnew-2 a:visited {
-	color: #000000;
-	font-weight: 500;
-	line-height: 1;
+.field.field--name-body ol ul, li > p {
+  font-size: inherit !important;
 }
 
-/* not sure if this is a good idea yet */
+/*----------  LINKS  ----------*/
+a {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+a:link {
+  color: #00b4bc;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+a:visited {
+  color: #1b8798;
+}
+
+a:hover {
+  color: #ed6963;
+}
+
+section a:link {
+  border-bottom: 1px solid #00b4bc;
+  padding-bottom: 1px;
+}
+
+section a:hover {
+  border: none;
+  color: #00b4bc;
+}
+
+section a:visited, section a:visited:hover {
+  color: #1b8798;
+  border-color: #1b8798;
+}
+
+.field--item a:link, .field--item a:visited, .field-content a:link, .field-content a:visited {
+  float: none !important;
+  text-decoration: none !important;
+}
+
+/*=====  End of GENERAL TOP LEVEL  ======*/
+/*=============================================
+=            ARTICLES    			          =
+=============================================*/
+.page-header {
+  max-width: 50rem;
+  margin: 0 auto;
+  text-align: center;
+  text-transform: uppercase;
+  border-bottom: none;
+}
+
+.field--name-field-author {
+  font-size: 1.25rem;
+  font-weight: 400;
+  font-style: italic;
+  margin-top: .25rem;
+  text-align: center;
+}
+
+.diy-tool, .connect-tool, .condition, .referral-to-treatment-profile, .treatment-info {
+  padding: 0 1rem 2rem 1rem;
+  max-width: 50rem;
+  margin: 0 auto;
+}
+
+.field--name-body, .field--name-field-treatment-category, .field--name-field-condition-severity, .field--name-field-tags, .field--type-entity-reference, .field--name-field-referral-tool-friendly-des {
+  clear: both;
+  display: block;
+  margin: 1em 0;
+  padding: 1em 0;
+}
+
+.field--type-entity-reference {
+  background: #fff !important;
+  padding: .5em 1em;
+  margin: .5em .75em .5em 0;
+  border-radius: 5px;
+}
+
+/*=====  End of ARTICLES  ======*/
+/*=============================================
+= NAVIGATION PAGES (INFO & SUPPORT, /DIY, ETC.) 
+=============================================*/
+.view-header {
+  margin: 0 0 1em !important;
+}
+
+.views-element-container h2, .views-element-container .h2 {
+  font-weight: 500;
+  padding: 0 0 1em;
+  text-align: center;
+}
+
+.path-depression .row, .path-anxiety .row, .path-bipolar .row, .path-psychosis .row, .path-self-harm .row {
+  margin: 0 auto;
+}
+
+.form--inline.form-inline {
+  border-bottom: 1px solid #eee;
+  padding: .75rem 0;
+  border-radius: 0;
+  margin: 0 0 3emr 0;
+}
+
+.form-inline .form-control {
+  font-weight: 500;
+  display: inline-block;
+  width: auto;
+  vertical-align: middle;
+  border-radius: 0;
+  margin-top: 0;
+  background-color: #f5f5f5;
+  border: 1px solid #95989a;
+}
+
+@media (max-width: 480px) {
+  .form-inline .form-control {
+    width: 100%;
+  }
+}
+
+.path-depression .views-exposed-form, .path-depression .views-row, .path-anxiety .views-exposed-form, .path-anxiety .views-row, .path-bipolar .views-exposed-form, .path-bipolar .views-row, .path-psychosis .views-exposed-form, .path-psychosis .views-row, .path-self-harm .views-exposed-form, .path-self-harm .views-row, .path-screening-tools .views-exposed-form, .path-screening-tools .views-row, .page-node-15 .views-exposed-form, .page-node-15 .views-row, .path-learn .views-exposed-form, .path-learn .views-row {
+  max-width: 1170px !important;
+  margin: 0 auto;
+}
+
+@media (max-width: 480px) {
+  .views-exposed-form {
+    margin: 0 3rem;
+  }
+}
+
+legend {
+  margin-top: 1em;
+}
+
+.form-inline .checkbox input[type="checkbox"] {
+  margin-right: .5em;
+}
+
+.form-inline .checkbox label {
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  width: 200px;
+}
+
+/*----------  DEPRECATED (?) DIY SEARCH/FILTER  ----------*/
+.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 .form-type-checkbox {
+  background: none !important;
+  background-position: none;
+}
+
+.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 .form-inline .checkbox input[type="checkbox"] {
+  left: -5px !important;
+  margin: .75em;
+}
+
+.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 #edit-field-diy-type-target-id .form-checkboxes {
+  background: #ffffff;
+  padding: 0 0 .4em;
+  margin: 2em -15px;
+  text-align: center;
+  visibility: visible;
+}
+
+.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 .fieldset-wrapper {
+  background: #ffffff;
+  padding: 0 0 .4em;
+  margin: 2em -15px;
+  text-align: center;
+}
+
+.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 .fieldset-legend {
+  visibility: visible;
+  font-weight: 500;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 .form--inline.form-inline, .region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 legend {
+  border: none;
+}
+
+@media (max-width: 480px) {
+  .region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 .form--inline.form-inline,
+  .region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 legend {
+    padding: 3em;
+  }
+}
+
+.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 legend {
+  visibility: visible;
+}
+
+.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 .form-control {
+  visibility: visible;
+}
+
+.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 .control-label {
+  font-size: 1.2em;
+  font-weight: 400;
+}
+
+.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 .form-inline .checkbox label {
+  margin: 0 2em;
+  width: 250px !important;
+  text-align: left;
+}
+
+@media (max-width: 767px) {
+  .region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 .form-inline .checkbox label {
+    width: 90% !important;
+  }
+}
+
+.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 legend {
+  visibility: visible;
+}
+
+#views-exposed-form-doing-things-on-your-own-diy--page-1 .form-type-checkbox {
+  background: url(/sites/default/files/plus-sign.png) no-repeat;
+  background-position: 20px 8px;
+}
+
+#views-exposed-form-doing-things-on-your-own-diy--page-1 legend {
+  visibility: hidden;
+  display: none;
+}
+
+/*----------  STYLES FOR NEW PATHWAY PAGE DESIGN  ----------*/
+#pathway .clearfix {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+#pathway a {
+  border: 2px solid #000;
+  display: block;
+  margin: 0 4px 15px;
+  padding: .75rem;
+  color: #000;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 10px;
+  -webkit-transition: background 100ms linear;
+  transition: background 100ms linear;
+}
+
+#pathway a:hover {
+  border: 2px solid #ed6963;
+  background-color: #ed6963;
+  color: #fff;
+  text-decoration: none;
+}
+
+#pathway h2 {
+  background: #144b5e;
+  padding: 1rem;
+  color: white;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  z-index: 1;
+  text-transform: uppercase;
+  font-weight: 200;
+}
+
+#pathway h3 {
+  font-weight: 500;
+  padding-left: 1rem;
+  font-size: 1.6rem;
+}
+
+#pathway h2, #pathway h3 {
+  text-align: left;
+}
+
+/*----------  TAG PAGES  ----------*/
+li.node-readmore a:link, li.node-readmore a:visited, .feed-icons a:link, .feed-icons a:visited {
+  color: #0a5794;
+  background-color: #fff !important;
+  border: 1px solid #0a5794 !important;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  padding: .5rem 1rem !important;
+  text-decoration: none;
+}
+
+/*=====  End of NAVIGATION PAGES  ======*/
+/*=============================================
+=            BUTTONS                          =
+=============================================*/
 /*
 .btn {
 	font-weight: 500;
 }
 */
-
-/* this applies to the "sign up" button on the newsletter form, and the submit buttons on screens. but not the "take a screen" button on the homepage, or the "next" buttons on webforms, even though they look similar if not identical. */
-/* the "next" buttons are .btn-default; the homepage button is .slider-link-1 */
-/* these are <button> elements and the class is applied directly to them, not to a <div> wrapper. */
-/* these DO also use the .btn class. */
+/*----------  BTN-PRIMARY  ----------*/
 .btn-primary {
-	/* font-family: 'Montserrat', sans-serif; */
-	font-weight: 500;
-	color: #fff;
-	background-color: #154b5e /*!important*/;
-	border-color: #fff !important;
-	padding: .75em 1.5em;
-	border-radius: 15px;
-	-webkit-border-radius: 15px;
-	-moz-border-radius: 15px;
-	-webkit-box-shadow: 7px 9px 13px -9px rgba(0, 0, 0, 0.75);
-	-moz-box-shadow: 7px 9px 13px -9px rgba(0, 0, 0, 0.75);
-	box-shadow: 7px 9px 13px -9px rgba(0, 0, 0, 0.75);
+  font-weight: 500;
+  color: #fff;
+  background-color: #154b5e;
+  border-color: #fff !important;
+  padding: .75em 1.5em;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -webkit-box-shadow: 7px 9px 13px -9px rgba(0, 0, 0, 0.75);
+  box-shadow: 7px 9px 13px -9px rgba(0, 0, 0, 0.75);
 }
 
-/* block-webform-3 is the "search for treatment near you" block. on the block layout, it's called "search for local service" */
-#block-webform-3 {
-	background: url(/sites/default/files/black-map.png) no-repeat;
-
-	/* this should be "cover" */
-	background-size: contain;
-
-	/* min-height just adds a bunch of blank space below the block! */
-	min-height: 440px;
-
-	margin: inherit;
+/*----------  BTN-DEFAULT  ----------*/
+.btn-default {
+  font-weight: 500;
+  background-color: #0e3953;
+  color: #fff;
+  border-radius: 10px;
+  padding: .75em 3em;
 }
 
-/* this is the form itself, inside that same block. here the background-size is cover. why do we have the same background image for both? play around with this once the form is working again--can't test it as of this writing. */
-form#webform-submission-search-for-local-service-add-form {
-	/* remove this background; it's layered on three times! */
-	background: url(/sites/default/files/black-map.png) no-repeat;
-	background-size: cover;
-	margin: inherit;
-	padding: 5px 10px;
-	width: auto;
+/*----------  NAVBAR BUTTONS  ----------*/
+.btn-white a {
+  color: #262626 !important;
 }
 
-/* here the <p> text is basically styled as a heading; why not just use a heading in this block? */
-/* also, font-size is overridden by #edit-find-support-zip-code-text; the other two are duplicated there */
-form#webform-submission-search-for-local-service-add-form p {
-	color: #fff;
-	font-size: 1.2em;
-	font-weight: 600;
+.btn-white a:hover {
+  color: #0370c6;
 }
 
-/* i guess this would apply to all images within an article, unless styled otherwise. probably a good style block to have but not sure these parameters are good ones. already commented out in live version as of 12/5/19 */
-/*.field.field--name-body img {
-    max-width: 300px;
-    height: auto;
-}*/
-
-/* i can't find this (searched "findbyzipcode" in the database) but the settings are mostly the same as #webform-submission-search-for-local-service-add-form. could this be a deprecated version of the same form? */
-#block-findbyzipcode {
-	background: url(/sites/default/files/black-map.png) no-repeat;
-	background-size: cover;
-	margin: inherit;
-	min-height: 440px;
-}
-
-/* deprecated; does not appear in the database. */
-/* i see block-mhalogofooter inside region-superfooter-1, but no block-footerlogo */
-/* this could be a deprecated version of block-mhalogofooter, but the newer version doesn't have any comparable styling. */
-/* 
-#block-footerlogo {
-	margin: 0 2em 3em 0;
-}
-#block-footerlogo p {
-	margin: 0;
-}
- */
-
-#block-aboutmentalhealthamerica {
-	background: url(/sites/default/files/bell.png) no-repeat;
-
-	/* different units for each dimension--stretches image */
-	background-size: 350px 100%;
-
-	margin: 0 15px;
-}
-#block-aboutmentalhealthamerica p {
-	/* probably should be the same size as other text, no? */
-	font-size: 1.1em;
-	/* crams the lines together; may not be desirable */
-	line-height: 1.2;
-	margin: 0 auto;
-	max-width: 800px;
-	padding-bottom: 2em;
-	text-align: center;
-}
-
-/* h2 that says "About Mental Health America" */
-#block-aboutmentalhealthamerica h2.block-title {
-	text-align: center;
-
-	/* redundant */
-	/* font-family: 'Montserrat', sans-serif; */
-}
-
-/* applies to: links for programs, partner with us, news and events; social media links */
-/* the intermediary .field--item seems redundant; there are no other links in this block */
-/* lots of these are overriden in the next block */
-#block-aboutmentalhealthamerica .field--item a:link, #block-aboutmentalhealthamerica .field--item a:visited {
-	font-size: 1em;
-	/* font-family: 'Montserrat', sans-serif; */
-	font-weight: 600;
-	padding: .75em 2em;
-	margin: 0 2em;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-}
-
-/* overrides most of the styles in the previous block */
-/* as an aside, it's kind of weird that these are just part of a <p> element */
-/* the intermediary .field--type-text-with-summary seems redundant; there are no other links in this block */
-#block-aboutmentalhealthamerica .field--type-text-with-summary a:link, #block-aboutmentalhealthamerica .field--type-text-with-summary a:visited {
-	font-size: 1em !important;
-	font-weight: 700 !important;
-	/* font-family: 'Montserrat', sans-serif; */
-	padding: .75em 1.5em !important;
-	border: none;
-	background: transparent !important;
-}
-
-/* makes the links look like buttons--but only on hover. effect is not visible on social media links; text still turns white if the image doesn't show but the background is overriden 4 blocks below this one */
-#block-aboutmentalhealthamerica .field--type-text-with-summary a:hover {
-	color: #fff !important;
-	background: #777 !important;
-}
-
-/* deprecated; appears to be useless */
-/* can't find where this would show up. i've tried: */
-/* - the "take a screen" block that appears on articles */
-/* - the screening tools page */
-/* - the screening confirmation pages */
-/* - the homepage */
-/* the closest thing is the treatment & resources block, which has the classes: block block-views block-views-blocktreatment-block99  */
-/* block 1 is "about mha". but "-block-1" appears as a class suffix in the slider block and the treatment & resources block, so i don't think this is referencing the primary key of the block... */
-/* overrides an identical block above */
+/*----------  BTN-BLUE  ----------*/
 /*
-#block-views-block-screening-tools-list-block-1 {
-	max-width: 1170px !important;
-	margin: 0 auto;
-	padding-bottom: 4em;
+.btn-blue {
+    // should be unnecessary if we remove the bottom: property
+    position: relative;
+    
+    // ! this may be responsible for some weird alignment stuff; it shifts the button upward. why?
+    bottom: 1em;
+    
+    // should be redundant...
+    text-transform: uppercase;
 }
 */
-
-/* maybe this should apply to all block titles? the text-align property is also specified for the h2 in "about MHA" */
-/* max-width here should be redundant */
-#block-whichscreentotake h2.block-title {
-	text-align: center;
-
-	/* redundant */
-	/* max-width: 1170px !important; */
-
-	/* undesirable */
-	margin: 0 auto !important;
+.btn-blue a:link,
+.btn-blue a:visited {
+  float: left;
+  overflow: hidden;
+  font-weight: 500;
+  text-align: center;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-transition: background 100ms linear;
+  transition: background 100ms linear;
+  display: block;
+  line-height: inherit;
+  word-wrap: break-word;
+  height: 165px;
+  width: 100%;
+  margin: .7rem 0;
+  padding: 1.7rem 1rem;
+  color: #FFFFFF;
+  font-size: 1.35rem;
+  text-transform: uppercase;
+  background: #1db4bb;
 }
 
-/* redundancies/overlap with 5 blocks up */
-#block-aboutmentalhealthamerica .field--type-text-with-summary .social-media-links a:link, #block-aboutmentalhealthamerica .field--type-text-with-summary .social-media-links a:visited {
-	font-size: 1em !important;
-	font-weight: 700 !important;
-	/* font-family: 'Montserrat', sans-serif; */
-	padding: 0 .25em !important;
+@media (max-width: 480px) {
+  .btn-blue a:link,
+  .btn-blue a:visited {
+    width: 100%;
+    height: auto;
+    margin: 0 0 15px;
+    padding: .75rem 1rem;
+  }
 }
 
-/* excludes social media links from the gray button hover effect applied 4 blocks above */
-#block-aboutmentalhealthamerica .field--type-text-with-summary .social-media-links a:hover {
-	background: transparent !important;
+.btn-blue a:link:hover,
+.btn-blue a:visited:hover {
+  background: #154b5e;
 }
 
-/* deprecated; applies to a disabled block */
 /*
-#block-screeningresultsdepressionrightcolumn .field--item a:link, #block-screeningresultsdepressionrightcolumn .field--item a:visited, #block-screeningresultsdepressionrightcolumn .field-content a:link, #block-screeningresultsdepressionrightcolumn .field-content a:visited {
-	background-color: rgb(255, 255, 255);
-	border: 2px solid #000;
+.btn-blue a {
+	background: #1db4bb;
+	border: 0;
 	display: block;
 	float: left;
-	font-family: 'Montserrat', sans-serif;
-	height: 100px;
-	margin: 0 4px 15px;
+	// font-family: 'Montserrat', sans-serif; 
+	height: 165px;
+	width: 100%;
+	margin: .5em;
 	overflow: hidden;
-	padding: .75em;
-	width: 200px;
-	color: #000;
-	font-size: 1.25em;
-	font-weight: 400;
+	padding: 1.25em .75em;
+	color: #FFFFFF;
+	font-size: 1.75em;
+	font-weight: 500;
 	line-height: inherit;
 	text-align: center;
 	word-wrap: break-word;
+	text-transform: uppercase;
+	border-radius: 10px;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
-	border-radius: 10px;
 	-webkit-transition: background 100ms linear;
 	-moz-transition: background 100ms linear;
 	-ms-transition: background 100ms linear;
 	-o-transition: background 100ms linear;
 	transition: background 100ms linear;
 }
-#block-screeningresultsdepressionrightcolumn .field--item a:hover, #block-screeningresultsdepressionrightcolumn .field-content a:hover {
-	background: #ed6963 !important;
-	border: 1px solid #ed6963 !important;
-	color: #fff !important;
+// this is smaller than the xs bootstrap setting, which is <576 
+@media (max-width: 480px) {
+	.btn-blue a {
+		height: auto;
+		width: 95%;
+
+		// better than the default size, but this is probably an overcompensation. another option: reduce the padding 
+		font-size: 1.1em;
+	}
+}
+.btn-blue a:hover {
+	background: #154b5e;
+	text-decoration: none;
 }
 */
-
-/* used for: "next" buttons on screens, but not "submit" buttons, or the "take a screen" button on the homepage, even though they look (nearly?) identical  */
-/* these are <button> elements and the class is applied directly to them, not to a <div> wrapper. */
-/* these DO also use the .btn class. */
-.btn-default {
-	/* font-family: 'Montserrat', sans-serif; */
-	font-weight: 500;
-	background-color: #0e3953;
-	color: #fff;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	padding: .75em 3em;
+/*----------  BTN-INFO  ----------*/
+.btn-info {
+  color: #fff;
+  background-color: #0a5794;
+  border-color: #0a5794;
 }
 
-/* deprecated; this is the second declaration for this; the first declaration has the same font-family and color but overrides this background-color and border-color with !important. it also adds additional styling. */
+.btn-info:hover {
+  color: #fff;
+  background-color: #ed6963;
+  border-color: #ed6963;
+}
+
+/*----------  ARTICLE LINKS - WHITE BUTTONS  ----------*/
+.btn-salmon a:link,
+.btn-salmon a:visited,
+.more-link a:link,
+.more-link a:visited {
+  float: left;
+  overflow: hidden;
+  font-weight: 500;
+  text-align: center;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-transition: background 100ms linear;
+  transition: background 100ms linear;
+  display: block;
+  line-height: inherit;
+  word-wrap: break-word;
+  height: 100px;
+  width: 200px;
+  margin: 0 4px 15px;
+  padding: .75em;
+  color: #000;
+  border: 2px solid #000;
+}
+
+@media (max-width: 480px) {
+  .btn-salmon a:link,
+  .btn-salmon a:visited,
+  .more-link a:link,
+  .more-link a:visited {
+    width: 100%;
+    height: auto;
+    margin: 0 0 15px;
+    padding: .75rem 1rem;
+  }
+}
+
+.btn-salmon a:link:hover,
+.btn-salmon a:visited:hover,
+.more-link a:link:hover,
+.more-link a:visited:hover {
+  border: 2px solid #ed6963;
+  background-color: #ed6963;
+  color: #fff;
+}
+
 /*
-.btn-primary {
-	font-family: 'Montserrat', sans-serif;
-	color: #fff;
-	background-color: #0a5794;
-	border-color: #0a5794;
-}
-*/
-
-/* applies to sign up/login button. i don't think it's used anywhere else, but there is additional styling further down with what looks like unnecessary nesting. */
-.btn-white a {
-	color: #262626 !important;
-	/* font-family: 'Montserrat', sans-serif; */
-}
-
-/* these are the white links that turn salmon on hover. not mobile-friendly, since they rely on :hover for visual appeal. they also have really specific sizing that works in some places and not others, leading to unpredictable behavior--for example on the screening confirmation pages. */
-/* these classes are applied to <div> wrappers around the links. they do not use the .btn class. */
+// these classes are applied to <div> wrappers around the links. they do not use the .btn class. 
 .btn-salmon, .more-link {
-	/* font-family: 'Montserrat', sans-serif; */
 	position: relative;
 	bottom: 1em;
 }
 .btn-salmon a, .more-link a {
-	/* font-family: 'Montserrat', sans-serif; */
 	background: #fff;
 	background-color: rgb(255, 255, 255);
 	border: 2px solid #000;
@@ -786,1338 +590,1031 @@ form#webform-submission-search-for-local-service-add-form p {
 	-o-transition: background 100ms linear;
 	transition: background 100ms linear;
 }
+// this is smaller than the xs bootstrap setting, which is <576 
+@media (max-width: 480px) {
+	// i actually like how the .btn-blue links work on mobile currently, for reference 
+	.btn-salmon a, .more-link a {
+		width: 100%;
+
+		// this is actually undesirable, at least on /depression etc.; the default height:100px is fine and allows for more articles to be displayed at once 
+		height: 150px;
+
+		// centers things a bit better than the default 
+		margin: 0 0 15px;
+
+		// 1.5em would be better 
+		padding: 2em;
+	}
+}
 .btn-salmon a:hover, .more-link a:hover {
-	border: 2px solid #ed6963;
-	background-color: #ed6963;
+	border: 2px solid $salmon;
+	background-color: $salmon;
 	color: #fff;
 	text-decoration: none;
-}
-
-/* .btn-blue is the div wrapper for the links to screening tools, including /screening-tools and the "take a screen" block. these do NOT use the .btn class. */
-.btn-blue {
-	position: relative;
-	bottom: 1em;
-	text-transform: uppercase;
-}
-.btn-blue a {
-	background: #1db4bb;
-	border: 0;
-	display: block;
-	float: left;
-	/* font-family: 'Montserrat', sans-serif; */
-	height: 165px;
-	width: 100%;
-	margin: .5em;
-	overflow: hidden;
-	padding: 1.25em .75em;
-	color: #FFFFFF;
-	font-size: 1.75em;
-	font-weight: 500;
-	line-height: inherit;
-	text-align: center;
-	word-wrap: break-word;
-	text-transform: uppercase;
-	border-radius: 10px;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	-webkit-transition: background 100ms linear;
-	-moz-transition: background 100ms linear;
-	-ms-transition: background 100ms linear;
-	-o-transition: background 100ms linear;
-	transition: background 100ms linear;
-}
-.btn-blue a:hover {
-	background: #154b5e;
-	text-decoration: none;
-}
-
-/* .btn-info is used on the "apply" button for the search box on "information & support" pages. this element is a <button> and the class is applied directly to it, not to a <div> wrapper. */
-/* these DO also use the .btn class. */
-/* this styling is pretty weird, and inconsistent with other buttons */
-.btn-info {
-	color: #fff;
-	background-color: #0a5794;
-	border-color: #0a5794;
-}
-.btn-info:hover {
-	color: #fff;
-	background-color: #ed6963;
-	;
-	border-color: #ed6963;
-}
-
-/* deprecated */
-/* "webform" is the machine name for the "sign up for our newsletter" block! */
-/* i see no visible effect from clear: both. there's nothing for the block to have to wrap around. */
-/*
-#block-webform {
-	clear: both;
-	font-family: 'Montserrat', sans-serif;
 }
 */
-
-/* block-webform is both the class and id of this block */
-/* why does this need a .block-title class? there's only one title */
-.block-webform h2.block-title {
-	text-align: center;
-	/* font-family: 'Montserrat', sans-serif; */
+.more-link.form-group a {
+  margin-left: 1.1rem;
 }
 
-/* "webform_2" is the machine name for the "tell us what you think" block! */
-/* this is the same selector twice! also, the only links in this block are contextual admin links; these styles have no visible effect. */
-#block-webform-2 a:link, #block-webform-2 a:link {
-	color: #000;
-	font-weight: 500;
-}
-/* these are all bad */
-#block-webform-2 {
-	/* font-family: 'Montserrat', sans-serif; */
-	background: #1db4bb;
-	margin: 0 -15px;
+@media (max-width: 480px) {
+  .more-link.form-group a {
+    margin-left: .9rem;
+    width: 92%;
+  }
 }
 
-/* applies to wrappers around links in treatment & resources block, links on /diy, /treatment, /connect ;  but not "what's new" or "learn/diy/treatment/connect" blocks */
-.col-wrapper img {
-  -webkit-transition: all 1s ease;
-     -moz-transition: all 1s ease;
-       -o-transition: all 1s ease;
-      -ms-transition: all 1s ease;
-          transition: all 1s ease;
-}
-/* the images slowly turn gray on hover. kind of a weird, unnecessary effect */ 
-.col-wrapper img:hover {
-  -webkit-filter: grayscale(100%);
+@media (min-width: 683px) and (max-width: 767px) {
+  .more-link.form-group a {
+    margin-left: 0;
+  }
 }
 
-/* no visible effect. .center-image is a wrapper around .col-wrapper stuff. .img-responsive appears everywhere, and it looks like all .center-image stuff is also .img-responsive*/
-/* this centers the image, making it potentially a better solution than using the editor to center an image, which uses a <p> wrapper. */
-/* this is the only place where .img-responsive is styled! the other properties are defined by bootstrap. (most importantly max-width: 100%) */
+/*=====  End of BUTTONS  ======*/
+/*=============================================
+=            IMAGES & THUMBNAILS              =
+=============================================*/
 .img-responsive,
 .center-image {
-    margin: 0 auto;
+  margin: 0 auto;
 }
 
-/* adds a nice margin that helps space things out on mobile */
 .col-wrapper {
   margin: 0 0 2em 0;
 }
 
-/* consolidate with other .col-wrapper img stuff */
-.col-wrapper img{
-	/* changed to cap images on /diy etc. at a reasonable height */
-	width: auto;
-	max-height: 140px;
+.col-wrapper img {
+  width: auto;
+  max-height: 140px;
 }
 
-/* deprecated */
-/* .container-fluid by default spans the entire viewport. */
-/* the padding values are invalid; the margin values are redundant with bootstrap! */
-/* we should almost never be using this anyway; we mostly want regular .container, aside from things like the front-page slideshow, which stretches across the whole screen. it can also be useful in nested elements. */
-/*
-.container-fluid {
-	padding-right: -15px;
-	padding-left: -15px;
-	margin-right: auto;
-	margin-left: auto;
-}
-*/
-
-/* also styled in .field--item a:link/visited, .field-content a:link/visited, which seems to be more general. */
-/* other options: .field--name-body, <article>, .region, .region-content, <section> */
-/* pending further testing, <section> seems the most promising. it seems to apply to all the main body text, excluding navbars and the admin toolbar. */
-/* really though, these are the default links, so the styling should be applied as generally as possible. */
-.condition a:link, .connect-tool a:link,
-.diy-tool a:link, .referral-to-treatment-profile a:link,
-.treatment-info a:link
-{
-	/* inherited/redundant? */
-	color: #00b4bc;
-	/* font-family: 'Montserrat', sans-serif; */
-
-	/* invalid value--but also unnecessary; 1.25em would make links huge */
-	font-size: 1.25;
-
-	text-decoration: none;
-
-	/* this is what's causing the inconsistent line spacing */
-	/* line-height: 1.75; */
-
-	/* replaces underline; more legible/prettier */
-	border-bottom: 1px solid #00b4bc;
-	padding-bottom: 1px;
-}
-.condition a:visited, .connect-tool a:visited,
-.diy-tool a:visited, .referral-to-treatment-profile a:visited,
-.treatment-info a:visited
-{
-	/* inherited/redundant? */
-	color: #1b8798;
-
-	border-color: #1b8798;
-}
-/* visual feedback on hover */
-/* better for mobile-first than the default */
-.condition a:hover, .connect-tool a:hover,
-.diy-tool a:hover, .referral-to-treatment-profile a:hover,
-.treatment-info a:hover
-{
-	border: none;
+.diy-title h4 {
+  font-size: 1rem;
+  text-align: center;
 }
 
-/* why would these be styled differently? */
-/* searched the database: .diy-tool ul a:link does not appear anywhere. */
-/* 
-.diy-tool ul a:link {
-	font-family: 'Montserrat', sans-serif;
-	color: #1b8798;
-	background-color: #fff;
-	border: 1px solid #0a5794;
-	border-radius: 10px;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	padding: .5em 1em;
-}
-.diy-tool ul a:visited {
-	color: #1b8798;
-}
-*/
-
-/* .diy-tool ul a:hover isn't used, but li.node-readmore a:hover might be... */
-/* li.node-readmore a appears on the /tags/[tag] pages */
-.diy-tool ul a:hover, li.node-readmore a:hover {
-	/* undesirable */
-	/* color: #ed6963 !important; */
-
-	/* overridden by li.node-readmore a:link, li.node-readmore a:visited, .feed-icons a:link, .feed-icons a:visited */
-	/* border-color: #ed6963 !important; */
-
-	/* was "none" in staging */
-	/* not sure which is desired with the new underline style */
-	text-decoration: underline;
-}
-
-
-/* these are just different types of <article> */
-.diy-tool, .connect-tool, .condition, .referral-to-treatment-profile, .treatment-info {
-	padding: 0 2em 2em 2em;
-	max-width: 1170px;
-	margin: 0 auto;
-	margin-bottom: 3em;
-}
-
-/* deprecated; searched database, no usage anywhere */
-/* 
-.diy-wrapper {
-	float: left;
-	padding: 1em;
-	width: 30%;
-	margin: 1em;
-	min-height: 20em;
-}
-.diy-image {
-	margin: 0 0 .75em;
-}
- */
-
-/* .diy-title applies to the titles /diy, /treatment, and /connect. */
-/* .diy-title is a wrapper around an <h4> which is in turn a wrapper around an <a>. there's got to be a better way to style this. */
-.diy-title {
-	font-size: .9em;
-	margin: 0 auto;
-	text-align: center;
-}
-
-/* on /diy, .diy-body is a div with an empty <p> child. on /treatment and /connect, it's the preview text of each article. */
 .diy-body {
-	margin: 0 auto;
-	word-wrap: break-word;
-	width: 100%;
+  margin: 0 auto;
+  word-wrap: break-word;
+  width: 100%;
 }
+
 .diy-body p {
-	/* font-family: 'Montserrat', sans-serif; */
-	font-size: 1em;
-	line-height: 1.1;
-	text-align: center;
+  font-size: small;
+  line-height: 1.1;
+  text-align: center;
 }
 
-/* overrides: form#webform-submission-search-for-local-service-add-form p */
-/* but only font-size. the others are duplicates. */
-#edit-find-support-zip-code-text p {
-	color: #fff !important;
-	font-size: 2em !important;
-	font-weight: 600;
-}
-
-/* deprecated; styles the deprecated doing_things_on_your_own block. */
-/*
-#edit-field-diy-type-target-id .form-checkboxes {
-	display: none;
-}
-*/
-
-/* fa = font-awesome. we're not using font-awesome stuff anymore, but we must have before. why did we stop? */
-.fa {
-	font-size: 2.5em !important;
-	padding: .5em .5em !important;
-}
-.fa-twitter, .fa-instagram, .fa-youtube, .fa-pinterest, .fa-facebook {
-	/* better color contrast */
-	color: #1b8798 !important;
-}
-
-/* i'm only seeing .field--label-hidden, including on webforms. */
-/* can't find .file anywhere either. my first guesses were the "download-here" link on diy pages, etc., or the file upload link on the "partner with us" forms. but it's neither of those. the file upload link has other classes, including .form-file */
+/*=====  End of IMAGES & THUMBNAILS  ======*/
+/*=============================================
+=            WEBFORMS 			              =
+=============================================*/
 .field--label, .file {
-	font-weight: 600;
-	font-size: 1.2em;
-	color: #0a5794 !important;
-	text-transform: uppercase;
-	letter-spacing: .05em;
-}
-/* author field, when visible */
-.field--name-field-author {
-	font-size: 1.25em;
-	font-weight: 400;
-	font-style: italic;
-	/* not sure we want this margin; reevaluate spacing between title, author, article */
-	margin-top: .75em;
-	text-align: center;
+  font-weight: 600;
+  font-size: 1.2em;
+  color: #0a5794 !important;
+  text-transform: uppercase;
+  letter-spacing: .05em;
 }
 
-/* .field--name-body is everywhere; it's just the body of any block or article. */
-/* i can't find any of the other classes... they all seem to refer to hidden elements */
-.field--name-body, .field--name-field-treatment-category, .field--name-field-condition-severity, .field--name-field-tags, .field--type-entity-reference, .field--name-field-referral-tool-friendly-des {
-	/* font-family: 'Montserrat', sans-serif; */
-	clear: both;
-	display: block;
-	margin: 1em 0;
-	padding: 1em 0;
-}
-
-/* .field--item refers to literally just any field in any content type. i guess the point is to override any default stylings, for example from bootstrap. but that's not necessarily desirable, and it's certainly not the best way of doing it. */
-/* in practice, this is mainly used for titles and bodies of blocks. in the treatment referral pages, it also affects the map, image, and entries under "service type" and "area served." the styles mostly show as invalid in the inspector. */
-/* a bunch of these are invalid property values! were they supposed to be "inherit" or "initial"? */
-.field--item a:link, .field--item a:visited, .field-content a:link, .field-content a:visited {
-	/* font-family: 'Montserrat', sans-serif; */
-	/* background-color: none !important; */
-
-	/* this isn't an invalid value, just undesirable behavior--since we're using border-bottom as a replacement for underline */
-	/* border: none; */
-
-	/* color: none !important; */
-	float: none !important;
-	/* font-size: none !important; */
-	/* font-weight: none !important; */
-	/* line-height: none !important; */
-	/* padding: none !important; */
-	/* margin: none !important; */
-	/* border-radius: none !important; */
-	text-decoration: none !important;
-}
-
-/* in treatment referral pages, this applies to the wrapper around "service type" and "area served." it doesn't appear in some other places i would have expected it to appear, such as links on the information & support pages, or /tags/bipolar-likely. in fact, i don't see it anywhere else... */
-/* it looks like this refers not to the overall concept of entity references, but specifically to the field type "entity reference" under content types -> manage fields. entity references that are generated as part of a view don't count. */
-.field--type-entity-reference {
-	/* font-family: 'Montserrat', sans-serif; */
-	background: #fff !important;
-	padding: .5em 1em;
-	margin: .5em .75em .5em 0;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-}
-
-/* deprecated; these don't appear to be displayed anywhere */
-/*
-.field--name-field-issue, .field--name-field-tags, .field--name-field-diy-type {
-	font-family: 'Montserrat', sans-serif;
-	clear: both;
-}
-*/
-
-/* these are just the links inside the entity reference fields; see 2 blocks up. */
-/* the styling here isn't consistent with anything. */
-.field--type-entity-reference .field--item a:hover {
-	background: #ed6963 !important;
-	border: 1px solid #ed6963 !important;
-	color: #fff !important;
-}
-
-/* this styles the search bar on information & support pages. using the intersection of these two classes cannot possibly be the best way of doing this... */
-/* this also applies to the search and filter areas on /treatment and /connect. */
-.form--inline.form-inline {
-	border-bottom: 1px solid #eee;
-	padding: .75em;
-	border-radius: 0;
-	margin: 0 0 3em 0;
-}
-
-/* this applies to the search box and "sort by" dropdown on the information & support pages--but not the "apply" button. */
-/* it also applies to the search box above "category" on /treatment and /connect */
-/* at least some of these are overrides of identical attributes applied to .form-control in general, further down */
-.form-inline .form-control {
-	font-weight: 500;
-	font-size: 1.25em;
-	display: inline-block;
-	width: auto;
-	vertical-align: middle;
-	border-radius: 0;
-	margin-top: 0;
-	background-color: #f5f5f5;
-	border: 1px solid #95989a;
-}
-
-/* seems redundant to include .checkbox here; there aren't any checkbox inputs outside of a .checkbox <div>, and if there were, would we want them styled differently? */
-.form-inline .checkbox input[type="checkbox"] {
-	margin-right: .5em;
-}
-
-/* none of these seem to have a visible effect except width, at least on /connect */
-.form-inline .checkbox label {
-	padding: 0;
-	margin: 0;
-	border-radius: 0;
-	/* this is weird... without this, the labels all display inline, so sometimes there are 2 on one line. if I change this to width:100% or display:block, it still doesn't work. this is the only thing that works. */
-	/* if i put display:block on the wrapper around it, i get the desired result. there are lots of classes i could use to target that <div>; which is appropriate? */
-	width: 200px;
-}
-
-/* applies to textboxes, textareas, and dropdowns... maybe others, but not checkboxes, buttons, etc. */
 .form-control {
-	/* font-family: 'Montserrat', sans-serif; */
-
-	/* default color is #555 (from forms.less) */
-	color: #666;
-
-	/* default background is white */
-	background-color: #f5f5f5;
-
-	/* default border is lighter (from forms.less) */
-	border: 1px solid #95989a;
-
-	/* why? */
-	border-radius: 0;
-
-	/* not convinced this is good either */
-	box-shadow: none;
-
-	/* redundant; without this it's "inherit" as per forms.less */
-	font-weight: 300 !important;
-}
-/*.form-required:after {
-	display: none;
-}*/
-
-/* seems to be the "Content (Below Sidebar / Contained)" region on the block layout... includes "about MHA", "sign up for newsletter", disclaimers... but weirdly enough it's different from Content (Below Sidebar / Full Width)" region, which is .full-width-wrapper-total */
-.full-width-wrapper {
-	/* doesn't seem to have an effect anyway */
-	max-width: 1170px;
+  color: #666;
+  background-color: #f5f5f5;
+  border: 1px solid #95989a;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
-/* self-explanatory--it's just the actual footer */
-.footer {
-	/* font-family: 'Montserrat', sans-serif; */
-	background: #154b5e;
-	/* do we want this margin? */
-	margin-top: 45px;
-	padding-top: 1em;
-	padding-bottom: 1em;
-	width: 100%;
-}
-
-/* i haven't encountered .center-block outside of .footer, but i haven't looked hard */
-.footer .center-block {
-	/* such a small margin... why is this even here? */
-	margin-bottom: 0.2em;
-}
-
-/* .footer p is self-explanatory. .google-search is a div that contains code for a hook for google translate. it looks like it's supposed to make a google translate button appear, but it doesn't work. not sure how this styling would apply if it did. */
-.footer p, .google-search {
-	color: #ffffff;
-	font-size: .9em;
-	font-weight: 300;
-	margin: 0;
-}
-
-/* these are the link categories: information, tools, resources & treatment, etc. */
-.footer h2 {
-	/* seems weird to use alpha to gray these out instead of making them a different color. */
-	color: rgba(255, 255, 255, 0.7);
-	font-size: 1em;
-	font-weight: 200;
-	text-transform: uppercase;
-}
-
-/* the links below the <h2> headings. not sure we actually want the :visited links to look the same as the others. */
-.footer .nav>li>a:link, .footer .nav>li>a:visited {
-	/* font-family: 'Montserrat', sans-serif; */
-	color: rgba(255, 255, 255, 0.7);
-	font-size: .95em;
-	font-weight: 200;
-}
-.footer .nav>li>a:hover {
-	background: transparent;
-	text-decoration: underline;
-}
-.footer .nav>li>a {
-	margin: 0 0 .25em 0;
-	padding: 0;
-}
-
-/* deprecated; does not appear anywhere in the database. */
-/* 
-.inline-link, .inline-link a:link {
-	padding: 0;
-	margin: 0;
-}
- */
-
-/* this is the logo in the footer. the categories of links are .region-superfooter-2 through -7 */
-.region-superfooter-1 img {
-	/* this is subtle but desired */
-	float: left;
-}
-
-/* .region-sidebar-first is the sidebar on the left; it's used to filter results on the connect and treatment pages. */
-/* this region is hidden on /diy. when un-hidden, it looks very different from the sidebars on /connect and /treatment. i don't see any reason why that would be desirable... maybe that's why it was hidden in the first place? */
-/* the styles for this sidebar are also just generally kind of a mess... lots of overriding and invalid values. */
-.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 .form-type-checkbox {
-	background: none !important;
-	background-position: none;
-}
-.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 .form-inline .checkbox input[type="checkbox"] {
-	left: -5px !important;
-	margin: .75em;
-}
-.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 #edit-field-diy-type-target-id .form-checkboxes {
-	background: #ffffff;
-	padding: 0 0 .4em;
-	margin: 2em -15px;
-	text-align: center;
-	visibility: visible;
-}
-.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 .fieldset-wrapper {
-	background: #ffffff;
-	padding: 0 0 .4em;
-	margin: 2em -15px;
-	text-align: center;
-}
-.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 .fieldset-legend {
-	visibility: visible;
-	font-weight: 500;
-	border-bottom: 1px solid #f5f5f5;
-}
-.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 .form--inline.form-inline, .region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 legend {
-	border: none;
-}
-.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 legend {
-	visibility: visible;
-}
-.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 .form-control {
-	visibility: visible;
-}
-.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 .control-label {
-	font-size: 1.2em;
-	font-weight: 400;
-}
-.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 .form-inline .checkbox label {
-	margin: 0 2em;
-	width: 250px !important;
-	text-align: left;
-}
-.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 legend {
-	visibility: visible;
-}
-
-/* deprecated; this was part of a one revision of the screening tools page (revision #259). the property is overriden anyway. (deprecation verified in the database) */
-/* 
-.small-container {
-	padding-bottom: 0,
-}
- */
-
-/* deprecated; was used for an outdated version of the "which screen to take" block. (deprecation verified in the database) */
-/* 
-.screening-tool-cont p {
-	margin: 0 0 1em;
-}
- */
-
-/* .seven-cols applies to the <div> surrounding the seven columns of links in the footer. the only .field--name-body inside of that is the logo; these styles keep the logo in the upper-left corner of the footer. */
-/* really, the footer should be replaced and .seven-cols should be deprecated. */
-.seven-cols .field--name-body {
-	padding: 0 !important;
-	margin: 0 !important;
-}
-
-
-/* the .slider**** blocks all apply to the banner on the homepage. double check to make sure they don't apply anywhere else! */
-
-/* deprecated; does not appear in the database */
-/* 
-.slider-table {
-	font-family: 'Montserrat', sans-serif;
-	width: 100%;
-}
- */
-
-/* these next two blocks are repeated 8 blocks below, with additional styling. commenting these out. */
-/* .slider-link-nav {
-	width: 50%;
-	margin: 0 auto;
-}
-.slider-link-nav ul {
-	padding-left: 0 !important;
-} */
-
-/* .slider-wrapper is the <div> that surrounds the entire banner. */
-.slider-wrapper {
-	/* i don't see any effect from these margin and width settings... */
-	margin: 0 auto;
-	width: 100%;
-	/* invalid values! padding can't be negative */
-	padding-right: -15px !important;
-	padding-left: -15px !important;
-}
-.slider-wrapper img {
-	/* this margin is redundant with the same property under .img-responsive */
-	margin: 0 auto;
-	/* no effect that i can see */
-	width: 100%;
-}
-
-/* .slider-image is a <div> that wraps the image and also all of the text */
-.slider-image {
-	/* i don't see any effect here... */
-	position: relative;
-}
-/* this is a <div> that wraps the text but NOT the image */
-/* none of these !important flags appear to be necessary. without them, the properties aren't overriden at any size (except position:absolute, which is overriden anyway because the overrides also say !important) */
-.slider-copy-wrapper-center {
-	/* this makes it so the text stays inside the image. it's overriden by media queries on smaller screens, making the text appear below the image. not sure why that would be desirable, although it also comes along with changes in the text styling. */
-	position: absolute !important;
-
-	top: 0 !important;
-	width: 100% !important;
-
-	/* these seem unnecessary */
-	margin: 0 auto !important;
-	background: transparent !important;
-
-	padding: 2em !important;
-
-	/* these seem unnecessary */
-	text-shadow: none !important;
-	box-shadow: none !important;
-}
-
-/* .slider-title is the banner title, "find tools that help." the text is directly in the div--no header or <p> */
-.slider-title {
-	font-size: 4em;
-	font-weight: 500;
-	color: #000;
-
-	/* the !important flags on all of these seem unnecessary */
-
-	/* seems unnecessary */
-	text-shadow: none !important;
-
-	text-align: center !important;
-
-	/* seems unnecessary */
-	width: 100% !important;
-
-	margin: 0 auto !important;
-}
-
-/* .slider-body is just "navigate your unique journey from screening to supports." unlike .slider-title, the text is within a <p> element. */
-.slider-body p {
-	font-size: 2em;
-	font-weight: 400;
-	color: #000;
-
-	/* not sure this is desirable */
-	line-height: 1.2;
-
-	/* !important flags are unnecessary */
-
-	text-align: center !important;
-
-	/* these are all unnecessary except padding */
-	text-shadow: none;
-	padding-bottom: 1em;
-	width: 100% !important;
-	margin: 0 auto !important;
-}
-
-/* .slider-link-nav is a <div> that wraps around the "take a screen" and "about this program" links */
-.slider-link-nav {
-	width: 50%;
-	margin: 0 auto;
-
-	/* no effect */
-	color: #fff !important;
-}
-/* thre is no <ul> inside .slider-link-nav */
-.slider-link-nav ul {
-	padding-left: 0 !important;
-	color: #fff !important;
-}
-.slider-link-1 a:link, .slider-link-1 a:visited {
-	/* this is necessary right now, but it shouldn't be... this should be part of the button styling */
-	color: #fff !important;
-}
-
-/* styling is similar to .btn-primary ("sign up", "submit"), but not identical */
-.slider-link-1 {
-	background-color: #154b5e !important;
-	border: 1px solid #fff !important;
-
-	/* unnecessary because it needs to be applied to the <a> child anyway */
-	color: #ffffff !important;
-
-	/* default .btn is display:inline-block */
-	/* makes things better in tablet view, but tablet view is still broken. actually makes things worse in web view. no effect on mobile. */
-	display: block;
-
-	/* i don't see any effect */
-	float: none !important;
-
-	/* no need for !important */
-	font-size: 1.2em !important;
-	font-weight: 600 !important;
-
-	/* i don't see any effect */
-	line-height: inherit !important;
-
-	/* no effect; only applies to <li>, <summary>, or display:list-item */
-	list-style: none;
-
-	/* !important is unnecessary */
-	text-align: center !important;
-	padding: .75em 1.25em !important;
-
-	/* weird extra padding without this */
-	max-width: 300px;
-
-	/* the rest of the !important flags are unnecessary */
-
-	/* it's certainly worse without this, but this still isn't particularly good */
-	margin: 0 0 0 4em !important;
-
-	border-radius: 20px !important;
-	-moz-border-radius: 20px !important;
-	-webkit-border-radius: 20px !important;
-
-	/* this actually looks ok right now, but it's inconsistent with the rest of the site... */
-	-webkit-box-shadow: 7px 9px 13px -9px rgba(0, 0, 0, 0.75);
-	-moz-box-shadow: 7px 9px 13px -9px rgba(0, 0, 0, 0.75);
-	box-shadow: 7px 9px 13px -9px rgba(0, 0, 0, 0.75);
-}
-
-/* .slider-link-2 is a <span> around the <a> that says "about this program" */
-/* why is it styled so differently from the other link?? */
-.slider-link-2 a:link, .slider-link-2 a:visited {
-	color: #000 !important;
-}
-.slider-link-2 a:hover {
-	color: #ed6963 !important;
-}
-.slider-link-2 {
-	background-color: transparent !important;
-	border: none !important;
-	color: #000000 !important;
-	font-size: 1.2em !important;
-	font-weight: 600 !important;
-	padding: .75em 1.25em !important;
-	max-width: 300px;
-	text-align: center !important;
-	list-style: none;
-	margin: 0 auto !important;
-}
-
-/* deprecated; does not appear in the database */
-/* 
-.social-media-icons p {
-	margin: 0 1em !important;
-	text-align: center !important;
-}
- */
-
-/* .social-media-links, weirdly, applies to the wrapper around "send message" on "tell us what you think"; "sign up" on newsletter block; AND the <p> element surrounding the actual social media links. (why are those in a <p> anyway?). text-align:center is desirable in all those contexts, but the margin setting doesn't center them without it. */
-.social-media-links {
-	text-align: center;
-	margin: 0 auto;
-}
-
-/* this is causing weird problems with the admin toolbar. remove or modify */
-#toolbar-administration a:link, #toolbar-administration a:visited, .toolbar-menu-administration a:link, .toolbar-menu-administration a:visited {
-	font-size: 1em !important;
-	font-weight: 400 !important;
-	line-height: 1 !important;
-	color: #000;
-}
-
-/* deprecated; this is nowhere, but it's also overridden below. */
 /*
-.treatment-wrapper p {
-	margin-bottom: 2em;
+.form-required:after {
+	display: none;
 }
 */
-
-/* applies to main logo in upper-left corner, but not the logo in the footer */
-.logo img {
-	max-height: 6em;
-}
-
-/* note that this is <legend>, not .legend */
-/* the legend on the diy page is hidden in #views-exposed-form-doing-things-on-your-own-diy--page-1 legend */
-/* the legends on connect, treatment are visible. */
-legend {
-	/* this gets overriden by .form-composite legend in the webform module: webform_bootstrap.css */
-	margin-top: 1em;
-}
-
-/* this is the "read more" link on views that show summaries of content (entity references?), such as /tags/bipolar-likely. */
-li.node-readmore a:link, li.node-readmore a:visited, .feed-icons a:link, .feed-icons a:visited {
-	/* font-family: 'Montserrat', sans-serif; */
-	color: #0a5794;
-	background-color: #fff !important;
-	border: 1px solid #0a5794 !important;
-	border-radius: 10px;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	padding: .5em 1em !important;
-	text-decoration: none;
-}
-
-/* applies to the title of an article or page, and to the title of the "take a screen" block--but not to other blocks, like "about mha" or "sign up for our newsletter" */
-.page-header {
-	max-width: 1170px;
-	margin: 0 auto;
-	margin-bottom: .75em;
-	text-align: center;
-	text-transform: uppercase;
-	border-bottom: none;
-}
-
-/* node 15 is the screening tools page, but .page-node-15 doesn't appear on that page. the width is set using media queries and .container */
-/* .path-webform applies to the body of any webform's url--but not blocks that contain webforms, like "sign up for our newsletter". it also applies to confirmation pages. */
 .page-node-15 .main-container, .path-webform .main-container {
-	max-width: 1170px !important;
-	margin: 0 auto;
+  max-width: 1170px !important;
+  margin: 0 auto;
 }
 
-/* .padding-xs and .padding-sm are both applied to a div below the sponsors' image in the "which screen to take" block. .padding-sm overrides .padding-xs; they're not responsive. */
-/* 
-.padding-xs {
-	padding: .75em;
-}
- */
-.padding-sm {
-	padding: 1em;
-}
-
-/* deprecated */
-/* i don't see this used anywhere, including in the admin interface (i've only looked at the submission times in webform results) */
-/* it's nowhere in the database, but appears all over the files... too many occurrences to test all of them. */
-/*
-time {
-	color: #0a5794;
-	font-size: 1.5em;
-	font-weight: 600;
-}
-*/
-
-/* deprecated; .treatment-wrapper, .treatment-image, .treatment-title, .treatment-body either do not appear in the database anywhere, or appear only in the cache. */
-/* 
-.treatment-wrapper {
-	margin: 1em 2em 1em 0;
-	float: left;
-}
-.treatment-wrapper p {
-	margin-bottom: 2em;
-	line-height: 1.5;
-	font-size: 1.1em;
-}
-.treatment-image {
-	margin: 0 1em 0;
-	float: left;
-}
-.treatment-title {
-	font-size: 1.5em;
-}
-.treatment-body {
-	font-size: 1.1em;
-}
- */
-
-/* applies to a <div> wrapping each individual article under the "treatment & resources" block. but not "what's new" or "learn/diy tools/treatment/connect" on the homepage */
-/* now overridden on smaller sizes */
-.min-height {
-	/* this adds a big blank space under the "treatment & resources" block, which is probably undesirable. but without it, the articles don't line up properly in tablet mode. but if the title of the article is really long, it breaks this anyway, so it's a flimsy quick fix  */
-    min-height: 22em !important;
-}
-
-/* deprecated; checked the database and it doesn't appear anywhere. */
-/* can't find .mha-footer-tx; not the "find support in your area" block, screening tools, confirmation pages, treatment tools page, treatment services page, "resources & treatment" footer column... */
-/* 
-.mha-footer-tx {
-	color: #000 !important;
-	margin: 0 4em;
-}
-.mha-footer-tx:after {
-	this is font-awesome's 'chevron-right' icon e.g.this: >
-	content: '\f054';
-	font-family: FontAwesome;
-	display: inline-block;
-	color: inherit;
-	font-size: inherit;
-	font-style: normal;
-	font-weight: normal;
-	text-decoration: none;
-	margin: 0 0 0 .5em;
-}
- */
-
-/* main logo in top left; applies to <a> wrapper, not the image itself. */
-.navbar .logo {
-	margin-top: 0;
-}
-
-/* applies to the whole navbar <header>. not necessarily the only <header> on the page */
-/* by default this has a weird gray background and border */
-.navbar-default {
-	/* font-family: 'Montserrat', sans-serif; */
-	background-color: transparent;
-	border-color: transparent;
-}
-
-/* this is the text that says "MHA Screening." hidden intentionally. */
-.navbar-default .navbar-brand {
-	display: none;
-}
-
-/* there are 2 .navbar-nav elements: one for sign up/login/donate/take a screen; the other for depression/anxiety/bipolar/etc. some of this is overridden by #navbar #top-nav .nav>li>a */
-.navbar-default .navbar-nav>li>a {
-	color: #262626 !important;
-	font-size: 1.25em;
-	/* font-family: 'Montserrat', sans-serif; */
-	font-weight: 300;
-	letter-spacing: .05em;
-	text-transform: uppercase;
-}
-
-/* deprecated; overridden by .navbar-default .navbar-nav>li>a:hover and some #navbar #top-nav stuff */
-/*
-.navbar-nav>li>a:hover {
-	color: #0a5794 !important;
-}
-*/
-
-.navbar-nav {
-	/* font-family: 'Montserrat', sans-serif; */
-	margin: 1em 0 0 -2.4em;
-}
-
-/* overrides media queries from bootstrap */
-/* only applies to the main navbar */
-.navbar.container {
-	max-width: 1170px;
-}
-
-/* applies only to the depression/anxiety/bipolar/etc. menu */
-.navbar-default .container {
-	padding-left: 0;
-}
-
-/* this is a wrapper around the sign-up/login/donate/take a screen menu; weird that it's called #navbar-mobile even though it still appears in desktop mode. */
-/* this whole block is actually overriden in mobile view */
-#navbar-mobile {
-	/* this actually makes it wider... when I made .navbar-brand visible (just for testing) this created weird spacing. disabling it for some reason adds unwanted VERTICAL space in desktop... */
-	width: 64%;
-	float: right;
-}
-
-/* .nav-pills applies to the <ul> wrapping  */
-/* .nav-pills is meant to be a pill alternative to tabs--doesn't apply to this use case. should probably be .navbar-btn */
-/* also weird that this is a <ul> at all. it has a <div> inside for .region-top-navigation, which in turn has a <nav> in it (#block-s2s-account-menu), which in turn contains another <ul> that has .nav.navbar-nav.navbar-right */
-/* in fact, because this only targets direct descendents, this never applies to anything at all!! (i think) */
-.nav-pills>li>a {
-	color: #262626;
-	font-size: 1em;
-	font-weight: 300;
-	/* font-family: 'Montserrat', sans-serif; */
-}
-
-/* this is the hamburger button that replaces the navbar on smaller screens. */
-/* .navbar-toggle is a default class in boostrap 3; in bootstrap 4, it's navbar-toggler */
-/* not necessarily any reason to specify .navbar-default here; the default light gray border wouldn't make sense in most contexts. */
-.navbar-default .navbar-toggle {
-	border-color: #262626;
-}
-
-/* .navbar-default .navbar-collapse is the two menus that collapse on mobile. those are the only two collapsible menus at this point i think; why specify .navbar-default? */
-/* i don't see .navbar-form anywhere. */
-/* .navbar-form doesn't appear in the database, but neither do the others. maybe i need to check the files. */
-.navbar-default .navbar-collapse, .navbar-default .navbar-form {
-	/* border is normally gray only on the top; probably better to use border:none instead of just making it white */
-	border-color: #ffffff;
-}
-
-/* why nest #top-nav inside #navbar??? */
-/* #top-nav is a <div> surrounding the <ul>.nav which in turn surrounds <div>.region-top-navigation which surrounds another <nav> that contains the actual menu (which is a <ul>)... weirdly complicated, and weird to target it this way I think */
-#navbar #top-nav .nav {
-	/* for some reason getting rid of this creates extra vertical space below this navbar and the logo */
-	/* the nav itself is already set to float:right via .nav-right... this specifically affects the weird <div> wrapper */
-	float: right;
-	/* redundant; text is already uppercase per .navbar-default .navbar-nav>li>a */
-	text-transform: uppercase;
-}
-
-/* this is applied elsewhere in a media query, but it should apply to small screens as well (which it does, because of this block). maybe not the smallest of screens */
-#navbar #top-nav li {
-	float: left;
-}
-
-/* again, overly specific. and maybe weird that it's different from then normal button styling elsewhere */
-#navbar #top-nav .nav>li>a {
-	color: #262626;
-	padding: .75em 1em;
-	font-size: .9em;
-	/* font-family: 'Montserrat', sans-serif; */
-	font-weight: 600;
-	margin: 0 0 0 1em;
-}
-
-/* normal .btn-danger looks awful. change it to match this */
-/* it's not defined in this stylesheet; uses default bootstrap + whatever random styling happens to apply */
-#navbar #top-nav .btn-danger {
-	background: #ffffff;
-	border: 1px solid #ed6963;
-	color: #ed6963 !important;
-	transition: all 0.5s ease 0s;
-}
-
-/* overly specific. no reason for a separate block as this is targeting the same things as the previous block. because there are extra wrappers in between <ul>.nav-pills and <li>, this styling is never applied. */
-#navbar #top-nav .nav-pills>li>a.btn-danger {
-	color: #ed6963 !important;
-	font-size: 1em;
-	margin: 0 .75em 0;
-}
-
-/* overly specific */
-#navbar #top-nav .nav>li>a:hover, #navbar #top-nav .nav>li>a:focus {
-	background: #ed6963;
-	border: 1px solid #ed6963;
-	/* !important is necessary here. find a way to refactor so it's not. */
-	color: #ffffff !important;
-}
-
-/* applies to sign up/login button. i don't think btn-white is used anywhere else, so the nesting is probably unnecessary. */
-#navbar #top-nav .nav>li>a.btn-white:hover, #navbar #top-nav .nav>li>a:focus {
-	background: transparent;
-	border: none;
-	color: #0370c6 !important;
-}
-
-/* .active appears to be a class permanently applied to "sign up/login". why? these are all overridden anyway */
-.navbar-default .navbar-nav>.active>a {
-	color: #ed6963;
-	background-color: transparent;
-	/* font-family: 'Montserrat', sans-serif; */
-}
-
-/* overridden/duplicate */
-.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
-	background-color: transparent;
-}
-
-/* should be moved to a more logical position in the document. */
-ol {
-	/* we don't want these margins */
-	/* margin-top: 1em; */
-	/* margin-bottom: 2em; */
-
-	font-size: 1.25em;
-
-	/* wrong font weight */
-	/* font-weight: 400; */
-}
-
-/* .path-[condition] is applied to <body> on the pathway pages */
-/* .views-exposed-form is applied to <form> surrounding the sort/filter form */
-/* .views-row applies to the outermost of 3 nested <div>s surrounding each article link on these pages. seems like an unnecessary amount of nesting */
-/* node 15 is screening tools, but .page-node-15 doesn't appear there */
-.path-depression .views-exposed-form, .path-depression .views-row, .path-anxiety .views-exposed-form, .path-anxiety .views-row, .path-bipolar .views-exposed-form, .path-bipolar .views-row, .path-psychosis .views-exposed-form, .path-psychosis .views-row, .path-self-harm .views-exposed-form, .path-self-harm .views-row, .path-screening-tools .views-exposed-form, .path-screening-tools .views-row, .page-node-15 .views-exposed-form, .page-node-15 .views-row, .path-learn .views-exposed-form, .path-learn .views-row {
-	/* i don't see an effect from this; already constrained by <div>#main.container */
-	max-width: 1170px !important;
-	/* without this the search stuff looks weird on mobile. no apparent affect on .views-row */
-	margin: 0 auto;
-}
-
-.path-depression .row, .path-anxiety .row, .path-bipolar .row, .path-psychosis .row, .path-self-harm .row {
-	/* doesn't seem to do anything */
-	max-width: 100% !important;
-	/* without this, something from grid.less:39 (bootstrap) shifts it 15px to the left, which is weird. but this doesn't actually center it, it just resets that. also it does this to pretty much everything on the page because it's all contained in .row's */
-	/* maybe reset .row to margin:initial? */
-	margin: 0 auto;
-}
-
-/* deprecated; doesn't seem to do anything; checked /diy, /treatment, /connect, /contact  */
-/* .page-contact does not appear on /contact */
-/*
-.path-diy .main-container, .path-treatment .main-container, .path-connect .main-container, .page-node-15 .row, .path-contact .main-container, .page-contact .row {
-	max-width: 1170px !important;
-	margin: 0 auto;
-}
-*/
-
-/* deprecated */
-/* .panel-body does not appear in db */
-/* panels are an old bootstrap thing, replaced with cards in bootstrap 4. just puts a box around whatever the class is applied to. */
-/* i can't find where this is used, if anywhere, but some of these seem to defeat the purpose of having a panel... */
-/* specifically checked admin screens, depression red box, screening confirmation page, error messages... nothing. */
-/*
-.panel-body {
-	padding: 0 15px;
-}
-.panel-title {
-	font-weight: 400;
-}
-.panel-heading {
-	padding: 10px 0 0 15px;
-}
-.panel-default {
-	border-color: transparent;
-}
-.panel-default>.panel-heading {
-	background-color: transparent;
-	border-color: transparent;
-}
-*/
-
-/* footer logo. would it be better to target it directly? */
-.region-superfooter-1 img {
-	/* width set as 120px in the html. should be here instead. height=100% in the html. */
-	max-width: 150px;
-	/* doesn't match other superfooter columns without this */
-	margin-top: 2.2em;
-}
-
-/* this refers to the search box */
-#top-nav input[type=text] {
-	box-sizing: border-box;
-	border: 0;
-	outline: none;
-	font-size: 14px;
-
-	/* is this the best way of doing this? we could use a :before or something... */
-	background-color: transparent;
-	background-image: url('/sites/default/files/inline-images/search.png');
-	background-position: 10px 10px;
-	background-repeat: no-repeat;
-	background-size: 20px;
-
-	width: 40px;
-	height: 40px;
-	padding: 12px 20px 12px 40px;
-	margin: .75em 1em 0 2em;
-	-webkit-transition: width 0.4s ease-in-out;
-	transition: width 0.4s ease-in-out;
-	float: right;
-}
-
-/* also apply this to :active? */
-#top-nav input[type=text]:focus {
-	/* this is bigger than the available space on tablets and some mobile sizes; that makes it drop below the other menu items after you click on it to enter text. */
-	width: 300px;
-
-	/* these three are overridden by the border:0 setting in the previous block */
-	border-top: 0;
-	border-right: 0;
-	border-left: 0;
-
-	/* this is overridden on very small screens for some reason (@media (max-width: 480px) #top-nav input[type=text]:focus) */
-	border-bottom: 1px solid #dddddd;
-}
-
-/* .view-header appears as a blank space at the top of /diy, /connect, /treatment. it does not appear on /depression etc., or any other view that i can see. */
-.view-header {
-	font-size: 1.5em !important;
-	font-weight: 500 !important;
-	text-align: center;
-	margin: 0 0 1em !important;
-}
-
-/* the text on /treatment and /connect isn't in an <h4>; it's just directly in the <div> */
-.view-header h4 {
-	margin: 0 0 2em;
-}
-
-/* this is the "filter by topic" list on the left which is hidden on /diy but evidently formatted differently than on /connect and /treatment. */
-#views-exposed-form-doing-things-on-your-own-diy--page-1 .form-type-checkbox {
-	background: url(/sites/default/files/plus-sign.png) no-repeat;
-	background-position: 20px 8px;
-}
-
-/* deprecated; overridden */
-/* this makes the checkbox go waaaaay off to the left so it's invisible; presumably so that you can replace the checkbox with the icon specified in the previous block. overridden by .region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 .form-inline .checkbox input[type="checkbox"], which is pretty much exactly the same selector but with greater specificity. */
-#views-exposed-form-doing-things-on-your-own-diy--page-1 .form-inline .checkbox input[type="checkbox"] {
-	left: -9999px !important;
-	margin: 1em;
-}
-
-/* deprecated; like the previous block, this is all overridden by a selector that is identical except prefaced by .region-sidebar-first */
-/*
-#views-exposed-form-doing-things-on-your-own-diy--page-1 #edit-field-diy-type-target-id .form-checkboxes {
-	background: #f5f5f5;
-	padding: 0 0 .4em;
-	margin: 2em -15px;
-	text-align: center;
-	visibility: hidden;
-}
-#views-exposed-form-doing-things-on-your-own-diy--page-1 .fieldset-wrapper {
-	background: #f5f5f5;
-	padding: 0 0 .4em;
-	margin-left: -15px;
-	margin-right: -15px;
-	text-align: center;
-}
-#views-exposed-form-doing-things-on-your-own-diy--page-1 .fieldset-legend {
-	visibility: hidden
-}
-*/
-
-/* deprecated; doesn't do anything */
-/*
-#views-exposed-form-doing-things-on-your-own-diy--page-1 .form--inline.form-inline, #views-exposed-form-doing-things-on-your-own-diy--page-1 .legend {
-	border: none;
-}
-*/
-
-/* deprecated; overridden; see above */
-/*
-#views-exposed-form-doing-things-on-your-own-diy--page-1 .form-control {
-	visibility: hidden;
-}
-#views-exposed-form-doing-things-on-your-own-diy--page-1 .control-label {
-	font-size: 1em;
-	font-weight: 400;
-}
-#views-exposed-form-doing-things-on-your-own-diy--page-1 .form-inline .checkbox label {
-	margin: 0 2em;
-	width: auto;
-}
-*/
-
-#views-exposed-form-doing-things-on-your-own-diy--page-1 legend {
-	/* overridden; see above */
-	visibility: hidden;
-
-	/* hides the word "issue" */
-	display: none;
-}
-
-/* appears on "treatment & resources" block; "more [anxiety] information" on screening confirmation pages,  */
-.views-element-container h2, .views-element-container .h2 {
-	/* redundant with h2, .h2 */
-	font-size: 2em;
-	font-weight: 500;
-
-	/* not sure if desirable */
-	padding: 0 0 1em;
-
-	/* desirable, but is this the right place for it? */
-	text-align: center;
-}
-
-/* applies to "sign up for our newsletter"; "find support in your area"; and all screening tools and other webforms that have their own pages */
-/* but in the case of "find support", all the properties are overridden by form#webform-submission-search-for-local-service-add-form */
 .webform-submission-add-form {
-	/* redundant with next block? */
-	margin: 0 auto;
-
-	/* adds a big blank space below the header; not sure this is desirable */
-	padding: 3em 0;
+  margin: 0 auto;
+  padding: 3em 0;
 }
-/* applies to everything the previous block does; is there a reason to have both? */
+
+@media (max-width: 480px) {
+  .webform-submission-add-form {
+    max-width: 480px;
+  }
+}
+
 .webform-submission-form {
-	/* makes the form a little less wide. why isn't it locked to the width of an article? */
-	width: 95%;
-
-	margin: 0 auto;
+  width: 95%;
+  margin: 0 auto;
 }
 
-/* applies to all radio buttons on all webforms */
 .webform-submission-form .radio label {
-	/* redundant with general label */
-	/* display: inline-block; */
-
-	/* padding: 8px 30px; */
-
-	/* why did we need this? there's nothing to the right of the radio labels... */
-	margin: 0 1.5em 0 0;
-
-	/* ugly brown background */
-	/* background: #f2eee7; */
-
-	/* inconsistent with visually similar ui elements */
-	/* color: #810262; */
-
-	/* redundant with .radio label */
-	/* cursor: pointer; */
-
-	/* redundant with .radio label */
-	/* font-weight: 400; */
-
-	/* also redundant */
-	/* font-size: 1em; */
-	/* font-family: 'Montserrat', sans-serif; */
+  margin: 0 1.5em 0 0;
 }
 
-/* fixes for ugly webform buttons */
 .ui-widget {
-	font-family: inherit;
+  font-family: inherit;
 }
+
 .webform-buttons {
-	margin-bottom: 1.5em;
+  margin-bottom: 1.5em;
 }
+
 .ui-button, .ui-button:hover {
-	font-weight: 600;
-	color: #810262;
-	margin: .75em .5em .25em .5em;
-	padding: .5em 1.25em;
+  font-weight: 600;
+  color: #810262;
+  margin: .75em .5em .25em .5em;
+  padding: .5em 1.25em;
 }
+
 .ui-state-active,
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active,
 a.ui-button:active,
 .ui-button:active,
 .ui-button.ui-state-active:hover {
-	border: 1px solid #810262;
-	background: #810262;
-	font-weight: 600;
-	color: #ffffff !important;
+  border: 1px solid #810262;
+  background: #810262;
+  font-weight: 600;
+  color: #ffffff !important;
 }
 
-/* fixes ugly buttons on confirmation pages */
 .btn-warning {
-	color: white !important;
+  color: white !important;
+  border-color: #eea236 !important;
+  padding-bottom: 6px !important;
 }
 
-/* --------------------------------- */
+.btn-warning:hover {
+  border: 1px solid;
+}
 
-/*      RESPONSIVE      HEADER       */
+@media (max-width: 767px) {
+  .radio, .checkbox {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
 
-/* --------------------------------- */
+.input-group-addon {
+  border: initial;
+  background: initial;
+  text-align: initial;
+  white-space: initial;
+  padding: initial;
+  font-size: inherit;
+  color: inherit;
+  display: inline;
+}
 
-/* Large desktop */
+.description.help-block {
+  color: inherit;
+}
 
-/* 14.28...% = 1/7. */
-/* this seems a little wonky but i guess it makes sense... */
-/* why .col-md-1 AND .col-sm-1 AND .col-lg-1 if this is only used in one place anyway? */
-/* deprecated; overridden by next block */
+/*=============================================
+=            NAVBAR / HEADER                  =
+=============================================*/
+.logo img {
+  max-height: 72px;
+}
+
+@media (max-width: 767px) {
+  .logo img {
+    margin-top: .75rem;
+    max-height: 64px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo img {
+    max-width: 75%;
+  }
+}
+
+.navbar .logo {
+  margin-top: 0;
+}
+
+.navbar-default {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.navbar-default {
+  max-width: 1170px;
+}
+
+.navbar-default .navbar-brand {
+  display: none;
+}
+
+.navbar-default .navbar-toggle {
+  border-color: #262626;
+}
+
+/*----------  BOTH NAVBARS  ----------*/
+.navbar-collapse {
+  border-color: white !important;
+}
+
+@media (min-width: 768px) {
+  .navbar-default .container {
+    padding-left: 0;
+  }
+}
+
+.navbar-default .navbar-nav {
+  margin: .5rem 0;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav {
+    margin: 1rem 0 1rem -1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-default .navbar-nav {
+    margin-bottom: 0;
+  }
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #262626;
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: .05rem;
+  text-transform: uppercase;
+}
+
+/*----------  NAVBAR 1: TOP RIGHT  ----------*/
+#navbar-mobile {
+  width: 64%;
+  float: right;
+}
+
+@media (max-width: 767px) {
+  #navbar-mobile {
+    width: 100%;
+    float: none;
+  }
+  #navbar-mobile .navbar-collapse {
+    border-bottom: 1px solid #dddddd !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #navbar-mobile .navbar-collapse {
+    padding: 0px;
+  }
+}
+
+#top-nav .nav {
+  float: right;
+}
+
+#top-nav .nav > li {
+  float: left;
+}
+
+#top-nav .nav > li > a {
+  color: #262626;
+  padding: .75em 1em;
+  font-size: small;
+  font-weight: 600;
+  margin: 0 0 0 1em;
+}
+
+#top-nav .nav > li > a:hover, #top-nav .nav > li > a:focus {
+  background: #ed6963;
+  border: 1px solid #ed6963;
+  color: #ffffff !important;
+}
+
+@media (max-width: 767px) {
+  #top-nav .nav > li > a:hover, #top-nav .nav > li > a:focus {
+    background: none;
+    border: none;
+    color: #0370c6 !important;
+  }
+}
+
+#top-nav .btn-danger {
+  background: #ffffff;
+  border: 1px solid #ed6963;
+  color: #ed6963 !important;
+  -webkit-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+}
+
+@media (max-width: 767px) {
+  #top-nav .btn-danger {
+    border: none;
+  }
+}
+
+#top-nav input[type=text] {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border: 0;
+  outline: none;
+  background-color: transparent;
+  background-image: url("/sites/default/files/inline-images/search.png");
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  background-size: 20px;
+  width: 40px;
+  height: 40px;
+  padding: 12px 20px 12px 40px;
+  margin: .75em 1em 0 2em;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+  float: right;
+}
+
+@media (max-width: 480px) {
+  #top-nav input[type=text] {
+    float: left !important;
+  }
+}
+
+#top-nav input[type=text]:focus {
+  width: 300px;
+  border-bottom: 1px solid #dddddd;
+}
+
+@media (max-width: 480px) {
+  #top-nav input[type=text]:focus {
+    border-color: transparent;
+  }
+}
+
+/*----------  NAVBAR 2: CONDITIONS/TOPICS  ----------*/
+@media (min-width: 768px) {
+  .navbar-nav.container {
+    margin-left: -2rem;
+  }
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+  color: #262626;
+  background-color: transparent;
+}
+
+.navbar-default .navbar-nav a:hover {
+  text-decoration: underline;
+}
+
+/*=============================================
+=            BLOCKS BELOW MAIN CONTENT        =
+=============================================*/
+h2.block-title {
+  text-align: center;
+}
+
+/* ----------  TREATMENT & RESOURCES BLOCK  ----------*/
+/*
+#block-views-block-treatment-block-1 a,
+#block-forntpagecolumns a,
+#block-whatsnew a,
+#block-whatsnew-2 a
+*/
+.col-wrapper a:link, .col-wrapper a:visited {
+  font-weight: 500;
+  line-height: 1;
+  border: none;
+}
+
+.col-wrapper a:hover {
+  text-decoration: underline;
+}
+
+.min-height {
+  min-height: 16rem !important;
+}
+
+@media (max-width: 767px) {
+  .min-height {
+    min-height: 0px !important;
+  }
+}
+
+/*----------  SEARCH FOR TREATMENT NEAR YOU  ----------*/
+/*
+// block-webform-3 is the "search for treatment near you" block. on the block layout, it's called "search for local service" 
+#block-webform-3 {
+	background: url(/sites/default/files/black-map.png) no-repeat;
+
+	// ! this should be "cover" 
+	background-size: contain;
+
+	// ! min-height just adds a bunch of blank space below the block! 
+	// min-height: 440px;
+
+	margin: inherit;
+}
+*/
+form#webform-submission-search-for-local-service-add-form {
+  background: url(/sites/default/files/black-map.png) no-repeat;
+  background-size: cover;
+  padding: .5rem 1rem;
+  width: auto;
+}
+
+#webform-submission-search-for-local-service-add-form p {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/*
+// overrides: form#webform-submission-search-for-local-service-add-form p 
+// but only font-size. the others are duplicates. 
+#edit-find-support-zip-code-text p {
+	// color: #fff !important; 
+	font-size: 2em !important;
+	// font-weight: 600; 
+}
+*/
+/*
+.field.field--name-body img {
+    max-width: 300px;
+    height: auto;
+}
+*/
+/*
+// i can't find this (searched "findbyzipcode" in the database) but the settings are mostly the same as #webform-submission-search-for-local-service-add-form. could this be a deprecated version of the same form? 
+#block-findbyzipcode {
+	background: url(/sites/default/files/black-map.png) no-repeat;
+	background-size: cover;
+	margin: inherit;
+	min-height: 440px;
+}
+*/
+/*----------  ABOUT MENTAL HEALTH AMERICA  ----------*/
+#block-aboutmentalhealthamerica {
+  background: url(/sites/default/files/bell.png) no-repeat;
+  background-size: 280px;
+  margin: 0 15px;
+}
+
+@media (max-width: 480px) {
+  #block-aboutmentalhealthamerica {
+    background-size: 100%;
+  }
+}
+
+#block-aboutmentalhealthamerica p {
+  margin: 0 auto;
+  max-width: 800px;
+  padding-bottom: 2em;
+}
+
+#block-aboutmentalhealthamerica a:link, #block-aboutmentalhealthamerica a:visited {
+  font-weight: 600;
+  padding: .75em 1.5em;
+  margin: 0 2em;
+  border: none;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+@media (max-width: 767px) {
+  #block-aboutmentalhealthamerica a:link, #block-aboutmentalhealthamerica a:visited {
+    padding: .5em 1em !important;
+    margin: 1em;
+    display: inline-block;
+  }
+}
+
+#block-aboutmentalhealthamerica a:hover {
+  color: #fff !important;
+  background: #777 !important;
+}
+
+#block-aboutmentalhealthamerica .social-media-links a:hover {
+  background: transparent !important;
+}
+
+.social-media-links {
+  text-align: center;
+  margin: 0 auto;
+}
+
+/*----------  FOOTER  ----------*/
+.footer {
+  background: #154b5e;
+  padding-top: 1em;
+  width: 100%;
+  font-size: small;
+}
+
+.footer p, .google-search {
+  color: #ffffff;
+  font-size: .9em;
+  font-weight: 300;
+  margin: 0;
+}
+
+.footer h2 {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: inherit;
+  text-transform: uppercase;
+}
+
+.footer .nav > li > a:link, .footer .nav > li > a:visited {
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 200;
+}
+
+.footer .nav > li > a:hover {
+  background: transparent;
+  text-decoration: underline;
+}
+
+.footer .nav > li > a {
+  padding: 0 0 .25em 0;
+}
+
+.region-superfooter-1 img {
+  float: left;
+  max-width: 120px;
+  margin-top: 22px;
+}
+
+.seven-cols .field--name-body {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+@media (min-width: 992px) {
+  .seven-cols .col-md-1, .seven-cols .col-sm-1, .seven-cols .col-lg-1 {
+    width: 14.285714285714285714285714285714%;
+  }
+}
+
+/*=====  End of BLOCKS BELOW MAIN CONTENT  ======*/
+/*=============================================
+=            SINGLE USE SYTLES                =
+=============================================*/
+/*----------  HOME PAGE  ----------*/
+.slider-wrapper {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.slider-wrapper img {
+  width: 100%;
+  max-height: 25rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.slider-image {
+  position: relative;
+}
+
+.slider-copy-wrapper-center {
+  position: absolute !important;
+  top: 0 !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  background: transparent !important;
+  padding: 2em !important;
+  text-shadow: none !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
+@media (max-width: 767px) {
+  .slider-copy-wrapper-center {
+    position: relative !important;
+  }
+}
+
+.slider-title {
+  font-size: 3rem;
+  font-weight: 500;
+  color: #000;
+  text-shadow: none !important;
+  text-align: center !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+}
+
+@media (max-width: 480px) {
+  .slider-title {
+    font-size: 2.25rem;
+  }
+}
+
+.slider-body p {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #000;
+  line-height: 1.2;
+  text-align: center !important;
+  text-shadow: none;
+  padding-bottom: 1em;
+  width: 100% !important;
+  margin: 0 auto !important;
+}
+
+.slider-link-nav {
+  width: 50%;
+  margin: 0 auto;
+  color: #fff !important;
+}
+
+@media (max-width: 767px) {
+  .slider-link-nav {
+    width: 100%;
+  }
+}
+
+.slider-link-1 a:link, .slider-link-1 a:visited {
+  color: #fff !important;
+  border: none;
+}
+
+.slider-link-1 {
+  background-color: #154b5e !important;
+  border: 1px solid #fff !important;
+  display: block;
+  float: none !important;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: inherit !important;
+  list-style: none;
+  text-align: center;
+  padding: .75em 1.25em;
+  max-width: 300px;
+  margin: 0 0 0 4em !important;
+  border-radius: 20px !important;
+  -moz-border-radius: 20px !important;
+  -webkit-border-radius: 20px !important;
+  -webkit-box-shadow: 7px 9px 13px -9px rgba(0, 0, 0, 0.75);
+  box-shadow: 7px 9px 13px -9px rgba(0, 0, 0, 0.75);
+}
+
+.slider-link-2 a:link, .slider-link-2 a:visited {
+  color: #000 !important;
+  border: none;
+}
+
+.slider-link-2 a:hover {
+  color: #ed6963 !important;
+}
+
+.slider-link-2 {
+  background-color: transparent !important;
+  border: none !important;
+  color: #000000 !important;
+  font-size: 1rem;
+  font-weight: 600 !important;
+  padding: .75em 1.25em !important;
+  max-width: 300px;
+  text-align: center !important;
+  list-style: none;
+  margin: 0 auto !important;
+}
+
+@media (max-width: 767px) {
+  .slider-link-1, .slider-link-2 {
+    background-color: #ffffff !important;
+    border: none !important;
+    text-align: left !important;
+    padding: .5em !important;
+    max-width: auto !important;
+    margin: 1em !important;
+    padding: 0 !important;
+    border-radius: none !important;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    line-height: 2 !important;
+  }
+  .slider-link-1 a:link, .slider-link-1 a:visited {
+    color: #ed6963 !important;
+    padding: .75em 1.25em !important;
+  }
+  .slider-link-2 a:link, .slider-link-2 a:visited {
+    padding: 1.2em;
+  }
+}
+
+@media (max-width: 480px) {
+  .slider-link-1, .slider-link-2 {
+    padding: 0 !important;
+    padding: .2em !important;
+    margin: 0 !important;
+  }
+  .slider-link-1 a:link, .slider-link-1 a:visited {
+    color: #ed6963 !important;
+    padding: 0 !important;
+  }
+  .slider-link-2 a:link, .slider-link-2 a:visited {
+    padding: 0;
+  }
+}
+
+/*----------  DOWNLOAD LINK FOR DIY TOOLS  ----------*/
+#download-here, #access-here {
+  float: left;
+  overflow: hidden;
+  font-weight: 500;
+  text-align: center;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-transition: background 100ms linear;
+  transition: background 100ms linear;
+  display: block;
+  line-height: inherit;
+  word-wrap: break-word;
+  text-indent: -9999px;
+  width: 188px;
+  height: 42px;
+  border: none;
+  text-align: initial;
+  margin: 0 auto;
+  padding: .5rem .75rem;
+  color: #FFFFFF;
+  background: #ed6963;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+@media (max-width: 480px) {
+  #download-here, #access-here {
+    width: 100%;
+    height: auto;
+    margin: 0 0 15px;
+    padding: .75rem 1rem;
+  }
+}
+
+#download-here:hover, #access-here:hover {
+  background: #d45a54;
+}
+
+#download-here::before, #access-here::before {
+  position: relative;
+  left: 9999px;
+}
+
+#download-here::before {
+  content: "Download here";
+}
+
+#access-here::before {
+  content: "Access here";
+}
+
+/*----------  WHICH SCREEN TO TAKE  ----------*/
+#block-whichscreentotake h2.block-title {
+  text-align: center;
+  margin: 0 auto !important;
+}
+
+/* 
+.padding-xs {
+	padding: .75em;
+}
+ */
+.padding-sm {
+  padding: 1em;
+}
+
+/*----------  SCREENING REPORTS  ----------*/
+#views-exposed-form-screening-reports-page-1 .form-item-webform-submission-value-2,
+#views-exposed-form-screening-reports-page-1 .form-item-created-min,
+#views-exposed-form-screening-reports-page-1 .form-item-created-max {
+  clear: both;
+  padding: 0 0 10px 0;
+  float: right !important;
+}
+
+#views-exposed-form-screening-reports-page-1,
+#views-exposed-form-screening-reports-page-1 #edit-secondary {
+  padding: 10px;
+  background: #810262;
+  color: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  margin: 0 0 15px 0;
+}
+
+#views-exposed-form-screening-reports-page-1 fieldset {
+  border-color: #FFFFFF;
+}
+
+#views-exposed-form-screening-reports-page-1 .form-wrapper legend span.fieldset-legend {
+  color: #ffffff;
+}
+
+#views-exposed-form-screening-reports-page-1 a {
+  color: #FFFFFF;
+  float: left;
+  width: 100%;
+  padding: 0 0 10px;
+}
+
+#views-exposed-form-screening-reports-page-1 label {
+  float: left;
+  font-size: 1.25em;
+  font-weight: 300;
+  padding: 5px 10px 0 0;
+}
+
+#views-exposed-form-screening-reports-page-1 #edit-secondary label {
+  float: left;
+  font-size: 1.25em;
+  font-weight: 300;
+  width: 165px;
+  padding: 5px 0 0 0;
+}
+
+#views-exposed-form-screening-reports-page-1 #edit-secondary .form-item,
+#views-exposed-form-screening-reports-page-1 #edit-secondary .form-item-webform-submission-value-1.form-group:last-child
+#views-exposed-form-screening-reports-page-1 #edit-secondary .form-item-webform-submission-value-5,
+#views-exposed-form-screening-reports-page-1 #edit-secondary .form-item-webform-submission-value-6,
+#views-exposed-form-screening-reports-page-1 #edit-secondary .form-item-webform-submission-value-7,
+#views-exposed-form-screening-reports-page-1 #edit-secondary .form-item-webform-submission-value-8,
+#views-exposed-form-screening-reports-page-1 #edit-secondary .form-item-webform-submission-value-9 {
+  clear: both;
+  display: block;
+  padding: 10px 0 0 0;
+}
+
+#views-exposed-form-screening-reports-page-1 #edit-secondary,
+#views-exposed-form-screening-reports-page-1 .views-submit-button {
+  clear: both;
+}
+
+#views-exposed-form-screening-reports-page-1 #edit-secondary #edit-webform-submission-value,
+#views-exposed-form-screening-reports-page-1 #edit-secondary #edit-webform-submission-value-3 {
+  background: #810262;
+  padding: 0;
+}
+
+#views-exposed-form-screening-reports-page-1 #edit-secondary #edit-webform-submission-value .panel-title,
+#views-exposed-form-screening-reports-page-1 #edit-secondary #edit-webform-submission-value-3 .panel-title {
+  color: #FFFFFF;
+  float: left;
+  font-size: 1.25em;
+  font-weight: 300;
+  width: 165px;
+  padding: 20px 0 5px;
+}
+
+#views-exposed-form-screening-reports-page-1 #edit-secondary #edit-webform-submission-value .panel-body,
+#views-exposed-form-screening-reports-page-1 #edit-secondary #edit-webform-submission-value-3 .panel-body {
+  float: left;
+  width: 165px;
+}
+
+#views-exposed-form-screening-reports-page-1 .form-submit {
+  margin-top: 0;
+}
+
+div.csv-feed.views-data-export-feed.form-group a.feed-icon {
+  width: 140px;
+  background: url("../export_report.png") 0px 3px no-repeat;
+}
+
+div.view-content div.table-responsive table.table.table-hover.table-striped thead {
+  background: #efefef;
+  border-bottom: #CCCCCC;
+}
+
+/*----------  SCREENING TOOL DISCLAIMER BLOCKS  ----------*/
+#block-anxietydisclaimer,
+#block-bipolardisclaimer,
+#block-depressiondisclaimer,
+#block-eatingdisorderdisclaimer,
+#block-parentdisclaimer,
+#block-psychosisdisclaimer,
+#block-ptsddisclaimer,
+#block-substanceusedisclaimer,
+#block-youthdisclaimer {
+  width: 95%;
+  margin: 1rem auto;
+}
+
+/*----------  MISCELLANEOUS  ----------*/
+.toolbar-tray a {
+  color: #565656;
+}
+
+.depression-crisis-box {
+  line-height: 1.4em;
+  background: #C24348;
+  color: #FFFFFF;
+  padding: 10px 20px;
+  width: 85%;
+}
+
+.depression-crisis-box a {
+  color: #FFFFFF;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.rate-undo-vote {
+  display: none;
+}
+
+/*=====  End of SINGLE USE SYTLES  ======*/
+/*
+// * .btn-salmon.sm applies to the links on the screening confirmation pages. 
+// at any other screen size, these are the same as any other .btn-salmon 
+// without a width setting, the width of these depends on their content.  but with a width setting AND being enclosed by a div.col-md-3,    they aren't fully responsive. 
+// width: 100%; might be better, but only if they're enclosed by div.col-md-3 everywhere else too. 
+// an even better solution is to remove the .col-md-3 on the wrapper. then the only problem is that they don't quite center properly, but this could be fixed by a flexbox enclosure around the whole thing 
+// adding a .col-sm-6 is another solution; used under "more anxiety information" 
+// applies only to lg 
+@media only screen and (min-width: 992px) and (max-width: 1199px)  {
+	.btn-salmon.sm a, .more-link.sm a {
+		padding: .75em;
+
+		// redundant? or change to :inherit 
+		font-size: 1em;
+
+		line-height: 1.1;
+		width: 160px;
+	}
+}
+*/
+/*
+// .nav-pills applies to the <ul> wrapping  
+// .nav-pills is meant to be a pill alternative to tabs--doesn't apply to this use case. should probably be .navbar-btn 
+// also weird that this is a <ul> at all. it has a <div> inside for .region-top-navigation, which in turn has a <nav> in it (#block-s2s-account-menu), which in turn contains another <ul> that has .nav.navbar-nav.navbar-right 
+// in fact, because this only targets direct descendents, this never applies to anything at all!! (i think) 
+.nav-pills>li>a {
+	color: #262626;
+
+	// redundant? or change to :inherit 
+	font-size: 1em;
+
+	font-weight: 300;
+	// font-family: 'Montserrat', sans-serif; 
+}
+*/
+/*
+@media (max-width: 480px) {
+	// the first block here applies to all three links (sign up/login, donate, take a screen); the second block is only the latter 2. 
+	// if you remove both line-height:0 properties, the links are still lined up, just slightly lower. if you remove the first one but leave the second one, they are out of alignment. 
+	// the margin setting isn't really necessary without the line-height settings, although on very small screens it makes the buttons stack a little weirdly 
+	// maybe these could be managed using .col- classes instead 
+	#top-nav .nav>li>a {
+		// margin: .85em 0 0 0;
+		// line-height: 0;
+	}
+	#top-nav .btn {
+		// line-height: 0;
+	}
+}
+*/
+/*
+@media (max-width: 480px) {
+	#navbar #top-nav .btn-danger {
+		// necessary for proper alignment, especially on super small screens 
+		// ? what? why would background-color affect alignment? 
+		background: #ffffff;
+		// not desirable... why would we change these colors? we don't change the color of the "take a screen" button on the slider 
+		color: #262626 !important;
+	}
+}
+*/
+/*
+// overly specific. no reason for a separate block as this is targeting the same things as the previous block. because there are extra wrappers in between <ul>.nav-pills and <li>, this styling is never applied. 
+#navbar #top-nav .nav-pills>li>a.btn-danger {
+	color: $salmon !important;
+
+	// redundant? or change to :inherit 
+	font-size: 1em;
+
+	margin: 0 .75em 0;
+}
+*/
+/*
+// applies to sign up/login button. i don't think btn-white is used anywhere else, so the nesting is probably unnecessary. 
+#top-nav .nav>li>a.btn-white:hover, #top-nav .nav>li>a:focus {
+	background: transparent;
+	border: none;
+	color: #0370c6 !important;
+}
+*/
+/*
+// i haven't encountered .center-block outside of .footer, but i haven't looked hard 
+.footer .center-block {
+	// such a small margin... why is this even here? 
+	margin-bottom: 0.2em;
+}
+*/
 /*
 @media (min-width: 1200px) {
 	.seven-cols .col-md-1, .seven-cols .col-sm-1, .seven-cols .col-lg-1 {
@@ -2125,602 +1622,63 @@ a.ui-button:active,
 	}
 }
 */
-@media (min-width: 992px) {
-	.seven-cols .col-md-1, .seven-cols .col-sm-1, .seven-cols .col-lg-1 {
-		width: 14.285714285714285714285714285714%;
-	}
-}
-
-
-/* Landscape phone to portrait tablet */
-
-/* bootstrap standard is md >=768 */
-@media (max-width: 767px) {
-	/* Add */
-
-	/* headings for each footer column: information, tools, etc. */
-	/* spaces them out a little on mobile, which I guess is good */
-	.footer h2 {
-		margin: 2em 0 1em 0;
-	}
-
-	/* redundant; identical to another block with no media query */
-	.region-superfooter-1 img {
-		max-width: 150px;
-		margin-top: 2.2em;
-	}
-
-	/* sign up/login, donate, take a screen */
-	/* what about :active? */
-	/* identical to #navbar #top-nav .nav>li>a.btn-white:hover, #navbar #top-nav .nav>li>a:focus */
-	/* there's a weird golden-yellow border around :focus that i can't account for (but not :hover); it's not the css "border" setting */
-	#navbar #top-nav .nav>li>a:hover, #navbar #top-nav .nav>li>a:focus {
-		background: none;
-		border: none;
-		color: #0370c6 !important;
-	}
-
-	/* deprecated; never applies, since no <li> is a direct descendent of .nav-pills */
-	/* 	
-	#navbar #top-nav .nav-pills>li>a.btn-danger {
-		color: #262626;
-		margin-top: .2em !important;
-	}
-	*/
-
-	#navbar #top-nav .btn-danger {
-		/* redundant with the non-media query equivalent */
-		/* background: #ffffff; */
-
-		/* why should the border be gone on mobile?? */
-		border: none;
-	}
-
-	/* so many goddamn nested <div>s */
-	/* to be fair, width:100% doesn't work when applied to any of the nested elements, just this one */
-	#navbar-mobile {
-		width: 100%;
-
-		/* only necessary without the width:100% setting */
-		float: none;
-	}
-
-	/* another nested empty <div> */
-	#navbar-mobile .navbar-collapse {
-		border-bottom: 1px solid #dddddd;
-
-		/* padding and margin seem unnecessary, already an excessive amount of whitespace */
-		padding: .25em 0;
-		margin: .25em 0 .5em 0;
-	}
-
-	/* never applied; .nav-pills has no direct <li> descendants */
-	#navbar #top-nav .nav-pills>li>a.btn-danger {
-		margin: 0;
-	}
-
-	/* redundant with an identical block under max-width:480px; this is the correct one */
-	.navbar-nav {
-		margin: 1em 0 2em -1.2em;
-	}
-
-	/* redundant with an identical block under max-width:480px; this is the correct one */
-	.logo img {
-		margin: .75em 0 0 0;
-		max-height: 4em;
-	}
-
-/* why would we close that media query just to reopen an identical one? */
 /*
-}
-@media (max-width: 767px) {
-	*/
-
-	/* a <div> around the copy of the homepage slider */
-	/* not sure this is desired, since it makes the text appear below the image. */
-	/* also, overridden on mobile by an identical selector under max-width:480px */
-	.slider-copy-wrapper-center {
-		position: relative!important;
-	}
-
-	/* deprecated; never applies, since .slider-link-nav does not have .col-sm-6 */
-	/* 	
-	.col-sm-6.slider-link-nav {
-		width: 100% !important;
-	}
-	*/
-
-	/* not an actual <nav>; just a <div> that wraps "start by taking a screen" and "about this program */
-	.slider-link-nav {
-		/* on larger sizes this is 50% */
-		width: 100%;
-	}
-
-	/* overrides to make these not look like buttons on these sizes */
-	.slider-link-1, .slider-link-2 {
-		background-color: #ffffff !important;
-		border: none !important;
-		text-align: left !important;
-		padding: .5em !important;
-		max-width: auto !important;
-		margin: 1em!important;
-		padding: 0 !important;
-		border-radius: none !important;
-		box-shadow: none;
-		line-height: 2 !important;
-	}
-	.slider-link-1 a:link, .slider-link-1 a:visited {
-		color: #ed6963 !important;
-		padding: .75em 1.25em !important;
-	}
-	.slider-link-2 a:link, .slider-link-2 a:visited {
-		padding: 1.2em;
-	}
-
-	/* spaces things out, presumably to be more touch-friendly */
-	.radio, .checkbox {
-		margin-top: 20px;
-		margin-bottom: 20px;
-	}
-
-	/* deprecated; overridden by greater specificity: .region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 has greater specificity than this, even inside a media query */
-	/* 	
-	#views-exposed-form-doing-things-on-your-own-diy--page-1 .form-type-checkbox {
-		background-position: 35% 3px;
-		background-size: 17px;
-	}
-	/* 	
-	#views-exposed-form-doing-things-on-your-own-diy--page-1 .fieldset-wrapper {
-		background: #f5f5f5;
-		padding: 1em;
-		margin: 0 -15px;
-		text-align: center;
-	}
-	*/
-
-	/* social media icons and links under "about mental health america"; these settings are an improvement but still not great */
-	#block-aboutmentalhealthamerica .field--type-text-with-summary a:link, #block-aboutmentalhealthamerica .field--type-text-with-summary a:visited {
-		padding: .5em 1em !important;
-		width: inherit !important;
-		float: left !important;
-		margin: 1em;
-	}
-
-	/* deprecated; no longer desirable with updates made to master on 1/27/20 */
-	/* 	
-	.col-wrapper img {
-		width: 50%;
-	}
-	*/
-
-	/* lines up the checkbox labels on /diy... but still not vertically aligned */
-  	.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 .form-inline .checkbox label {
-		width: 90% !important;
-	}
-
-	/* removes awkward spacing on pictures on /diy etc, and treatment & resources block, on smaller screen sizes */
-	.min-height {
-		min-height: 0px !important;
-	}
-}
-
-/* this is smaller than the xs bootstrap setting, which is <576 */
-/* we haven't set anything for sm, which is >=576 */
-@media (max-width: 480px) {
-	/* deprecated; deleted on master branch */
-	/*
-	.col-wrapper img {
-		width: 100%;
-	}
-	*/
-
-	/* applies to "sign up/login", "donate", "take a screen"... there's still a weird yellow border around them, and the text color is inconsistent with the rest of the site */
-	#navbar #top-nav .nav>li>a:hover, #navbar #top-nav .nav>li>a:focus {
-		background: none;
-		border: none;
-		color: #0370c6 !important;
-	}
-
-	/* deprecated; never applies; there are no <li> direct descendants of .nav-pills */
-	/*
-	#navbar #top-nav .nav-pills>li>a.btn-danger {
-		color: #262626;
-		margin-top: .2em !important;
-	}
-	*/
-
-	/* applies to "donate", "take a screen" */
-	/* necessary for proper alignment, especially on super small screens */
-	#navbar #top-nav .btn-danger {
-		background: #ffffff;
-		border: none;
-	}
-
-	/* deprecated; duplicates of blocks from max-width:767px; those are the correct ones. */
-	/*
-	#navbar-mobile {
-		width: 100%;
-		float: none;
-	}
-	#navbar-mobile .navbar-collapse {
-		border-bottom: 1px solid #dddddd;
-		padding: .25em 0;
-		margin: .25em 0 .5em 0;
-	}
-	*/
-
-	/* deprecated; never applies; there are no <li> direct descendants of .nav-pills */
-	/*
-	#navbar #top-nav .nav-pills>li>a.btn-danger {
-		margin: 0;
-	}
-	*/
-
-	/* deprecated; redundant with identical blocks under max-width:767px; the other ones are the correct ones */
-	/*
-	.navbar-nav {
-		margin: 1em 0 2em -1.2em;
-	}
-	.logo img {
-		margin: .75em 0 0 0;
-		max-height: 4em;
-	}
-	*/
-	
-	/* applies to "donate" and "take a screen" */
-	/* not desirable... why would we change these colors? we don't change the color of the "take a screen" button on the slider */
-	#navbar #top-nav .btn-danger {
-		color: #262626 !important;
-	}
-
-	/* the first block here applies to all three links (sign up/login, donate, take a screen); the second block is only the latter 2. */
-	/* if you remove both line-height:0 properties, the links are still lined up, just slightly lower. if you remove the first one but leave the second one, they are out of alignment. */
-	/* the margin setting isn't really necessary without the line-height settings, although on very small screens it makes the buttons stack a little weirdly */
-	/* maybe these could be managed using .col- classes instead */
-	#navbar #top-nav .nav>li>a {
-		margin: .85em 0 0 0;
-		line-height: 0;
-	}
-	#navbar #top-nav .btn {
-		line-height: 0;
-	}
-
-	/* keeps the search box more or less centered when it's active */
-	#top-nav input[type="text"] {
-		float: left !important;
-	}
-	/* this is just an aesthetic choice to not have two gray lines next to each other. */
-	#top-nav input[type=text]:focus {
-		border-bottom: 1px solid #ffffff !important;
-	}
-	
-	/* applies to "sign up for our newsletter"; "find support in your area"; and all screening tools and other webforms that have their own pages */
-	/* should be unnecessary; the form doesn't go wider than the screen anyway, and .webform-submission-form sets these all at width:95% */
-	.webform-submission-add-form {
-		max-width: 480px;
-	}
-
-	#block-aboutmentalhealthamerica p {
-		/* stuff should generally be left-aligned anyway */
-		text-align: left;
-		
-		margin: 0 15px;
-	}
-
-	/* deprecated; overridden by identical blocks in max-width:767px, which is the correct place for them */
-	/*
-	.slider-copy-wrapper-center {
-		position: relative!important;
-	}
-	.col-sm-6.slider-link-nav {
-		width: 100% !important;
-	}
-	*/
-
-	/* many of these are identical to the ones in max-width:767px and/or overridden by other blocks below it. really this is all moot because i'll be redesigning this block anyway! */
-	.slider-link-1, .slider-link-2 {
-		background-color: #ffffff !important;
-		border: none !important;
-		text-align: left !important;
-		padding: 0!important;
-		max-width: auto !important;
-		margin: 1em!important;
-		padding: .2em !important;
-		border-radius: none !important;
-		box-shadow: none;
-		line-height: 2 !important;
-	}
-	.slider-link-1 a:link, .slider-link-1 a:visited {
-		color: #ed6963 !important;
-		padding: 0 !important;
-	}
-	.slider-link-2 a:link, .slider-link-2 a:visited {
-		padding: 0;
-	}
-
-	/* these are the white links that turn salmon on hover. not mobile-friendly, since they rely on :hover for visual appeal. */
-	/* i actually like how the .btn-blue links work on mobile currently, for reference */
-	.btn-salmon a, .more-link a {
-		width: 100%;
-
-		/* this is actually undesirable, at least on /depression etc.; the default height:100px is fine and allows for more articles to be displayed at once */
-		height: 150px;
-
-		/* centers things a bit better than the default */
-		margin: 0 0 15px;
-
-		/* 1.5em would be better */
-		padding: 2em;
-	}
-
-
-	/* deprecated; overridden by identical block in max-width:767px, which is the correct place for it */
-	/*
-	.slider-link-nav {
-		width: 100%;
-	}
-	*/
-
-	.slider-title {
-		/* necessary for the text to be readable */
-		font-size: 3em;
-		/* unnecessary/undesirable */
-		line-height: 1;
-	}
-
-	.slider-link-1, .slider-link-2 {
-		/* duplicate of just a few blocks up */
-		/* padding: 0 !important; */
-
-		/* desirable; overrides something from a few blocks up */
-		margin: 0 !important;
-
-		/* redundant even within this block */
-		/* padding: 0 !important; */
-
-		/* doesn't do anything */
-		line-height: 2 !important;
-	}
-
-	/* deprecated; overridden by identical blocks in max-width:767px, which is the correct place for them */
-	/*
-	.radio, .checkbox {
-		margin-top: 20px;
-		margin-bottom: 20px;
-	}
-	#views-exposed-form-doing-things-on-your-own-diy--page-1 .fieldset-wrapper {
-		background: #f5f5f5;
-		padding: 1em;
-		margin: 0 -15px;
-		text-align: center;
-	}
-	*/
-	
-	/* deprecated; overridden by greater specificity: .region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 has greater specificity than this, even inside a media query */
-	/*
-	#views-exposed-form-doing-things-on-your-own-diy--page-1 .form-type-checkbox {
-		background-position: 25% 3px;
-		background-size: 17px;
-	}
-	*/
-
-	/* makes search boxes big enough on mobile */
-	.form-inline .form-control {
-		width: 100%;
-	}
-
-	/* applies only to the hidden search and filter sidebar on /diy */
-	.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 .form--inline.form-inline, 
-	.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 legend {
-		/* undesirable */
-		padding: 3em;
-	}
-
-	/* deprecated; searched database, no usage anywhere */
-	/*
-	.diy-wrapper {
-		width: 90%;
-		min-height: auto;
-	}
-	.diy-wrapper img {
-		margin: 0 auto;
-	}
-	*/
-
-	/* deprecated; i don't see where this occurs... */
-	/*
-	h5, .h5 {
-		text-align: center;
-	}
-	*/
-
-	/* deprecated; can't find any instances of this */
-	/*
-	#wwwblock-exposedformtreatmentpage-1 {
-		margin: 0 3em;
-	}
-	*/
-
-	/* keeps the checkboxes on search/filter stuff from being flush left */
-	/* applies to /connect, /treatment; overridden on /depression etc. (.path-[condition] .views-exposed-form) */
-	.views-exposed-form {
-		margin: 0 3em;
-	}
-
-	/* links to screening tools, including /screening-tools and "take a screen" block */
-	.btn-blue a {
-		height: auto;
-		width: 95%;
-
-	/* redundant close/open block */
-	/* }
-	.btn-blue a { */
-
-		/* better than the default size, but this is probably an overcompensation. another option: reduce the padding */
-		font-size: 1.1em;
-	}
-
-	/* all links within "about MHA" block */
-	/* width setting is redundant with max-width:767px; the other two settings are undesirable. they fit more into the space but at the expense of reducing the clickable area, which is bad on mobile */
-	#block-aboutmentalhealthamerica .field--type-text-with-summary a:link, #block-aboutmentalhealthamerica .field--type-text-with-summary a:visited {
-		padding: 0 !important;
-		width: inherit !important;
-		margin: .25em;
-	}
-
-	/* this works fine */
-	#block-aboutmentalhealthamerica {
-		background-size: 100%;
-	}
-
-	/* deprecated; overridden by identical block in max-width:767px, which is the correct place for it */
-	/*
-	.region-sidebar-first #views-exposed-form-doing-things-on-your-own-diy--page-1 .form-inline .checkbox label {
-    width: 90% !important;
-	}
-	*/
-}
-
-
-/* ---------------------------------------------------- */
-
-/*      SWITCHING INTRO LANGUAGEFOR WIDESCREEN/MOBILE       */
-
-/* ---------------------------------------------------- */
-
-/* this appears to be a deprecated thing on /screening-tools. now only #edit-intro1 exists, and it just disappears on mobile! */
-/*
-@media screen and (max-width: 600px) {
-	#edit-intro1,
-	#edit-intro2 {
-	  display: none;
-	}
-}
-  
-@media screen and (max-width: 600px) {
-	#edit-intro3 {
-	  margin-bottom: 15px;
-	}
-}
-@media screen and (min-width: 600px) {
-	#edit-intro3 {
-		display: none;
-	}
+// seems to be the "Content (Below Sidebar / Contained)" region on the block layout... includes "about MHA", "sign up for newsletter", disclaimers... but weirdly enough it's different from Content (Below Sidebar / Full Width)" region, which is .full-width-wrapper-total 
+.full-width-wrapper {
+	// doesn't seem to have an effect anyway 
+	max-width: 1170px;
 }
 */
-  
-/* pretty self-explanatory, it's the box that shows up if you say you're thinking about suicide or self-harm */
-.depression-crisis-box {
-	/* redundant; this literally just means it inherits the size of its parent */
-	font-size: 1em;
-
-	/* undesirable */
-	line-height: 1.4em;
-
-	/* everything else here is fine */
-	background: #C24348;
-	color: #FFFFFF;
-	padding: 10px 20px;
-	width: 85%;
+/*
+// currently redundant because of: @media (max-width: 480px) .col-wrapper img {width: 100%}. but if that is disabled, this becomes necessary to make the images in the "treatment & resources" block not tiny on mobile. 
+// the margin: 0 auto seems to be unnecessary because of .img-responsive, .center-image {margin: 0 auto} 
+// the width is actually not redundant for #block-whatsnew img, but it also has an undesirable effect--it stretches the images horizontally. without it the images are too wide in tablet view, so it really needs a height: auto 
+#block-views-block-treatment-block-1 img, #block-whatsnew img, #block-whatsnew-2 img {
+	margin: 0 auto;
+	// stretches these images on small sizes 
+	// width: 100%; 
 }
-.depression-crisis-box a {
-	color: #FFFFFF;
-	font-weight: bold;
-	text-decoration: underline;
+*/
+/*----------  SIGN UP FOR OUR NEWSLETTER  ----------*/
+/*
+// * "webform" is the machine name for the "sign up for our newsletter" block! 
+// block-webform is both the class and id of this block 
+// why does this need a .block-title class? there's only one title 
+.block-webform h2.block-title {
+	text-align: center;
+	// font-family: 'Montserrat', sans-serif; 
 }
-
-/* not sure what this is... doesn't appear in database; maybe part of mo's custom star-rating module? */
-.rate-undo-vote {
-	display: none;
-}
-
-
-/* ---------------------------------------------------- */
-
-/*      STYLES FOR NEW PATHWAY PAGE DESIGN		        */
-
-/* ---------------------------------------------------- */
-/* based on .btn-salmon; modified */
-
-/* each block of links */
-#pathway .clearfix {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-/* each individual link */
-#pathway a {
-	border: 2px solid #000;
-	display: block;
-	margin: 0 4px 15px;
-	padding: .75em;
+*/
+/*----------  TELL US WHAT YOU THINK  ----------*/
+/*
+// * "webform_2" is the machine name for the "tell us what you think" block! 
+// this is the same selector twice! also, the only links in this block are contextual admin links; these styles have no visible effect. 
+#block-webform-2 a:link, #block-webform-2 a:link {
 	color: #000;
-
-	/* consistent with the sizes of buttons on other pathway pages; impossible to use ems or rems for this because of inconsistencies elsewhere */
-	font-size: 15.625px;
 	font-weight: 500;
+}
+// ! these are all bad 
+#block-webform-2 {
+	// font-family: 'Montserrat', sans-serif; 
+	background: #1db4bb;
+	margin: 0 -15px;
+}
+*/
+/*
+.field.field--name-body ul {
+	// doesn't seem to do anything 
+	// padding-left: 1.5em;
 
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	-webkit-transition: background 100ms linear;
-	-moz-transition: background 100ms linear;
-	-ms-transition: background 100ms linear;
-	-o-transition: background 100ms linear;
-	transition: background 100ms linear;
+	
+	// same as body, p; 
+	// not sure why this doesn't inherit from body 
+	// ^ it does if you change it to an <ol> 
+	// is it because we're using ems, not rems? 
+	// font-size: 1.25em;
 }
-#pathway a:hover {
-	border: 2px solid #ed6963;
-	background-color: #ed6963;
-	color: #fff;
-	text-decoration: none;
+ol {
+    // doesn't fit in with new sizing scheme
+	// font-size: 1.25em;
 }
-
-/* headings */
-#pathway h2 {
-    background: #144b5e;
-    padding: 1rem;
-    color: white;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0px;
-	z-index: 1;
-	text-transform: uppercase;
-	font-weight: 200;
-}
-#pathway h3 {
-    font-weight: 500;
-	padding-left: 1rem;
-}
-#pathway h2, #pathway h3 {
-	/* consistent with the sizes of other headings; impossible to use ems or rems for this because of inconsistencies elsewhere */
-	font-size: 25px;
-	text-align:left;
-}
-
-
-
-/* quick fix for lists in wikihow reposts */
-/* this shouldn't cause any problems because we don't have nested lists in our articles. */
-/* the li > p part will affect our native articles, but hopefully only positively, since this selector has caused problems in the past. */
-.field.field--name-body ol ul, li > p {
-	font-size: inherit !important
-}
-
-
-/* quick fix for webform element descriptions */
-/* extra class/span added onto elements of type "checkboxes" and "radios", but not "checkboxes--other" or "radios-other"... unclear where this is coming from */
-.input-group-addon {
-    border: initial;
-    background: initial;
-    text-align: initial;
-    white-space: initial;
-    padding: initial;
-    font-size: inherit;
-    color: inherit;
-    display: inline;
-}
-/* descriptions are a hard-to-read gray without this */
-.description.help-block {
-    color: inherit;
-}
+*/
+/*# sourceMappingURL=style.css.map */
