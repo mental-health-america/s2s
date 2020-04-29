@@ -23,6 +23,7 @@
         "drupal-composer/drupal-scaffold": "^2.5",
         "drupal/address": "^1.7",
         "drupal/admin_toolbar": "^1.27",
+        "drupal/advagg": "^4.0",
         "drupal/asset_injector": "~2.0",
         "drupal/better_exposed_filters": "^3.0",
         "drupal/bootstrap": "^3.19",
