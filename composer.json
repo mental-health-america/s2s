@@ -55,7 +55,7 @@
         "drupal/google_analytics": "^2.3",
         "drupal/honeypot": "^1.28",
         "drupal/imce": "^1.7",
-        "drupal/linkit": "^5.0",
+        "drupal/linkit": "5.x-dev",
         "drupal/menu_link_attributes": "^1.0",
         "drupal/metatag": "^1.5",
         "drupal/mimemail": "^1.0",
