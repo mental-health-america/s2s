@@ -4,7 +4,6 @@ namespace Drupal\Tests\linkit\Functional;
 
 use Drupal\linkit\Entity\Profile;
 use Drupal\linkit\Tests\ProfileCreationTrait;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Tests adding, listing, updating and deleting matchers on a profile.
@@ -14,8 +13,6 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 class MatcherAdminTest extends LinkitBrowserTestBase {
 
   use ProfileCreationTrait;
-
-  use StringTranslationTrait;
 
   /**
    * The attribute manager.
@@ -115,13 +112,13 @@ class MatcherAdminTest extends LinkitBrowserTestBase {
 
     // Go to the delete page, but press cancel.
     $this->drupalGet('/admin/config/content/linkit/manage/' . $this->linkitProfile->id() . '/matchers/' . $plugin_uuid . '/delete');
-    $this->clickLink($this->t('Cancel'));
+    $this->clickLink(t('Cancel'));
     $this->assertSession()->addressEquals('/admin/config/content/linkit/manage/' . $this->linkitProfile->id() . '/matchers');
 
     // Delete the matcher from the profile.
     $this->drupalGet('/admin/config/content/linkit/manage/' . $this->linkitProfile->id() . '/matchers/' . $plugin_uuid . '/delete');
 
-    $this->submitForm([], $this->t('Confirm'));
+    $this->submitForm([], t('Confirm'));
     $this->assertSession()->pageTextContains('The matcher Dummy Matcher has been deleted.');
     $this->assertSession()->addressEquals('/admin/config/content/linkit/manage/' . $this->linkitProfile->id() . '/matchers');
     $this->assertSession()->pageTextContains('No matchers added.');

@@ -17,11 +17,6 @@ abstract class LinkitBrowserTestBase extends BrowserTestBase {
   public static $modules = ['linkit', 'linkit_test', 'block'];
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * A test user with administrative privileges.
    *
    * @var \Drupal\user\UserInterface

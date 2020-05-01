@@ -17,9 +17,9 @@ class ProfileListBuilder extends ConfigEntityListBuilder {
    * {@inheritdoc}
    */
   public function buildHeader() {
-    $header['title'] = $this->t('Profile');
+    $header['title'] = t('Profile');
     $header['description'] = [
-      'data' => $this->t('Description'),
+      'data' => t('Description'),
       'class' => [RESPONSIVE_PRIORITY_MEDIUM],
     ];
     return $header + parent::buildHeader();
@@ -43,11 +43,11 @@ class ProfileListBuilder extends ConfigEntityListBuilder {
     $operations = parent::getDefaultOperations($entity);
 
     if (isset($operations['edit'])) {
-      $operations['edit']['title'] = $this->t('Edit profile');
+      $operations['edit']['title'] = t('Edit profile');
     }
 
     $operations['matchers'] = [
-      'title' => $this->t('Manage matchers'),
+      'title' => t('Manage matchers'),
       'weight' => 10,
       'url' => Url::fromRoute('linkit.matchers', [
         'linkit_profile' => $entity->id(),

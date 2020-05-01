@@ -160,7 +160,7 @@ class EntityMatcher extends ConfigurableMatcherBase {
       }
 
       $summery[] = $this->t('Bundle filter: @bundle_filter', [
-        '@bundle_filter' => $has_bundle_filter ? implode(', ', $bundles) : $this->t('None'),
+        '@bundle_filter' => $has_bundle_filter ? implode(', ', $bundles) : t('None'),
       ]);
 
       $summery[] = $this->t('Group by bundle: @bundle_grouping', [
@@ -491,18 +491,7 @@ class EntityMatcher extends ConfigurableMatcherBase {
    *   The path for this entity.
    */
   protected function buildPath(EntityInterface $entity) {
-    $path = $entity->toUrl('canonical', ['path_processing' => FALSE])->toString();
-    // For media entities, check if standalone URLs are allowed. If not, then
-    // strip '/edit' from the end of the canonical URL returned
-    // by $entity->toUrl().
-    if ($entity->getEntityTypeId() == 'media') {
-      $standalone_url = \Drupal::config('media.settings')->get('standalone_url');
-      if (!$standalone_url) {
-        // Strip "/edit".
-        $path = substr($path, 0, -5);
-      }
-    }
-    return $path;
+    return $entity->toUrl('canonical', ['path_processing' => FALSE])->toString();
   }
 
   /**
