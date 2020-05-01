@@ -48,6 +48,7 @@
         "drupal/entityqueue": "^1.0",
         "drupal/extlink": "^1.0",
         "drupal/field_group": "^3.0",
+        "drupal/file_delete": "^1.0",
         "drupal/fivestar": "^1.0",
         "drupal/flag": "~4.0",
         "drupal/fontyourface": "^3.0",
