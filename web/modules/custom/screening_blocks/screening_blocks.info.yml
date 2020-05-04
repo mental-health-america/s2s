@@ -1,0 +1,6 @@
+name: Screening Blocks Module
+description: Creates custom blocks for Screening Tools landing page and forms.
+package: Custom
+type: module
+version: 1.0
+core: 8.x
