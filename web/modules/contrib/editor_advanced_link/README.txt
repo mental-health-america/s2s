@@ -12,7 +12,7 @@ CONTENTS OF THIS FILE
 INTRODUCTION
 ------------
 
-Enhances the link Dialog in D8 CKEditor.
+Enhances the link Dialog in CKEditor.
 Allows to define the following attributes:
 - title
 - class
@@ -36,7 +36,7 @@ This module requires no modules outside of Drupal core.
 RECOMMENDED MODULES
 -------------------
 
- * D8 Editor File upload (https://www.drupal.org/project/editor_file):
+ * Editor File upload (https://www.drupal.org/project/editor_file):
    Allows to create link to uploaded files in the text editor easily.
  * Linkit (https://www.drupal.org/project/linkit):
    Provides an easy interface for internal and external linking with WYSIWYG
