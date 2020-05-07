@@ -1,0 +1,7 @@
+hello:
+  path: '/treatment/{zip}/{distance}'
+  defaults:
+    _title: 'Treatment Services'
+    _controller: '\Drupal\geolocation_zip\GeolocationZipController::content'
+  requirements:
+    _permission: 'access content'
