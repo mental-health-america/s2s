@@ -110,6 +110,11 @@ section a:visited, section a:visited:hover {
   text-decoration: none !important;
 }
 
+/*----------  TABLES  ----------*/
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #f1f3f4;
+}
+
 /*=====  End of GENERAL TOP LEVEL  ======*/
 /*=============================================
 =            ARTICLES    			          =
@@ -154,6 +159,10 @@ section a:visited, section a:visited:hover {
 /*=============================================
 = NAVIGATION PAGES (INFO & SUPPORT, /DIY, ETC.) 
 =============================================*/
+.pager li > a {
+  border: 1px solid #00b4bc;
+}
+
 .view-header {
   margin: 0 0 1em !important;
 }
@@ -454,6 +463,15 @@ li.node-readmore a:link, li.node-readmore a:visited, .feed-icons a:link, .feed-i
 .btn-blue a:link:hover,
 .btn-blue a:visited:hover {
   background: #154b5e;
+}
+
+@media (max-width: 767px) {
+  .btn-blue a:link,
+  .btn-blue a:visited {
+    height: auto;
+    margin: 0 0 15px;
+    padding: .75rem 1rem;
+  }
 }
 
 /*
@@ -1322,6 +1340,8 @@ form#webform-submission-search-for-local-service-add-form {
 }
 
 /*----------  DOWNLOAD LINK FOR DIY TOOLS  ----------*/
+.btn-download a:link,
+.btn-download a:visited,
 #download-here, #access-here {
   float: left;
   overflow: hidden;
@@ -1335,20 +1355,21 @@ form#webform-submission-search-for-local-service-add-form {
   display: block;
   line-height: inherit;
   word-wrap: break-word;
-  text-indent: -9999px;
-  width: 188px;
-  height: 42px;
   border: none;
-  text-align: initial;
-  margin: 0 auto;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0 auto 10px;
   padding: .5rem .75rem;
-  color: #FFFFFF;
+  color: #FFFFFF !important;
   background: #ed6963;
   text-transform: uppercase;
   letter-spacing: .05em;
 }
 
 @media (max-width: 480px) {
+  .btn-download a:link,
+  .btn-download a:visited,
   #download-here, #access-here {
     width: 100%;
     height: auto;
@@ -1357,8 +1378,17 @@ form#webform-submission-search-for-local-service-add-form {
   }
 }
 
+.btn-download a:link:hover,
+.btn-download a:visited:hover,
 #download-here:hover, #access-here:hover {
   background: #d45a54;
+}
+
+#download-here, #access-here {
+  text-indent: -9999px;
+  width: 188px;
+  height: 42px;
+  text-align: initial;
 }
 
 #download-here::before, #access-here::before {
