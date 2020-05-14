@@ -1,0 +1,77 @@
+<?php
+
+function check_age() {
+  $token = \Drupal::request()->query->get('token');
+  $submitted_age_group = '';
+  if($token) {
+    $current_path = \Drupal::service('path.current')->getPath();
+		$path = explode('/',$current_path);
+    $storage = \Drupal::entityTypeManager()->getStorage('webform_submission');
+		$webform_submission = $storage->loadByProperties([
+		  'token' => $token,
+		]);
+		$submission_data = array();
+		foreach ($webform_submission as $submission) {
+		  $submission_data[] = $submission->getData();
+		}
+
+    $opts = \Drupal::entityTypeManager()->getStorage('webform')->load($path[2])->getElement('age')['#options'];
+    $submitted_age_group = '';
+    $opt = '';
+    if(!empty($submission_data)){
+      //echo "<pre>".print_r($submission_data,true)."</pre>"; die();
+      $opt = isset($opts[$submission_data[0]['age']]) ? $opts[$submission_data[0]['age']] : "";
+      $opt = str_replace('"', '', $opt);
+    }
+
+		switch($opt){
+			case 'Under 11':
+				$submitted_age_group = 1;
+				break;
+			case '11-17':
+				$submitted_age_group = 2;
+				break;
+			case '18-24':
+				$submitted_age_group = 3;
+				break;
+			case '25-34':
+				$submitted_age_group = 4;
+				break;
+			case '35-44':
+				$submitted_age_group = 4;
+				break;
+			case '45-54':
+				$submitted_age_group = 5;
+				break;
+			case '55-64':
+				$submitted_age_group = 5;
+				break;
+			case '4-5':
+				$submitted_age_group = 1;
+				break;
+			case '6-8':
+				$submitted_age_group = 1;
+				break;
+			case '9-10':
+				$submitted_age_group = 1;
+				break;
+			case '11-13':
+				$submitted_age_group = 2;
+				break;
+			case '14-17':
+				$submitted_age_group = 2;
+				break;
+			case '18+':
+				$submitted_age_group = 3;
+				break;
+			case '<18':
+				$submitted_age_group = 1;
+				break;
+		}
+  }
+
+  if(empty($submitted_age_group))
+      return TRUE;
+  else
+     return false;
+}
