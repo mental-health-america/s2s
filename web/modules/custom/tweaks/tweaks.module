@@ -3,7 +3,7 @@
 function check_age() {
   $token = \Drupal::request()->query->get('token');
   $submitted_age_group = '';
-  if($token) {
+  if ($token) {
     $current_path = \Drupal::service('path.current')->getPath();
 		$path = explode('/',$current_path);
     $storage = \Drupal::entityTypeManager()->getStorage('webform_submission');
@@ -15,10 +15,11 @@ function check_age() {
 		  $submission_data[] = $submission->getData();
 		}
 
+    if (!isset($path[2])) { return false; }
     $opts = \Drupal::entityTypeManager()->getStorage('webform')->load($path[2])->getElement('age')['#options'];
     $submitted_age_group = '';
     $opt = '';
-    if(!empty($submission_data)){
+    if (!empty($submission_data)){
       //echo "<pre>".print_r($submission_data,true)."</pre>"; die();
       $opt = isset($opts[$submission_data[0]['age']]) ? $opts[$submission_data[0]['age']] : "";
       $opt = str_replace('"', '', $opt);
@@ -70,8 +71,6 @@ function check_age() {
 		}
   }
 
-  if(empty($submitted_age_group))
-      return TRUE;
-  else
-     return false;
+  if (empty($submitted_age_group)) { return TRUE; }
+  else { return false; }
 }
