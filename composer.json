@@ -80,7 +80,7 @@
         "drupal/views_infinite_scroll": "^1.5",
         "drupal/views_slideshow": "^4.7",
         "drupal/votingapi": "^3.0",
-        "drupal/webform": "^5.2",
+        "drupal/webform": "^5.12",
         "drupal/webform_score": "^1.0",
         "drupal/webform_views": "^5.0",
         "drupal/xmlsitemap": "^1.0",
