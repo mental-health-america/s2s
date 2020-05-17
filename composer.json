@@ -29,6 +29,7 @@
         "drupal/bootstrap": "^3.19",
         "drupal/conditional_fields": "^1.0",
         "drupal/console": "^1.0.2",
+        "drupal/content_sync": "^2.1",
         "drupal/contribute": "^1.0",
         "drupal/core": "^8.7||^9.0",
         "drupal/csv_serialization": "^1.4",
