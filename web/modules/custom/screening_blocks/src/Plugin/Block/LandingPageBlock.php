@@ -5,6 +5,7 @@ namespace Drupal\screening_blocks\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
+use Drupal\Core\Database\Database;
 
 /**
  * Provides a 'Landing Page' Block.
@@ -27,18 +28,47 @@ class LandingPageBlock extends BlockBase {
       if(!isset($_GET['form_id'])){
         $entities = \Drupal::entityTypeManager()->getStorage('webform')->loadMultiple(NULL);
         //echo "<pre>".print_r($entities,true)."</pre>";
+        $connection = Database::getConnection();
+        $transaction = $connection->startTransaction();
 
+        // Retrieves a PDOStatement object
+        // http://php.net/manual/en/pdo.prepare.php
+        // $drag_data = $connection->select('draggableviews_structure', '*')
+        // ->condition('view_name', 'screening_tools_list')
+        // ->condition('view_display', 'page_1')
+        // ->orderBy('weight', 'ASC')
+        // ->execute();
+
+        $drag_data = db_select('draggableviews_structure', 'd')
+        ->fields('d')
+        ->condition('view_name', 'screening_tools_list')
+        ->condition('view_display', 'page_1')
+        ->orderBy('weight', 'ASC')
+        ->execute()->fetchAll();
+        $darg_nids = [];
+        foreach ($drag_data as $drag) {
+          $darg_nids[] = $drag->entity_id;
+        }
         $nids = \Drupal::entityQuery('node')->condition('type','webform')->execute();
-        $nodes =  \Drupal\node\Entity\Node::loadMultiple($nids);
+        $reset_nids = array_values($nids);
+        if(!empty($darg_nids)){
+          $array_diffs = array_diff($reset_nids, $darg_nids);
+          $array_merge_nids = array_merge($darg_nids, $array_diffs);
+        }
+        \Drupal::service('page_cache_kill_switch')->trigger();
+        if(!empty($array_merge_nids)){
+          $nodes =  \Drupal\node\Entity\Node::loadMultiple($array_merge_nids);
+        }else{
+          $nodes =  \Drupal\node\Entity\Node::loadMultiple($nids);
+        }
         //echo "<pre>".print_r($nodes,true)."</pre>"; die();
-
+        \Drupal::service('page_cache_kill_switch')->trigger();
         $mvalues = array();
         foreach($nodes as $key => $node){
           $modified = $node->get('changed')->value;
           $mvalues[$key] = $modified;
         }
-
-        asort($mvalues); // sort according to modified.
+        // asort($mvalues); // sort according to modified.
         $keys = array_keys($mvalues);
 
         foreach($keys as $key){
@@ -113,6 +143,9 @@ class LandingPageBlock extends BlockBase {
 
     return array(
       '#markup' => $output,
+      '#cache' =>array(
+        'max-age' => 0,
+      ),
     );
 
   }
