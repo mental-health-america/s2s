@@ -1,10 +1,6 @@
 /*=============================================
 =            GENERAL TOP LEVEL                =
 =============================================*/
-
-
-
-
 html {
   font-size: medium;
 }
@@ -173,7 +169,7 @@ section a:visited, section a:visited:hover {
 
 /*=====  End of ARTICLES  ======*/
 /*=============================================
-= NAVIGATION PAGES (INFO & SUPPORT, /DIY, ETC.)
+= NAVIGATION PAGES (INFO & SUPPORT, /DIY, ETC.) 
 =============================================*/
 .pager li > a {
   border: 1px solid #00b4bc;
@@ -434,10 +430,10 @@ li.node-readmore a:link, li.node-readmore a:visited, .feed-icons a:link, .feed-i
 .btn-blue {
     // should be unnecessary if we remove the bottom: property
     position: relative;
-
+    
     // ! this may be responsible for some weird alignment stuff; it shifts the button upward. why?
     bottom: 1em;
-
+    
     // should be redundant...
     text-transform: uppercase;
 }
@@ -496,7 +492,7 @@ li.node-readmore a:link, li.node-readmore a:visited, .feed-icons a:link, .feed-i
 	border: 0;
 	display: block;
 	float: left;
-	// font-family: 'Montserrat', sans-serif;
+	// font-family: 'Montserrat', sans-serif; 
 	height: 165px;
 	width: 100%;
 	margin: .5em;
@@ -518,13 +514,13 @@ li.node-readmore a:link, li.node-readmore a:visited, .feed-icons a:link, .feed-i
 	-o-transition: background 100ms linear;
 	transition: background 100ms linear;
 }
-// this is smaller than the xs bootstrap setting, which is <576
+// this is smaller than the xs bootstrap setting, which is <576 
 @media (max-width: 480px) {
 	.btn-blue a {
 		height: auto;
 		width: 95%;
 
-		// better than the default size, but this is probably an overcompensation. another option: reduce the padding
+		// better than the default size, but this is probably an overcompensation. another option: reduce the padding 
 		font-size: 1.1em;
 	}
 }
@@ -593,7 +589,7 @@ li.node-readmore a:link, li.node-readmore a:visited, .feed-icons a:link, .feed-i
 }
 
 /*
-// these classes are applied to <div> wrappers around the links. they do not use the .btn class.
+// these classes are applied to <div> wrappers around the links. they do not use the .btn class. 
 .btn-salmon, .more-link {
 	position: relative;
 	bottom: 1em;
@@ -624,19 +620,19 @@ li.node-readmore a:link, li.node-readmore a:visited, .feed-icons a:link, .feed-i
 	-o-transition: background 100ms linear;
 	transition: background 100ms linear;
 }
-// this is smaller than the xs bootstrap setting, which is <576
+// this is smaller than the xs bootstrap setting, which is <576 
 @media (max-width: 480px) {
-	// i actually like how the .btn-blue links work on mobile currently, for reference
+	// i actually like how the .btn-blue links work on mobile currently, for reference 
 	.btn-salmon a, .more-link a {
 		width: 100%;
 
-		// this is actually undesirable, at least on /depression etc.; the default height:100px is fine and allows for more articles to be displayed at once
+		// this is actually undesirable, at least on /depression etc.; the default height:100px is fine and allows for more articles to be displayed at once 
 		height: 150px;
 
-		// centers things a bit better than the default
+		// centers things a bit better than the default 
 		margin: 0 0 15px;
 
-		// 1.5em would be better
+		// 1.5em would be better 
 		padding: 2em;
 	}
 }
@@ -1039,14 +1035,14 @@ h2.block-title {
 
 /*----------  SEARCH FOR TREATMENT NEAR YOU  ----------*/
 /*
-// block-webform-3 is the "search for treatment near you" block. on the block layout, it's called "search for local service"
+// block-webform-3 is the "search for treatment near you" block. on the block layout, it's called "search for local service" 
 #block-webform-3 {
 	background: url(/sites/default/files/black-map.png) no-repeat;
 
-	// ! this should be "cover"
+	// ! this should be "cover" 
 	background-size: contain;
 
-	// ! min-height just adds a bunch of blank space below the block!
+	// ! min-height just adds a bunch of blank space below the block! 
 	// min-height: 440px;
 
 	margin: inherit;
@@ -1066,12 +1062,12 @@ form#webform-submission-search-for-local-service-add-form {
 }
 
 /*
-// overrides: form#webform-submission-search-for-local-service-add-form p
-// but only font-size. the others are duplicates.
+// overrides: form#webform-submission-search-for-local-service-add-form p 
+// but only font-size. the others are duplicates. 
 #edit-find-support-zip-code-text p {
-	// color: #fff !important;
+	// color: #fff !important; 
 	font-size: 2em !important;
-	// font-weight: 600;
+	// font-weight: 600; 
 }
 */
 /*
@@ -1081,7 +1077,7 @@ form#webform-submission-search-for-local-service-add-form {
 }
 */
 /*
-// i can't find this (searched "findbyzipcode" in the database) but the settings are mostly the same as #webform-submission-search-for-local-service-add-form. could this be a deprecated version of the same form?
+// i can't find this (searched "findbyzipcode" in the database) but the settings are mostly the same as #webform-submission-search-for-local-service-add-form. could this be a deprecated version of the same form? 
 #block-findbyzipcode {
 	background: url(/sites/default/files/black-map.png) no-repeat;
 	background-size: cover;
@@ -1426,7 +1422,7 @@ form#webform-submission-search-for-local-service-add-form {
   margin: 0 auto !important;
 }
 
-/*
+/* 
 .padding-xs {
 	padding: .75em;
 }
@@ -1575,18 +1571,18 @@ div.view-content div.table-responsive table.table.table-hover.table-striped thea
 
 /*=====  End of SINGLE USE SYTLES  ======*/
 /*
-// * .btn-salmon.sm applies to the links on the screening confirmation pages.
-// at any other screen size, these are the same as any other .btn-salmon
-// without a width setting, the width of these depends on their content.  but with a width setting AND being enclosed by a div.col-md-3,    they aren't fully responsive.
-// width: 100%; might be better, but only if they're enclosed by div.col-md-3 everywhere else too.
-// an even better solution is to remove the .col-md-3 on the wrapper. then the only problem is that they don't quite center properly, but this could be fixed by a flexbox enclosure around the whole thing
-// adding a .col-sm-6 is another solution; used under "more anxiety information"
-// applies only to lg
+// * .btn-salmon.sm applies to the links on the screening confirmation pages. 
+// at any other screen size, these are the same as any other .btn-salmon 
+// without a width setting, the width of these depends on their content.  but with a width setting AND being enclosed by a div.col-md-3,    they aren't fully responsive. 
+// width: 100%; might be better, but only if they're enclosed by div.col-md-3 everywhere else too. 
+// an even better solution is to remove the .col-md-3 on the wrapper. then the only problem is that they don't quite center properly, but this could be fixed by a flexbox enclosure around the whole thing 
+// adding a .col-sm-6 is another solution; used under "more anxiety information" 
+// applies only to lg 
 @media only screen and (min-width: 992px) and (max-width: 1199px)  {
 	.btn-salmon.sm a, .more-link.sm a {
 		padding: .75em;
 
-		// redundant? or change to :inherit
+		// redundant? or change to :inherit 
 		font-size: 1em;
 
 		line-height: 1.1;
@@ -1595,26 +1591,26 @@ div.view-content div.table-responsive table.table.table-hover.table-striped thea
 }
 */
 /*
-// .nav-pills applies to the <ul> wrapping
-// .nav-pills is meant to be a pill alternative to tabs--doesn't apply to this use case. should probably be .navbar-btn
-// also weird that this is a <ul> at all. it has a <div> inside for .region-top-navigation, which in turn has a <nav> in it (#block-s2s-account-menu), which in turn contains another <ul> that has .nav.navbar-nav.navbar-right
-// in fact, because this only targets direct descendents, this never applies to anything at all!! (i think)
+// .nav-pills applies to the <ul> wrapping  
+// .nav-pills is meant to be a pill alternative to tabs--doesn't apply to this use case. should probably be .navbar-btn 
+// also weird that this is a <ul> at all. it has a <div> inside for .region-top-navigation, which in turn has a <nav> in it (#block-s2s-account-menu), which in turn contains another <ul> that has .nav.navbar-nav.navbar-right 
+// in fact, because this only targets direct descendents, this never applies to anything at all!! (i think) 
 .nav-pills>li>a {
 	color: #262626;
 
-	// redundant? or change to :inherit
+	// redundant? or change to :inherit 
 	font-size: 1em;
 
 	font-weight: 300;
-	// font-family: 'Montserrat', sans-serif;
+	// font-family: 'Montserrat', sans-serif; 
 }
 */
 /*
 @media (max-width: 480px) {
-	// the first block here applies to all three links (sign up/login, donate, take a screen); the second block is only the latter 2.
-	// if you remove both line-height:0 properties, the links are still lined up, just slightly lower. if you remove the first one but leave the second one, they are out of alignment.
-	// the margin setting isn't really necessary without the line-height settings, although on very small screens it makes the buttons stack a little weirdly
-	// maybe these could be managed using .col- classes instead
+	// the first block here applies to all three links (sign up/login, donate, take a screen); the second block is only the latter 2. 
+	// if you remove both line-height:0 properties, the links are still lined up, just slightly lower. if you remove the first one but leave the second one, they are out of alignment. 
+	// the margin setting isn't really necessary without the line-height settings, although on very small screens it makes the buttons stack a little weirdly 
+	// maybe these could be managed using .col- classes instead 
 	#top-nav .nav>li>a {
 		// margin: .85em 0 0 0;
 		// line-height: 0;
@@ -1627,27 +1623,27 @@ div.view-content div.table-responsive table.table.table-hover.table-striped thea
 /*
 @media (max-width: 480px) {
 	#navbar #top-nav .btn-danger {
-		// necessary for proper alignment, especially on super small screens
-		// ? what? why would background-color affect alignment?
+		// necessary for proper alignment, especially on super small screens 
+		// ? what? why would background-color affect alignment? 
 		background: #ffffff;
-		// not desirable... why would we change these colors? we don't change the color of the "take a screen" button on the slider
+		// not desirable... why would we change these colors? we don't change the color of the "take a screen" button on the slider 
 		color: #262626 !important;
 	}
 }
 */
 /*
-// overly specific. no reason for a separate block as this is targeting the same things as the previous block. because there are extra wrappers in between <ul>.nav-pills and <li>, this styling is never applied.
+// overly specific. no reason for a separate block as this is targeting the same things as the previous block. because there are extra wrappers in between <ul>.nav-pills and <li>, this styling is never applied. 
 #navbar #top-nav .nav-pills>li>a.btn-danger {
 	color: $salmon !important;
 
-	// redundant? or change to :inherit
+	// redundant? or change to :inherit 
 	font-size: 1em;
 
 	margin: 0 .75em 0;
 }
 */
 /*
-// applies to sign up/login button. i don't think btn-white is used anywhere else, so the nesting is probably unnecessary.
+// applies to sign up/login button. i don't think btn-white is used anywhere else, so the nesting is probably unnecessary. 
 #top-nav .nav>li>a.btn-white:hover, #top-nav .nav>li>a:focus {
 	background: transparent;
 	border: none;
@@ -1655,9 +1651,9 @@ div.view-content div.table-responsive table.table.table-hover.table-striped thea
 }
 */
 /*
-// i haven't encountered .center-block outside of .footer, but i haven't looked hard
+// i haven't encountered .center-block outside of .footer, but i haven't looked hard 
 .footer .center-block {
-	// such a small margin... why is this even here?
+	// such a small margin... why is this even here? 
 	margin-bottom: 0.2em;
 }
 */
@@ -1669,57 +1665,57 @@ div.view-content div.table-responsive table.table.table-hover.table-striped thea
 }
 */
 /*
-// seems to be the "Content (Below Sidebar / Contained)" region on the block layout... includes "about MHA", "sign up for newsletter", disclaimers... but weirdly enough it's different from Content (Below Sidebar / Full Width)" region, which is .full-width-wrapper-total
+// seems to be the "Content (Below Sidebar / Contained)" region on the block layout... includes "about MHA", "sign up for newsletter", disclaimers... but weirdly enough it's different from Content (Below Sidebar / Full Width)" region, which is .full-width-wrapper-total 
 .full-width-wrapper {
-	// doesn't seem to have an effect anyway
+	// doesn't seem to have an effect anyway 
 	max-width: 1170px;
 }
 */
 /*
-// currently redundant because of: @media (max-width: 480px) .col-wrapper img {width: 100%}. but if that is disabled, this becomes necessary to make the images in the "treatment & resources" block not tiny on mobile.
-// the margin: 0 auto seems to be unnecessary because of .img-responsive, .center-image {margin: 0 auto}
-// the width is actually not redundant for #block-whatsnew img, but it also has an undesirable effect--it stretches the images horizontally. without it the images are too wide in tablet view, so it really needs a height: auto
+// currently redundant because of: @media (max-width: 480px) .col-wrapper img {width: 100%}. but if that is disabled, this becomes necessary to make the images in the "treatment & resources" block not tiny on mobile. 
+// the margin: 0 auto seems to be unnecessary because of .img-responsive, .center-image {margin: 0 auto} 
+// the width is actually not redundant for #block-whatsnew img, but it also has an undesirable effect--it stretches the images horizontally. without it the images are too wide in tablet view, so it really needs a height: auto 
 #block-views-block-treatment-block-1 img, #block-whatsnew img, #block-whatsnew-2 img {
 	margin: 0 auto;
-	// stretches these images on small sizes
-	// width: 100%;
+	// stretches these images on small sizes 
+	// width: 100%; 
 }
 */
 /*----------  SIGN UP FOR OUR NEWSLETTER  ----------*/
 /*
-// * "webform" is the machine name for the "sign up for our newsletter" block!
-// block-webform is both the class and id of this block
-// why does this need a .block-title class? there's only one title
+// * "webform" is the machine name for the "sign up for our newsletter" block! 
+// block-webform is both the class and id of this block 
+// why does this need a .block-title class? there's only one title 
 .block-webform h2.block-title {
 	text-align: center;
-	// font-family: 'Montserrat', sans-serif;
+	// font-family: 'Montserrat', sans-serif; 
 }
 */
 /*----------  TELL US WHAT YOU THINK  ----------*/
 /*
-// * "webform_2" is the machine name for the "tell us what you think" block!
-// this is the same selector twice! also, the only links in this block are contextual admin links; these styles have no visible effect.
+// * "webform_2" is the machine name for the "tell us what you think" block! 
+// this is the same selector twice! also, the only links in this block are contextual admin links; these styles have no visible effect. 
 #block-webform-2 a:link, #block-webform-2 a:link {
 	color: #000;
 	font-weight: 500;
 }
-// ! these are all bad
+// ! these are all bad 
 #block-webform-2 {
-	// font-family: 'Montserrat', sans-serif;
+	// font-family: 'Montserrat', sans-serif; 
 	background: #1db4bb;
 	margin: 0 -15px;
 }
 */
 /*
 .field.field--name-body ul {
-	// doesn't seem to do anything
+	// doesn't seem to do anything 
 	// padding-left: 1.5em;
 
-
-	// same as body, p;
-	// not sure why this doesn't inherit from body
-	// ^ it does if you change it to an <ol>
-	// is it because we're using ems, not rems?
+	
+	// same as body, p; 
+	// not sure why this doesn't inherit from body 
+	// ^ it does if you change it to an <ol> 
+	// is it because we're using ems, not rems? 
 	// font-size: 1.25em;
 }
 ol {
