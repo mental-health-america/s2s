@@ -85,7 +85,7 @@
         "drupal/votingapi": "^3.0",
         "drupal/webform": "^5.12",
         "drupal/webform_score": "^1.0",
-        "drupal/webform_views": "^5.0",
+        "drupal/webform_views": "5.x-dev",
         "drupal/xmlsitemap": "^1.0",
         "drush/drush": "^9.7",
         "mikehaertl/phpwkhtmltopdf": "^2.2",
