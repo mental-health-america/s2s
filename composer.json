@@ -39,7 +39,7 @@
         "drupal/devel_entity_updates": "^1.0",
         "drupal/draggableviews": "^1.2",
         "drupal/editor_advanced_link": "^1.4",
-        "drupal/embed": "^1.0",
+        "drupal/embed": "^1.4",
         "drupal/empty_page": "~2.0",
         "drupal/entity": "^1.0",
         "drupal/entity_clone": "^1.0",
