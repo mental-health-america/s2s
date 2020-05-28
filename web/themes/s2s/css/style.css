@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,500;0,600;1,300;1,500;1,600&display=swap");
 /*=============================================
 =            GENERAL TOP LEVEL                =
 =============================================*/
@@ -115,13 +116,13 @@ section a:visited, section a:visited:hover {
   background-color: #f1f3f4;
 }
 
-/*----------  Subsection comment block  ----------*/
+/*----------  EMBEDDED PDFs  ----------*/
 .embedded-pdf {
   width: 100%;
   height: 600px;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 480px) {
   .embedded-pdf {
     height: 400px;
   }
@@ -151,6 +152,10 @@ section a:visited, section a:visited:hover {
   padding: 0 1rem 2rem 1rem;
   max-width: 50rem;
   margin: 0 auto;
+}
+
+section {
+  overflow-x: hidden;
 }
 
 .field--name-body, .field--name-field-treatment-category, .field--name-field-condition-severity, .field--name-field-tags, .field--type-entity-reference, .field--name-field-referral-tool-friendly-des {
@@ -809,7 +814,8 @@ a.ui-button:active,
 =            NAVBAR / HEADER                  =
 =============================================*/
 .logo img {
-  max-height: 72px;
+  max-height: 50px;
+  margin-top: .5rem;
 }
 
 @media (max-width: 767px) {
@@ -1349,6 +1355,20 @@ form#webform-submission-search-for-local-service-add-form {
   .slider-link-2 a:link, .slider-link-2 a:visited {
     padding: 0;
   }
+}
+
+/*----------  /SCREENING-TOOLS  ----------*/
+#block-whichscreentotake ul {
+  -webkit-column-width: 300px;
+  column-width: 300px;
+}
+
+#block-whichscreentotake li {
+  -webkit-column-break-inside: avoid;
+  /* Chrome, Safari, Opera */
+  /* Firefox */
+  break-inside: avoid;
+  /* IE 10+ */
 }
 
 /*----------  DOWNLOAD LINK FOR DIY TOOLS  ----------*/
