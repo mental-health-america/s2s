@@ -49,7 +49,7 @@ class LandingPageBlock extends BlockBase {
         foreach ($drag_data as $drag) {
           $darg_nids[] = $drag->entity_id;
         }
-        $nids = \Drupal::entityQuery('node')->condition('type','webform')->execute();
+        $nids = \Drupal::entityQuery('node')->condition('type','webform')->condition('status', 1)->execute();
         $reset_nids = array_values($nids);
         if(!empty($darg_nids)){
           $array_diffs = array_diff($reset_nids, $darg_nids);
