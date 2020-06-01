@@ -387,12 +387,6 @@ function conditional_fields_attach_dependency(&$form, &$form_state, $dependee, $
       'options' => $options,
     ];
   }
-
-  // Actual processing is done in
-  // \Drupal\conditional_fields\ConditionalFieldsFormHelper::afterBuild().
-  // Append the property so the callback runs last.
-  $helper = new ConditionalFieldsFormHelper();
-  $helper->elementAddProperty($form, '#after_build', [$helper, 'afterBuild'], 'append');
 }
 
 /**
@@ -470,4 +464,37 @@ function conditional_fields_is_priority_field( array $field ) {
     return TRUE;
   }
   return FALSE;
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Hook_form_alter() that attaches an 'afterbuild' function to the form.
+ *
+ * @param $form
+ *   The form to attach the callback to.
+ * @param $form_state
+ *   Not used, part of the hook interface.
+ * @param $form_id
+ *   Not used, part of the hook interface.
+ */
+function conditional_fields_form_alter(&$form, &$form_state, $form_id) {
+  $form['#after_build'][] = 'conditional_fields_form_after_build';
+}
+
+/**
+ * Runs the 'afterbuild' validation of a form with dependencies.
+ *
+ * This function will run only once per form.
+ *
+ * @param $form
+ *   The form to validate
+ * @param $form_state
+ *   The form's state.
+ *
+ * @return mixed
+ *   The form.
+ */
+function conditional_fields_form_after_build($form, &$form_state) {
+  return (new ConditionalFieldsFormHelper())->afterBuild($form, $form_state);
 }

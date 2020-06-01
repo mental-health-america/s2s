@@ -91,6 +91,12 @@ class LinkitFilter extends FilterBase implements ContainerFactoryPluginInterface
           $entity_type = $element->getAttribute('data-entity-type');
           $uuid = $element->getAttribute('data-entity-uuid');
 
+          // Skip empty attributes to prevent loading of non-existing
+          // content type.
+          if (!$entity_type || !$uuid) {
+            continue;
+          }
+
           // Make the substitution optional, for backwards compatibility,
           // maintaining the previous hard-coded direct file link assumptions,
           // for content created before the substitution feature.
