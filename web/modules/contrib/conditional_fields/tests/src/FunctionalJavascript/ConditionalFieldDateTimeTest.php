@@ -102,6 +102,9 @@ class ConditionalFieldDateTimeTest extends ConditionalFieldTestBase implements C
    * {@inheritdoc}
    */
   public function testVisibleValueWidget() {
+    $date = new DrupalDateTime();
+    $date->createFromTimestamp(time());
+    $date_formatted = $date->format(DateTimeItemInterface::DATE_STORAGE_FORMAT );
 
     $this->baseTestSteps();
 
@@ -113,7 +116,7 @@ class ConditionalFieldDateTimeTest extends ConditionalFieldTestBase implements C
     $data = [
       'condition' => 'value',
       'values_set' => CONDITIONAL_FIELDS_DEPENDENCY_VALUES_WIDGET,
-      $this->fieldName . '[0][value][date]' => DrupalDateTime::createFromTimestamp(\Drupal::time()->getRequestTime())->format('m-d-Y'),
+      $this->fieldName . '[0][value][date]' => $date_formatted,
       'grouping' => 'AND',
       'state' => 'visible',
       'effect' => 'show',
@@ -139,7 +142,7 @@ class ConditionalFieldDateTimeTest extends ConditionalFieldTestBase implements C
     $this->waitUntilHidden('.field--name-body', 50, '01. Article Body field is visible');
 
     // Check that the field Body is visible.
-    $this->changeField($this->fieldSelector, DrupalDateTime::createFromTimestamp(\Drupal::time()->getRequestTime())->format('Y-m-d'));
+    $this->changeField($this->fieldSelector, $date_formatted);
     $this->createScreenshot($this->screenshotPath . '05-testDateTimeVisibleValueWidget.png');
     $this->waitUntilVisible('.field--name-body', 50, '02. Article Body field is not visible');
 

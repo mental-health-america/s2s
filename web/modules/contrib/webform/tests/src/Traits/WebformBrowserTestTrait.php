@@ -425,7 +425,7 @@ trait WebformBrowserTestTrait {
     if (!$message) {
       $message = new FormattableMarkup('Found @selector', ['@selector' => $selector]);
     }
-    $this->assertNotEmpty($element, $message);
+    $this->assertTrue(!empty($element), $message);
   }
 
   /**
@@ -433,7 +433,7 @@ trait WebformBrowserTestTrait {
    */
   protected function assertNoCssSelect($selector, $message = '') {
     $element = $this->cssSelect($selector);
-    $this->assertEmpty($element, $message);
+    $this->assertTrue(empty($element), $message);
   }
 
   /****************************************************************************/

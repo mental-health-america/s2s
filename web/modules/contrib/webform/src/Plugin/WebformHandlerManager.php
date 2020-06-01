@@ -55,9 +55,9 @@ class WebformHandlerManager extends DefaultPluginManager implements WebformHandl
   /**
    * {@inheritdoc}
    */
-  public function getSortedDefinitions(array $definitions = NULL, $sort_by = 'label') {
+  public function getSortedDefinitions(array $definitions = NULL) {
     // Sort the plugins first by category, then by label.
-    $definitions = $this->traitGetSortedDefinitions($definitions, $sort_by);
+    $definitions = $this->traitGetSortedDefinitions($definitions);
     return $definitions;
   }
 

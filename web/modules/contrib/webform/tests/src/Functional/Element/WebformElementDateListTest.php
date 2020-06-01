@@ -58,7 +58,7 @@ datelist_custom_composite:
 
     // Check 'datelist' and 'datetime' #default_value.
     $form = $webform->getSubmissionForm();
-    $this->assertInstanceOf(DrupalDateTime::class, $form['elements']['datelist_default']['#default_value']);
+    $this->assert($form['elements']['datelist_default']['#default_value'] instanceof DrupalDateTime, 'datelist_default #default_value instance of \Drupal\Core\Datetime\DrupalDateTime.');
 
     // Check datelist #date_date_max validation.
     $edit = [

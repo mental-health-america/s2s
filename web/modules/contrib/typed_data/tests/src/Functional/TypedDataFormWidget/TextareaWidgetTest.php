@@ -6,6 +6,10 @@ use Drupal\Core\Plugin\Context\ContextDefinition;
 use Drupal\Core\TypedData\DataDefinition;
 use Drupal\Core\TypedData\ListDataDefinition;
 use Drupal\Core\TypedData\MapDataDefinition;
+use Drupal\Core\TypedData\TypedDataTrait;
+use Drupal\Tests\BrowserTestBase;
+use Drupal\Tests\typed_data\Traits\BrowserTestHelpersTrait;
+use Drupal\typed_data\Widget\FormWidgetManagerTrait;
 
 /**
  * Class TextInputWidgetTest.
@@ -14,7 +18,11 @@ use Drupal\Core\TypedData\MapDataDefinition;
  *
  * @coversDefaultClass \Drupal\typed_data\Plugin\TypedDataFormWidget\TextareaWidget
  */
-class TextareaWidgetTest extends FormWidgetBrowserTestBase {
+class TextareaWidgetTest extends BrowserTestBase {
+
+  use BrowserTestHelpersTrait;
+  use FormWidgetManagerTrait;
+  use TypedDataTrait;
 
   /**
    * The tested form widget.
@@ -22,6 +30,16 @@ class TextareaWidgetTest extends FormWidgetBrowserTestBase {
    * @var \Drupal\typed_data\Widget\FormWidgetInterface
    */
   protected $widget;
+
+  /**
+   * Modules to enable.
+   *
+   * @var array
+   */
+  public static $modules = [
+    'typed_data',
+    'typed_data_widget_test',
+  ];
 
   /**
    * {@inheritdoc}
@@ -57,9 +75,9 @@ class TextareaWidgetTest extends FormWidgetBrowserTestBase {
    */
   public function testFormEditing() {
     $context_definition = ContextDefinition::create('string')
-      ->setLabel('Example textarea')
-      ->setDescription('Some example textarea')
-      ->setDefaultValue('A string longer than eight characters');
+      ->setLabel('Example string')
+      ->setDescription('Some example string')
+      ->setDefaultValue('default1');
     $this->container->get('state')->set('typed_data_widgets.definition', $context_definition);
 
     $this->drupalLogin($this->createUser([], NULL, TRUE));
@@ -77,34 +95,6 @@ class TextareaWidgetTest extends FormWidgetBrowserTestBase {
 
     $this->drupalGet($path);
     $assert->fieldValueEquals('data[value]', 'jump');
-  }
-
-  /**
-   * @covers ::form
-   * @covers ::flagViolations
-   */
-  public function testValidation() {
-    $context_definition = ContextDefinition::create('text')
-      ->setLabel('Test text area')
-      ->setDescription('Enter text, minimum 40 characters.')
-      ->addConstraint('Length', ['min' => 40]);
-    $this->container->get('state')->set('typed_data_widgets.definition', $context_definition);
-
-    $this->drupalLogin($this->createUser([], NULL, TRUE));
-    $path = 'admin/config/user-interface/typed-data-widgets/' . $this->widget->getPluginId();
-    $this->drupalGet($path);
-
-    // Try to save with text that is too short.
-    $this->fillField('data[value]', $this->randomString(20));
-    $this->pressButton('Submit');
-
-    /** @var \Drupal\Tests\WebAssert $assert */
-    $assert = $this->assertSession();
-    $assert->fieldExists('data[value]')->hasClass('error');
-
-    // Make sure the changes have not been saved.
-    $this->drupalGet($path);
-    $assert->fieldValueEquals('data[value]', $context_definition->getDefaultValue());
   }
 
 }

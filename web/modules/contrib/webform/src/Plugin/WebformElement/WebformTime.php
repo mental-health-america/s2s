@@ -11,7 +11,7 @@ use Drupal\webform\WebformSubmissionInterface;
  *
  * @WebformElement(
  *   id = "webform_time",
- *   api = "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time",
+ *   api = "http://www.w3schools.com/tags/tag_time.asp",
  *   label = @Translation("Time"),
  *   description = @Translation("Provides a form element for time selection."),
  *   category = @Translation("Date/time elements"),

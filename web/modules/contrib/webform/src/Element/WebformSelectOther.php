@@ -23,7 +23,6 @@ class WebformSelectOther extends WebformOtherBase {
   protected static $properties = [
     '#title',
     '#required',
-    '#required_error',
     '#options',
     '#default_value',
     '#attributes',

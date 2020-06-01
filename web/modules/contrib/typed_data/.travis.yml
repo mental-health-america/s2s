@@ -3,16 +3,14 @@ language: php
 php:
   - 5.6
   - 7.0
-  - 7.1
-  - 7.2
-  # - 7.3
+  - 7.3
 
 env:
   global:
     # Make the script re-usable for other modules.
     - MODULE=typed_data
-    # Allow this many deprecation warnings (total on core 8.9 at 21 Feb 2020)
-    - SYMFONY_DEPRECATIONS_HELPER=0
+    # Allow this many deprecation warnings (total on core 8.9 at 18 Dec 2019)
+    - SYMFONY_DEPRECATIONS_HELPER=18
   jobs:
     - DRUPAL_CORE=8.7.x
     - DRUPAL_CORE=8.8.x
@@ -26,9 +24,7 @@ jobs:
   exclude:
     - php: 7.0
       env: DRUPAL_CORE=8.7.x
-    - php: 7.1
-      env: DRUPAL_CORE=8.7.x
-    - php: 7.2
+    - php: 7.3
       env: DRUPAL_CORE=8.7.x
     - php: 5.6
       env: DRUPAL_CORE=8.8.x

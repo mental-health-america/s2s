@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\webform\Functional\Element;
 
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\webform\Entity\Webform;
 use Drupal\webform\Utility\WebformElementHelper;
 
@@ -25,9 +26,9 @@ class WebformElementIgnoredPropertiesTest extends WebformElementBrowserTestBase 
   public function testIgnoredProperties() {
     $webform_ignored_properties = Webform::load('test_element_ignored_properties');
     $elements = $webform_ignored_properties->getElementsInitialized();
-    $this->assertArrayHasKey('textfield', $elements);
+    $this->assert(isset($elements['textfield']));
     foreach (WebformElementHelper::$ignoredProperties as $ignored_property) {
-      $this->assertArrayNotHasKey($ignored_property, $elements['textfield']);
+      $this->assert(!isset($elements['textfield'][$ignored_property]), new FormattableMarkup('@property ignored.', ['@property' => $ignored_property]));
     }
   }
 

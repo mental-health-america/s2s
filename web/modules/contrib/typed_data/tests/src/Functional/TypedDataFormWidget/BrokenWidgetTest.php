@@ -6,6 +6,10 @@ use Drupal\Core\Plugin\Context\ContextDefinition;
 use Drupal\Core\TypedData\DataDefinition;
 use Drupal\Core\TypedData\ListDataDefinition;
 use Drupal\Core\TypedData\MapDataDefinition;
+use Drupal\Core\TypedData\TypedDataTrait;
+use Drupal\Tests\BrowserTestBase;
+use Drupal\Tests\typed_data\Traits\BrowserTestHelpersTrait;
+use Drupal\typed_data\Widget\FormWidgetManagerTrait;
 
 /**
  * Class BrokenWidgetTest.
@@ -14,7 +18,11 @@ use Drupal\Core\TypedData\MapDataDefinition;
  *
  * @coversDefaultClass \Drupal\typed_data\Plugin\TypedDataFormWidget\BrokenWidget
  */
-class BrokenWidgetTest extends FormWidgetBrowserTestBase {
+class BrokenWidgetTest extends BrowserTestBase {
+
+  use BrowserTestHelpersTrait;
+  use FormWidgetManagerTrait;
+  use TypedDataTrait;
 
   /**
    * The tested form widget.
@@ -22,6 +30,16 @@ class BrokenWidgetTest extends FormWidgetBrowserTestBase {
    * @var \Drupal\typed_data\Widget\FormWidgetInterface
    */
   protected $widget;
+
+  /**
+   * Modules to enable.
+   *
+   * @var array
+   */
+  public static $modules = [
+    'typed_data',
+    'typed_data_widget_test',
+  ];
 
   /**
    * {@inheritdoc}
@@ -58,7 +76,7 @@ class BrokenWidgetTest extends FormWidgetBrowserTestBase {
   public function testFormEditing() {
     $data_type = 'string';
     $context_definition = ContextDefinition::create($data_type)
-      ->setLabel('Broken example');
+      ->setLabel('Example string');
     $this->container->get('state')->set('typed_data_widgets.definition', $context_definition);
 
     $this->drupalLogin($this->createUser([], NULL, TRUE));
@@ -73,14 +91,6 @@ class BrokenWidgetTest extends FormWidgetBrowserTestBase {
     $this->pressButton('Submit');
 
     $assert->pageTextContains(sprintf('The field %s consists of the data type %s which cannot be input or a widget for this data type is not implemented yet.', $context_definition->getLabel(), $data_type));
-  }
-
-  /**
-   * @covers ::form
-   * @covers ::flagViolations
-   */
-  public function testValidation() {
-    // No validation as there is no input widget.
   }
 
 }

@@ -31,11 +31,11 @@ class WebformSubmissionLogManager implements WebformSubmissionLogManagerInterfac
   /**
    * WebformSubmissionLogManager constructor.
    *
-   * @param \Drupal\Core\Database\Connection $database
+   * @param \Drupal\Core\Database\Connection $datababse
    *   The database service.
    */
-  public function __construct(Connection $database) {
-    $this->database = $database;
+  public function __construct(Connection $datababse) {
+    $this->database = $datababse;
   }
 
   /**
