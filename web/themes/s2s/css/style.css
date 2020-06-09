@@ -52,7 +52,9 @@ strong {
 }
 
 /*----------  LISTS  ----------*/
-section li {
+.field--name-body li,
+.webform-confirmation li,
+.form-type-webform-markup li {
   line-height: inherit;
   margin: .25em 1em;
 }
@@ -87,31 +89,42 @@ a:visited {
   color: #1b8798;
 }
 
-a:hover {
-  color: #ed6963;
-}
-
-section a:link {
+.field--name-body a:link,
+.webform-confirmation a:link,
+.form-type-webform-markup a:link,
+.field--item a:link {
   border-bottom: 1px solid #00b4bc;
   padding-bottom: 1px;
 }
 
-section a:hover {
+.field--name-body a:hover,
+.webform-confirmation a:hover,
+.form-type-webform-markup a:hover,
+.field--item a:hover {
   border: none;
   color: #00b4bc;
 }
 
-section a:visited, section a:visited:hover {
+.field--name-body a:visited, .field--name-body a:visited:hover,
+.webform-confirmation a:visited,
+.webform-confirmation a:visited:hover,
+.form-type-webform-markup a:visited,
+.form-type-webform-markup a:visited:hover,
+.field--item a:visited,
+.field--item a:visited:hover {
   color: #1b8798;
   border-color: #1b8798;
 }
 
-.field--item a:link, .field--item a:visited, .field-content a:link, .field-content a:visited {
-  float: none !important;
-  text-decoration: none !important;
+/*----------  TABLES  ----------*/
+.table-wrapper {
+  overflow-x: auto;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-top: 20px;
 }
 
-/*----------  TABLES  ----------*/
 .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: #f1f3f4;
 }
@@ -154,7 +167,9 @@ section a:visited, section a:visited:hover {
   margin: 0 auto;
 }
 
-section {
+.field--name-body,
+.webform-confirmation,
+.form-type-webform-markup {
   overflow-x: hidden;
 }
 
@@ -176,10 +191,6 @@ section {
 /*=============================================
 = NAVIGATION PAGES (INFO & SUPPORT, /DIY, ETC.) 
 =============================================*/
-.pager li > a {
-  border: 1px solid #00b4bc;
-}
-
 .view-header {
   margin: 0 0 1em !important;
 }
@@ -379,14 +390,13 @@ legend {
 
 /*----------  TAG PAGES  ----------*/
 li.node-readmore a:link, li.node-readmore a:visited, .feed-icons a:link, .feed-icons a:visited {
-  color: #0a5794;
-  background-color: #fff !important;
-  border: 1px solid #0a5794 !important;
+  color: #00b4bc;
+  background-color: #fff;
+  border: 1px solid #00b4bc;
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
-  padding: .5rem 1rem !important;
-  text-decoration: none;
+  padding: .5rem 1rem;
 }
 
 /*=====  End of NAVIGATION PAGES  ======*/
@@ -427,18 +437,6 @@ a.btn-white {
 }
 
 /*----------  BTN-BLUE  ----------*/
-/*
-.btn-blue {
-    // should be unnecessary if we remove the bottom: property
-    position: relative;
-    
-    // ! this may be responsible for some weird alignment stuff; it shifts the button upward. why?
-    bottom: 1em;
-    
-    // should be redundant...
-    text-transform: uppercase;
-}
-*/
 .btn-blue a:link,
 .btn-blue a:visited {
   float: left;
@@ -453,11 +451,12 @@ a.btn-white {
   display: block;
   line-height: inherit;
   word-wrap: break-word;
+  border: none;
   height: 165px;
   width: 100%;
   margin: .7rem 0;
   padding: 1.7rem 1rem;
-  color: #FFFFFF;
+  color: #FFFFFF !important;
   font-size: 1.35rem;
   text-transform: uppercase;
   background: #1db4bb;
@@ -487,49 +486,6 @@ a.btn-white {
   }
 }
 
-/*
-.btn-blue a {
-	background: #1db4bb;
-	border: 0;
-	display: block;
-	float: left;
-	// font-family: 'Montserrat', sans-serif; 
-	height: 165px;
-	width: 100%;
-	margin: .5em;
-	overflow: hidden;
-	padding: 1.25em .75em;
-	color: #FFFFFF;
-	font-size: 1.75em;
-	font-weight: 500;
-	line-height: inherit;
-	text-align: center;
-	word-wrap: break-word;
-	text-transform: uppercase;
-	border-radius: 10px;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	-webkit-transition: background 100ms linear;
-	-moz-transition: background 100ms linear;
-	-ms-transition: background 100ms linear;
-	-o-transition: background 100ms linear;
-	transition: background 100ms linear;
-}
-// this is smaller than the xs bootstrap setting, which is <576 
-@media (max-width: 480px) {
-	.btn-blue a {
-		height: auto;
-		width: 95%;
-
-		// better than the default size, but this is probably an overcompensation. another option: reduce the padding 
-		font-size: 1.1em;
-	}
-}
-.btn-blue a:hover {
-	background: #154b5e;
-	text-decoration: none;
-}
-*/
 /*----------  BTN-INFO  ----------*/
 .btn-info {
   color: #fff;
@@ -560,6 +516,7 @@ a.btn-white {
   display: block;
   line-height: inherit;
   word-wrap: break-word;
+  border: none;
   height: 100px;
   width: 200px;
   margin: 0 4px 15px;
@@ -589,61 +546,6 @@ a.btn-white {
   color: #fff;
 }
 
-/*
-// these classes are applied to <div> wrappers around the links. they do not use the .btn class. 
-.btn-salmon, .more-link {
-	position: relative;
-	bottom: 1em;
-}
-.btn-salmon a, .more-link a {
-	background: #fff;
-	background-color: rgb(255, 255, 255);
-	border: 2px solid #000;
-	display: block;
-	float: left;
-	height: 100px;
-	margin: 0 4px 15px;
-	overflow: hidden;
-	padding: .75em;
-	width: 200px;
-	color: #000;
-	font-size: 1.25em;
-	font-weight: 500;
-	line-height: inherit;
-	text-align: center;
-	word-wrap: break-word;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	-webkit-transition: background 100ms linear;
-	-moz-transition: background 100ms linear;
-	-ms-transition: background 100ms linear;
-	-o-transition: background 100ms linear;
-	transition: background 100ms linear;
-}
-// this is smaller than the xs bootstrap setting, which is <576 
-@media (max-width: 480px) {
-	// i actually like how the .btn-blue links work on mobile currently, for reference 
-	.btn-salmon a, .more-link a {
-		width: 100%;
-
-		// this is actually undesirable, at least on /depression etc.; the default height:100px is fine and allows for more articles to be displayed at once 
-		height: 150px;
-
-		// centers things a bit better than the default 
-		margin: 0 0 15px;
-
-		// 1.5em would be better 
-		padding: 2em;
-	}
-}
-.btn-salmon a:hover, .more-link a:hover {
-	border: 2px solid $salmon;
-	background-color: $salmon;
-	color: #fff;
-	text-decoration: none;
-}
-*/
 .more-link.form-group a {
   margin-left: 1.1rem;
 }
@@ -778,10 +680,7 @@ a.ui-button:active,
   color: white !important;
   border-color: #eea236 !important;
   padding-bottom: 6px !important;
-}
-
-.btn-warning:hover {
-  border: 1px solid;
+  border: none !important;
 }
 
 @media (max-width: 767px) {
@@ -1317,6 +1216,12 @@ form#webform-submission-search-for-local-service-add-form {
   margin: 0 auto !important;
 }
 
+@media (min-width: 768px) and (max-width: 991px) {
+  .slider-link-2 {
+    display: none;
+  }
+}
+
 @media (max-width: 767px) {
   .slider-link-1, .slider-link-2 {
     background-color: #ffffff !important;
@@ -1386,6 +1291,7 @@ form#webform-submission-search-for-local-service-add-form {
   line-height: inherit;
   word-wrap: break-word;
   border: none;
+  float: none;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
