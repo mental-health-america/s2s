@@ -4,6 +4,7 @@ namespace Drupal\recently_read\Form;
 
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\taxonomy\Entity\Vocabulary;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Routing\CurrentRouteMatch;
@@ -14,15 +15,41 @@ use Drupal\Core\Entity\EntityTypeManager;
  */
 class RecentlyReadTypeForm extends EntityForm {
 
+  /**
+   * The routeMatch service.
+   *
+   * @var \Drupal\Core\Routing\CurrentRouteMatch
+   */
   protected $routeMatch;
+
+  /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
   protected $entityTypeManager;
 
   /**
-   * RecentlyReadTypeForm constructor.
+   * The messenger service.
+   *
+   * @var \Drupal\Core\Messenger\MessengerInterface
    */
-  public function __construct(CurrentRouteMatch $routeMatch, EntityTypeManager $entityTypeManager) {
+  protected $messenger;
+
+  /**
+   * Constructs RecentlyReadTypeForm object.
+   *
+   * @param \Drupal\Core\Routing\CurrentRouteMatch $routeMatch
+   *   The routeMatch.
+   * @param \Drupal\Core\Entity\EntityTypeManager $entityTypeManager
+   *   The entityTypeManager.
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The messenger service.
+   */
+  public function __construct(CurrentRouteMatch $routeMatch, EntityTypeManager $entityTypeManager, MessengerInterface $messenger) {
     $this->routeMatch = $routeMatch;
     $this->entityTypeManager = $entityTypeManager;
+    $this->messenger = $messenger;
   }
 
   /**
@@ -33,7 +60,8 @@ class RecentlyReadTypeForm extends EntityForm {
     return new static(
     // Load the service required to construct this class.
       $container->get('current_route_match'),
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('messenger')
     );
   }
 
@@ -77,9 +105,9 @@ class RecentlyReadTypeForm extends EntityForm {
       '#default_value' => $entity->get('enabled'),
       '#title' => $this->t("Enabled"),
       '#ajax' => [
-        'callback' => '::enabled_callback',
-        'wrapper' => 'types'
-      ]
+        'callback' => '::enabledCallback',
+        'wrapper' => 'types',
+      ],
     ];
 
     $options = [];
@@ -93,7 +121,7 @@ class RecentlyReadTypeForm extends EntityForm {
         '#options' => $options,
         '#default_value' => $entity->get('types'),
         '#title' => $this->t('Track'),
-        '#required' => $form_state->getValue('enabled') !== null && $form_state->getValue('enabled') ? 1 : 0,
+        '#required' => $form_state->getValue('enabled') !== NULL && $form_state->getValue('enabled') ? 1 : 0,
         '#prefix' => '<div id="types">',
         '#suffix' => '</div>',
       ];
@@ -111,13 +139,13 @@ class RecentlyReadTypeForm extends EntityForm {
 
     switch ($status) {
       case SAVED_NEW:
-        drupal_set_message($this->t('Created the %label recently read config.', [
+        $this->messenger->addMessage($this->t('Created the %label recently read config.', [
           '%label' => $recently_read_type->label(),
         ]));
         break;
 
       default:
-        drupal_set_message($this->t('Saved the recently read %label config.', [
+        $this->messenger->addMessage($this->t('Saved the recently read %label config.', [
           '%label' => $recently_read_type->label(),
         ]));
     }
@@ -127,7 +155,7 @@ class RecentlyReadTypeForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  public function enabled_callback(array &$form, FormStateInterface $form_state) {
+  public function enabledCallback(array &$form, FormStateInterface $form_state) {
     return $form['types'];
   }
 

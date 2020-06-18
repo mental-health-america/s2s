@@ -10,7 +10,6 @@ use Drupal\Core\PageCache\ResponsePolicy\KillSwitch;
 use Drupal\Core\Config\CachedStorage;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-
 /**
  * Provides a views relationship to recently read.
  *
@@ -40,7 +39,7 @@ class RecentlyReadRelationship extends RelationshipPluginBase {
   protected $cachedStorage;
 
   /**
-   *  Drupal\Core\Session\SessionManager.
+   * Drupal\Core\Session\SessionManager.
    *
    * @var \Drupal\Core\Session\SessionManager
    */
@@ -48,8 +47,23 @@ class RecentlyReadRelationship extends RelationshipPluginBase {
 
   /**
    * RecentlyReadRelationship constructor.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $pluginId
+   *   The plugin_id for the plugin instance.
+   * @param mixed $pluginDefinition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Session\AccountProxy $currentUser
+   *   The current user service.
+   * @param \Drupal\Core\PageCache\ResponsePolicy\KillSwitch $killSwitch
+   *   The page_cache_kill_switch service.
+   * @param \Drupal\Core\Config\CachedStorage $cachedStorage
+   *   The config.storage service.
+   * @param \Drupal\Core\Session\SessionManager $sessionManager
+   *   The session_manager service.
    */
-  function __construct(
+  public function __construct(
     array $configuration,
     $pluginId,
     $pluginDefinition,
@@ -101,7 +115,7 @@ class RecentlyReadRelationship extends RelationshipPluginBase {
     $typesOptions = FALSE;
 
     // Read the entity_type configuration and load the types.
-    $types = $this->cachedStorage->read('recently_read.recently_read_type.'.$entity_type)['types'];
+    $types = $this->cachedStorage->read('recently_read.recently_read_type.' . $entity_type)['types'];
 
     // If types are enabled prepare the array for checkboxes options.
     if (isset($types) && !empty($types)) {

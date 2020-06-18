@@ -9,5 +9,12 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
  */
 interface RecentlyReadTypeInterface extends ConfigEntityInterface {
 
-  // Add get/set methods for your configuration properties here.
+  /**
+   * Return recently read types.
+   *
+   * @return string
+   *   Name of recently read types.
+   */
+  public function getTypes();
+
 }

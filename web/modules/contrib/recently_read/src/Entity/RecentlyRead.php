@@ -143,7 +143,6 @@ class RecentlyRead extends ContentEntityBase implements RecentlyReadInterface {
     return $this;
   }
 
-
   /**
    * {@inheritdoc}
    */

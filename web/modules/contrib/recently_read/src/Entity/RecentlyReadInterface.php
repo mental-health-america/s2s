@@ -13,8 +13,6 @@ use Drupal\user\EntityOwnerInterface;
  */
 interface RecentlyReadInterface extends ContentEntityInterface, EntityChangedInterface, EntityOwnerInterface {
 
-  // Add get/set methods for your configuration properties here.
-
   /**
    * Gets the Recently read name.
    *
@@ -53,5 +51,24 @@ interface RecentlyReadInterface extends ContentEntityInterface, EntityChangedInt
    */
   public function setCreatedTime($timestamp);
 
+  /**
+   * Get entity id.
+   */
+  public function getEntityId();
+
+  /**
+   * Set entity id.
+   */
+  public function setEnitityId($entityId);
+
+  /**
+   * Get session id.
+   */
+  public function getSessionId();
+
+  /**
+   * Set session id.
+   */
+  public function setSessionId($sessionId);
 
 }

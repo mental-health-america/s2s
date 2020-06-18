@@ -72,20 +72,13 @@ class RecentlyReadConfigForm extends ConfigFormBase {
       '#states' => [
         'visible' => [
           ':input[name="delete_config"]' => ['value' => 'count'],
-          ],
+        ],
         'required' => [
           ':input[name="delete_config"]' => ['value' => 'count'],
         ],
       ],
     ];
     return parent::buildForm($form, $form_state);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
-    parent::validateForm($form, $form_state);
   }
 
   /**

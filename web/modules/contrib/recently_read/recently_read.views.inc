@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Provide views data for recently_read.module.
+ */
+
 use Drupal\recently_read\Entity\RecentlyReadType;
 
 /**
@@ -30,4 +35,3 @@ function recently_read_views_data_alter(array &$data) {
     }
   }
 }
-

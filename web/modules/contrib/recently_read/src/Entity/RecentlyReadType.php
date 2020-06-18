@@ -5,7 +5,6 @@ namespace Drupal\recently_read\Entity;
 use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
 use Drupal\Core\Entity\EntityStorageInterface;
 
-
 /**
  * Defines the Recently read type entity.
  *

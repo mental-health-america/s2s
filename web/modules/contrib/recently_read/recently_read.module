@@ -1,7 +1,11 @@
 <?php
 
+/**
+ * @file
+ * The module will track user activities on the website.
+ */
+
 use Drupal\recently_read\Entity\RecentlyReadType;
-use Drupal\recently_read\Entity\RecentlyRead;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 
@@ -20,28 +24,28 @@ function recently_read_entity_view(array &$build, EntityInterface $entity, Entit
 
   // Check entity type and act properly based on entityType.
   switch ($entityType) {
-    case ($entityType == "node" && $view_mode === "full" && $readTypeConfig->get('enabled')):
+    case ($entityType == "node" && !$entity->in_preview && $view_mode === "full" && $readTypeConfig->get('enabled')):
       $allowedTypes = $readTypeConfig->getTypes();
       if (in_array($entity->bundle(), $allowedTypes)) {
-        $recentlyRead->insert_entity($entity);
+        $recentlyRead->insertEntity($entity);
       }
       break;
 
     case ($entityType == "taxonomy_term" && $view_mode === "full" && $readTypeConfig->get('enabled')):
       $allowedTypes = $readTypeConfig->getTypes();
       if (in_array($entity->bundle(), $allowedTypes)) {
-        $recentlyRead->insert_entity($entity);
+        $recentlyRead->insertEntity($entity);
       }
       break;
 
     case ($entityType == "user" && $view_mode === "full" && $readTypeConfig->get('enabled')):
-      $recentlyRead->insert_entity($entity);
+      $recentlyRead->insertEntity($entity);
       break;
   }
 }
 
 /**
- * Implements hook_hook().
+ * Implements hook_cron().
  */
 function recently_read_cron() {
   $config = Drupal::configFactory()->getEditable('recently_read.configuration');
