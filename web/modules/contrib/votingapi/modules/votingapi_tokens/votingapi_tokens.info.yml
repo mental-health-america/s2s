@@ -1,12 +1,11 @@
-name: 'Voting API test'
+name: VotingAPI Tokens
+description: 'Token support for VotingAPI'
 type: module
-description: 'Support module for Voting API testing.'
-package: Testing
 core: 8.x
 core_version_requirement: ^8 || ^9
 dependencies:
-  - drupal:node
-  - votingapi:votingapi
+- votingapi:votingapi
+- token:token
 
 # Information added by Drupal.org packaging script on 2020-06-08
 version: '8.x-3.0-beta2'
