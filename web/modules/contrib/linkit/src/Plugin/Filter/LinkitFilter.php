@@ -91,12 +91,6 @@ class LinkitFilter extends FilterBase implements ContainerFactoryPluginInterface
           $entity_type = $element->getAttribute('data-entity-type');
           $uuid = $element->getAttribute('data-entity-uuid');
 
-          // Skip empty attributes to prevent loading of non-existing
-          // content type.
-          if (!$entity_type || !$uuid) {
-            continue;
-          }
-
           // Make the substitution optional, for backwards compatibility,
           // maintaining the previous hard-coded direct file link assumptions,
           // for content created before the substitution feature.
@@ -115,19 +109,20 @@ class LinkitFilter extends FilterBase implements ContainerFactoryPluginInterface
               ->getUrl($entity);
 
             $element->setAttribute('href', $url->getGeneratedUrl());
-            $access = $entity->access('view', NULL, TRUE);
 
             // Set the appropriate title attribute.
-            if ($this->settings['title'] && !$access->isForbidden() && !$element->getAttribute('title')) {
-              $element->setAttribute('title', $entity->label());
+            if ($this->settings['title'] && !$element->getAttribute('title')) {
+              $access = $entity->access('view', NULL, TRUE);
+              if (!$access->isForbidden()) {
+                $element->setAttribute('title', $entity->label());
+              }
+              // Cache the linked entity access for the current user.
+              $result->addCacheableDependency($access);
             }
 
             // The processed text now depends on:
             $result
-              // - the linked entity access for the current user.
-              ->addCacheableDependency($access)
-              // - the generated URL (which has undergone path & route
-              // processing)
+              // - the generated URL (which has undergone path & route processing)
               ->addCacheableDependency($url)
               // - the linked entity (whose URL and title may change)
               ->addCacheableDependency($entity);
