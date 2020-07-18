@@ -33,10 +33,10 @@
         index = -1;
         $options.each(function(i, element) {
           var classes;
-          classes = 'star-' + i + 1;
+          classes = 'star-' + (i + 1);
           classes += (i + 1) % 2 === 0 ? ' even' : ' odd';
           classes += i === 0 ? ' star-first' : '';
-          classes += i + 1 === $options.length ? ' star-last' : '';
+          classes += (i + 1) === $options.length ? ' star-last' : '';
           $('<div class="star"><a href="#' + element.value + '" title="' + element.text + '">' + element.text + '</a></div>').addClass(classes).appendTo($container);
           if (element.value === $select.val()) {
             index = i + 1;

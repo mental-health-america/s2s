@@ -2,22 +2,23 @@
 
 namespace Drupal\fivestar\Plugin\Field\FieldType;
 
-use Drupal\Core\Link;
-use Drupal\Core\Field\FieldItemBase;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\TypedData\DataDefinition;
 use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\Core\TypedData\DataDefinition;
+use Drupal\user\EntityOwnerInterface;
 
 /**
- * Plugin implementation of the 'fivestart' field type.
+ * Plugin implementation of the 'fivestar' field type.
  *
  * @FieldType(
  *   id = "fivestar",
- *   label = @Translation("Fivestar Rating"),
+ *   label = @Translation("Fivestar rating"),
  *   description = @Translation("Store a rating for this piece of content."),
  *   default_widget = "fivestar_stars",
- *   default_formatter = "fivestar_stars"
+ *   default_formatter = "fivestar_stars",
  * )
  */
 class FivestarItem extends FieldItemBase {
@@ -49,7 +50,8 @@ class FivestarItem extends FieldItemBase {
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     $property_definitions['rating'] = DataDefinition::create('integer')
       ->setLabel(t('Rating'));
-    $property_definitions['target'] = DataDefinition::create('integer');
+    $property_definitions['target'] = DataDefinition::create('integer')
+      ->setLabel(t('Target'));
     return $property_definitions;
   }
 
@@ -98,14 +100,9 @@ class FivestarItem extends FieldItemBase {
       '#required' => TRUE,
       '#title' => $this->t('Vote type'),
       '#options' => $vote_manager->getVoteTypes(),
-      '#description' => $this->t(
-        'The vote type this rating will affect.
-          Enter a property on which that this rating will affect,
-          such as <em>quality</em>, <em>satisfaction</em>, <em>overall</em>, etc.
-          You can add new vote type %vote_types_link.', [
-            '%vote_types_link' => $vote_types_link,
-        ]
-      ),
+      '#description' => $this->t('The vote type this rating will affect. Enter a property on which that this rating will affect, such as <em>quality</em>, <em>satisfaction</em>, <em>overall</em>, etc. You can add new vote type %vote_types_link.', [
+        '%vote_types_link' => $vote_types_link,
+      ]),
       '#default_value' => $this->getSetting('vote_type'),
       '#show_static_result' => $has_data,
     ];
@@ -282,17 +279,21 @@ class FivestarItem extends FieldItemBase {
         $owner->id()
       );
     }
+
+    // No changes made to the Fivestar field item in this method.
+    return FALSE;
   }
 
   /**
    * Get target entity.
    *
-   * @param FieldableEntityInterface $entity
+   * @param \Drupal\Core\Entity\FieldableEntityInterface $entity
    * @param array $field_settings
-   * @return FieldableEntityInterface|NULL
+   *
+   * @return \Drupal\Core\Entity\FieldableEntityInterface|null
    */
   public function getTargetEntity(FieldableEntityInterface $entity, array $field_settings) {
-    if ($field_settings['enable_voting_target'] !== 1) {
+    if ($field_settings['enable_voting_target'] !== TRUE) {
       return NULL;
     }
     if (!$entity->hasField($field_settings['target_bridge_field'])) {
@@ -346,27 +347,28 @@ class FivestarItem extends FieldItemBase {
    * Get owner for vote.
    *
    * In order to get correct vote owner need to do it based on fivestar field
-   * settings, when selected "Rating mode viewing" mode, then have to use current user.
-   * For "Rating mode editing" mode - if entity have method "getOwner" use entity owner,
-   * otherwise the current user has to be used.
+   * settings, when selected "Rating mode viewing" mode, then have to use
+   * current user. For "Rating mode editing" mode - if entity have method
+   * "getOwner" use entity owner, otherwise the current user has to be used.
    *
    * @param \Drupal\Core\Entity\FieldableEntityInterface $entity
-   *  The entity from which try to get owner.
+   *   The entity from which try to get owner.
    * @param string $rating_mode
-   *  Determines under what conditions a user can leave a review.
+   *   Determines under what conditions a user can leave a review.
    *
    * @return \Drupal\Core\Session\AccountInterface
-   *   The owner entity.
+   *   The account of the vote owner.
    */
-  private function getVoteOwner($entity, $rating_mode) {
+  protected function getVoteOwner(FieldableEntityInterface $entity, $rating_mode) {
     switch ($rating_mode) {
-      case 'viewing':
-        return \Drupal::currentUser();
-
       case 'editing':
-        if (method_exists($entity, 'getOwner')) {
+        if ($entity instanceof EntityOwnerInterface) {
           return $entity->getOwner();
         }
+
+      // Fall through.
+      case 'viewing':
+      default:
         return \Drupal::currentUser();
     }
   }

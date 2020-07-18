@@ -2,7 +2,7 @@
 .fivestar-hearts div.fivestar-widget-static .star {
   width: 17px;
   height: 15px;
-  background: url(heart.png) no-repeat 0 0px;
+  background: url(heart.png) no-repeat 0 0;
 }
 
 .fivestar-hearts div.fivestar-widget-static .star span.on {

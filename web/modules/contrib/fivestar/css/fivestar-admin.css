@@ -5,7 +5,7 @@ div.fivestar-star-preview {
   height: 70px;
 }
 div.fivestar-widgets div.form-item {
-  float: left; /* RTL */
+  float: left; /* LTR */
 }
 
 /* Farbtastic placement */
@@ -16,7 +16,7 @@ div.fivestar-widgets div.form-item {
 #placeholder {
   position: absolute;
   top: -0.5em;
-  right: 0; /* RTL */
+  right: 0; /* LTR */
 }
 
 /* Palette */
@@ -26,23 +26,23 @@ div.fivestar-widgets div.form-item {
   margin: 0.5em 0;
 }
 .color-form label {
-  float: left; /* RTL */
+  float: left; /* LTR */
   width: 12em;
 }
 .color-form .form-text,
 .color-form .form-select {
-  float: left; /* RTL */
+  float: left; /* LTR */
 }
 .color-form .form-text {
   text-align: center;
-  margin-right: 5px; /* RTL */
+  margin-right: 5px; /* LTR */
   cursor: pointer;
 }
 
 #fivestar-palette .lock {
-  float: left; /* RTL */
+  float: left; /* LTR */
   position: relative;
-  left: -3px; /* RTL */
+  left: -3px; /* LTR */
   width: 20px;
   height: 25px;
   background: url(../images/lock.png) no-repeat 50% 2px;
@@ -54,7 +54,7 @@ div.fivestar-widgets div.form-item {
 #fivestar-palette .form-item .form-item {
   width: inherit;
   margin: 0;
-  float: left; /* RTL */
+  float: left; /* LTR */
 }
 #fivestar-palette .item-selected input {
   border: 2px solid black;

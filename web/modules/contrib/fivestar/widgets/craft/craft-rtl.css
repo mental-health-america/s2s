@@ -1,20 +1,20 @@
-/* Adjust the background position when using this widget with a RTL langauge. */
-.fivestar-craft div.fivestar-widget .star,
-.fivestar-craft div.fivestar-widget .star a,
-.fivestar-craft div.fivestar-widget-static .star,
-.fivestar-craft div.fivestar-widget-static .star span.on {
+/* Adjust the background position when using this widget with a RTL language. */
+[dir="rtl"] .fivestar-craft div.fivestar-widget .star,
+[dir="rtl"] .fivestar-craft div.fivestar-widget .star a,
+[dir="rtl"] .fivestar-craft div.fivestar-widget-static .star,
+[dir="rtl"] .fivestar-craft div.fivestar-widget-static .star span.on {
   background-position: right -62px;
 }
-.fivestar-craft div.fivestar-widget-static .star span.off {
+[dir="rtl"] .fivestar-craft div.fivestar-widget-static .star span.off {
   background-position: right -62px;
 }
-.fivestar-craft div.fivestar-widget-static .star span.on {
+[dir="rtl"] .fivestar-craft div.fivestar-widget-static .star span.on {
   background-position: right 0;
 }
-.fivestar-craft div.fivestar-widget div.on a {
+[dir="rtl"] .fivestar-craft div.fivestar-widget div.on a {
   background-position: right 0;
 }
-.fivestar-craft div.fivestar-widget div.hover a,
-.fivestar-craft div.rating div a:hover {
+[dir="rtl"] .fivestar-craft div.fivestar-widget div.hover a,
+[dir="rtl"] .fivestar-craft div.rating div a:hover {
   background-position: right -31px;
 }

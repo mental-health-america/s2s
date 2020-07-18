@@ -10,17 +10,17 @@ form.fivestar-widget input {
 
 /* Combo Static and Rate Widget */
 .fivestar-combo-stars .fivestar-static-form-item {
-  float: left; /* RTL */
-  margin-right: 40px; /* RTL */
-  margin-left: 40px; /* RTL */
+  float: left; /* LTR */
+  margin-right: 40px; /* LTR */
+  margin-left: 40px; /* LTR */
 }
 .fivestar-combo-stars .fivestar-static-item {
-  float: left; /* RTL */
-  margin-right: 40px; /* RTL */
+  float: left; /* LTR */
+  margin-right: 40px; /* LTR */
 }
 
 .fivestar-combo-stars .fivestar-form-item {
-  float: left; /* RTL */
+  float: left; /* LTR */
 }
 
 /* Fivestar form items */
@@ -35,30 +35,30 @@ div.fivestar-widget-static {
 }
 
 div.fivestar-widget-static br {
-  clear: left; /* RTL */
+  clear: left; /* LTR */
 }
 
 div.fivestar-widget-static .star {
-  float: left; /* RTL */
+  float: left; /* LTR */
   width: 17px;
   height: 15px;
   overflow: hidden;
   text-indent: -999em;
-  background: url(../widgets/default/star.gif) no-repeat 0 0; /* RTL */
+  background: url(../widgets/default/star.gif) no-repeat 0 0; /* LTR */
 }
 
 div.fivestar-widget-static .star span.on {
   display: block;
   width: 100%;
   height: 100%;
-  background: url(../widgets/default/star.gif) no-repeat 0 -32px; /* RTL */
+  background: url(../widgets/default/star.gif) no-repeat 0 -32px; /* LTR */
 }
 
 div.fivestar-widget-static .star span.off {
   display: block;
   width: 100%;
   height: 100%;
-  background: url(../widgets/default/star.gif) no-repeat 0 0; /* RTL */
+  background: url(../widgets/default/star.gif) no-repeat 0 0; /* LTR */
 }
 
 /* Javascript Star Version */
@@ -68,7 +68,7 @@ div.fivestar-widget {
 
 div.fivestar-widget .cancel,
 div.fivestar-widget .star {
-  float: left; /* RTL */
+  float: left; /* LTR */
   width: 17px;
   height: 15px;
   overflow: hidden;
@@ -76,13 +76,13 @@ div.fivestar-widget .star {
 }
 div.fivestar-widget .cancel,
 div.fivestar-widget .cancel a {
-  background: url(../../widgets/default/delete.gif) no-repeat 0 -16px; /* RTL */
+  background: url(../../widgets/default/delete.gif) no-repeat 0 -16px; /* LTR */
   text-decoration: none;
 }
 
 div.fivestar-widget .star,
 div.fivestar-widget .star a {
-  background: url(../../widgets/default/star.gif) no-repeat 0 0; /* RTL */
+  background: url(../../widgets/default/star.gif) no-repeat 0 0; /* LTR */
   text-decoration: none;
 }
 
@@ -91,16 +91,16 @@ div.fivestar-widget .star a {
   display: block;
   width: 100%;
   height: 100%;
-  background-position: 0 0; /* RTL */
+  background-position: 0 0; /* LTR */
   cursor: pointer;
 }
 
 div.fivestar-widget div.on a {
-  background-position: 0 -16px; /* RTL */
+  background-position: 0 -16px; /* LTR */
 }
 div.fivestar-widget div.hover a,
 div.rating div a:hover {
-  background-position: 0 -32px; /* RTL */
+  background-position: 0 -32px; /* LTR */
 }
 form.fivestar-widget div.description {
   margin-bottom: 0;

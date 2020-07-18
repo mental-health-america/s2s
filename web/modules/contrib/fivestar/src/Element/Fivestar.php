@@ -2,9 +2,9 @@
 
 namespace Drupal\fivestar\Element;
 
-use Drupal\Core\Template\Attribute;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element\FormElement;
+use Drupal\Core\Template\Attribute;
 
 /**
  * Provides a fivestar form element.
@@ -34,7 +34,6 @@ class Fivestar extends FormElement {
       '#theme_wrappers' => ['form_element'],
       '#widget' => [
         'name' => 'default',
-        'css' => 'default',
       ],
       '#values' => [
         'vote_user' => 0,
@@ -151,12 +150,16 @@ class Fivestar extends FormElement {
         break;
     }
 
-    $class[] = 'fivestar-form-item';
-    $class[] = 'fivestar-' . $element['#widget']['name'];
+    $widget_name = mb_strtolower($element['#widget']['name']);
+    $widget_name_kebab = str_replace('_', '-', $widget_name);
 
-    if ($element['#widget']['name'] != 'default') {
-      $element['#attached']['library'][] = "fivestar/fivestar.{$element['#widget']['name']}";
+    $class[] = 'fivestar-form-item';
+    $class[] = 'fivestar-' . $widget_name_kebab;
+
+    if ($widget_name != 'default') {
+      $element['#attached']['library'][] = \Drupal::service('fivestar.widget_manager')->getWidgetLibrary($widget_name);
     }
+
     $element['#prefix'] = '<div ' . new Attribute(['class' => $class]) . '>';
     $element['#suffix'] = '</div>';
 
@@ -216,29 +219,29 @@ class Fivestar extends FormElement {
     switch ($settings['text_format']) {
       case 'user':
         return [
-            '#user_rating' => $values['vote_user'],
-            '#votes' => $settings['display_format'] == 'dual' ? NULL : $values['vote_count'],
-          ] + $base_element_data;
+          '#user_rating' => $values['vote_user'],
+          '#votes' => $settings['display_format'] == 'dual' ? NULL : $values['vote_count'],
+        ] + $base_element_data;
 
       case 'average':
         return [
-            '#average_rating' => $values['vote_average'],
-            '#votes' => $values['vote_count'],
-          ] + $base_element_data;
+          '#average_rating' => $values['vote_average'],
+          '#votes' => $values['vote_count'],
+        ] + $base_element_data;
 
       case 'smart':
         return ($settings['display_format'] == 'dual' && !$values['vote_user']) ? [] : [
-            '#user_rating' => $values['vote_user'],
-            '#average_rating' => $values['vote_user'] ? NULL : $values['vote_average'],
-            '#votes' => $settings['display_format'] == 'dual' ? NULL : $values['vote_count'],
-          ] + $base_element_data;
+          '#user_rating' => $values['vote_user'],
+          '#average_rating' => $values['vote_user'] ? NULL : $values['vote_average'],
+          '#votes' => $settings['display_format'] == 'dual' ? NULL : $values['vote_count'],
+        ] + $base_element_data;
 
       case 'dual':
         return [
-            '#user_rating' => $values['vote_user'],
-            '#average_rating' => $settings['display_format'] == 'dual' ? NULL : $values['vote_average'],
-            '#votes' => $settings['display_format'] == 'dual' ? NULL : $values['vote_count'],
-          ] + $base_element_data;
+          '#user_rating' => $values['vote_user'],
+          '#average_rating' => $settings['display_format'] == 'dual' ? NULL : $values['vote_average'],
+          '#votes' => $settings['display_format'] == 'dual' ? NULL : $values['vote_count'],
+        ] + $base_element_data;
 
       case 'none':
         return [];

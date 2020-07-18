@@ -22,29 +22,6 @@ class FivestarTestCase extends FivestarBaseTestCase {
   }
 
   /**
-   * Test that authors can rate their own content.
-   */
-  public function testAuthorRating() {
-    $this->drupalLogin($this->admin_user);
-    // Add an author-rated fivestar field to the test_node_type content type.
-    $this->createFivestarField(['widget_type' => 'stars']);
-    // Load the instance settings so we can set allow_ownvote.
-    $instance = field_read_instance('node', 'fivestar_test', 'test_node_type');
-    $instance['settings']['allow_ownvote'] = 1;
-    field_update_instance($instance);
-    // Save an test_node_typee node with a two-star rating.
-    $edit = [
-      'title' => $this->randomString(),
-    // Equals a rating of 2 stars.
-      'fivestar_test[und][0][rating]' => '40',
-    ];
-    $this->drupalPost('node/add/test_node_type', $edit, t('Save'));
-    // Make sure the two-star rating shows on the node view.
-    $result = $this->xpath("//div[contains(@class, 'field-name-fivestar-test')]//div[contains(@class,'star-first')]/span");
-    $this->assertEqual($result[0][0], '2', 'Content authors can rate their own content using the stars widget.');
-  }
-
-  /**
    * Test that users can rate content with exposed widgets.
    */
   public function testViewerRating() {
@@ -89,34 +66,6 @@ class FivestarTestCase extends FivestarBaseTestCase {
     // Make sure the three-star rating still shows on the node view.
     $result = $this->xpath("//div[contains(@class, 'field-name-fivestar-test')]//div[contains(@class,'star-first')]/span");
     $this->assertEqual($result[0][0], '3', 'The static display still shows three stars.');
-  }
-
-  /**
-   * Test that users can not rate content with exposed widgets that has the exposed
-   * display setting set to FALSE.
-   */
-  public function testViewerNonRating() {
-    // Add an exposed field, with the Exposed display settings set to FALSE.
-    $this->createFivestarField([
-      'widget_type' => 'exposed',
-      'display' => [
-        'default' => [
-          'type' => 'fivestar_formatter_default',
-          'settings' => [
-            'style' => 'average',
-            'text' => 'average',
-            'expose' => FALSE,
-          ],
-        ],
-      ],
-    ]);
-    // Add an test_node_type to test static widget.
-    $node = $this->drupalCreateNode(['type' => 'test_node_type']);
-    // Rate the test_node_type.
-    $this->drupalLogin($this->voter_user);
-    $this->drupalGet('node/' . $node->nid);
-    $this->assertRaw(t('No votes yet'), 'Fivestar field has no votes.');
-    $this->assertFalse($this->xpath("//form[contains(@class, 'fivestar-widget')]"));
   }
 
   /**
