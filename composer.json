@@ -25,7 +25,7 @@
         "drupal/admin_toolbar": "^2.3",
         "drupal/advagg": "^4.0",
         "drupal/asset_injector": "~2.0",
-        "drupal/better_exposed_filters": "^3.0",
+        "drupal/better_exposed_filters": "^5.0@beta",
         "drupal/bootstrap": "^3.19",
         "drupal/conditional_fields": "^1.0",
         "drupal/console": "^1.0.2",
