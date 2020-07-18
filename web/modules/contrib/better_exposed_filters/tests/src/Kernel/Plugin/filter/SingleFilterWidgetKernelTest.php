@@ -26,7 +26,8 @@ class SingleFilterWidgetKernelTest extends BetterExposedFiltersKernelTestBase {
     $view = Views::getView('bef_test');
     $display = &$view->storage->getDisplay('default');
 
-    // Change exposed filter "field_bef_boolean" to single on/off (i.e. 'bef_single').
+    // Change exposed filter "field_bef_boolean" to single on/off (i.e.
+    // 'bef_single').
     $this->setBetterExposedOptions($view, [
       'filter' => [
         'field_bef_boolean_value' => [
@@ -40,7 +41,7 @@ class SingleFilterWidgetKernelTest extends BetterExposedFiltersKernelTestBase {
 
     // Check our "FIELD_BEF_BOOLEAN" filter is rendered as a single checkbox.
     $actual = $this->xpath('//form//input[@type="checkbox" and starts-with(@name, "field_bef_boolean_value")]');
-    $this->assertEqual(count($actual), 1, 'Exposed filter "FIELD_BEF_BOOLEAN" is rendered as a checkbox.');
+    $this->assertCount(1, $actual, 'Exposed filter "FIELD_BEF_BOOLEAN" is rendered as a checkbox.');
 
     $view->destroy();
   }

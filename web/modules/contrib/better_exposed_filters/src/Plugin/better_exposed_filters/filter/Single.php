@@ -26,7 +26,7 @@ class Single extends FilterWidgetBase {
       return $is_applicable;
     }
 
-    if (is_a($filter, 'Drupal\views\Plugin\views\filter\BooleanOperator')) {
+    if (is_a($filter, 'Drupal\views\Plugin\views\filter\BooleanOperator') || ($filter->isAGroup() && count($filter->options['group_info']['group_items']) == 1)) {
       $is_applicable = TRUE;
     }
 
@@ -40,8 +40,9 @@ class Single extends FilterWidgetBase {
     /** @var \Drupal\views\Plugin\views\filter\FilterPluginBase $filter */
     $filter = $this->handler;
     // Form element is designated by the element ID which is user-
-    // configurable.
-    $field_id = $filter->options['expose']['identifier'];
+    // configurable, and stored differently for grouped filters.
+    $exposed_id = $filter->options['expose']['identifier'];
+    $field_id = $this->getExposedFilterFieldId();
 
     parent::exposedFormAlter($form, $form_state);
 
@@ -53,7 +54,11 @@ class Single extends FilterWidgetBase {
       // default. More, the default value for select values (i.e. 'Any') is
       // reused which results in the checkbox always checked.
       $input = $form_state->getUserInput();
-      $input_value = $input[$field_id];
+      // The input value ID is not always consistent.
+      // Prioritize the field ID, but default to exposed ID.
+      // @todo Remove $exposed_id once
+      //   https://www.drupal.org/project/drupal/issues/288429 is fixed.
+      $input_value = isset($input[$field_id]) ? $input[$field_id] : (isset($input[$exposed_id]) ? $input[$exposed_id] : NULL);
       $checked = FALSE;
       // We need to be super careful when working with raw input values. Let's
       // make sure the value exists in our list of possible options.
@@ -64,9 +69,6 @@ class Single extends FilterWidgetBase {
       $form[$field_id]['#default_value'] = 0;
       $form[$field_id]['#return_value'] = 1;
       $form[$field_id]['#value'] = $checked ? 1 : 0;
-      $form[$field_id]['#process'][] = ['\Drupal\Core\Render\Element\Checkbox', 'processCheckbox'];
-
-
     }
   }
 

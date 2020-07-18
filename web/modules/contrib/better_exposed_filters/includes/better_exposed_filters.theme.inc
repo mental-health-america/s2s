@@ -7,6 +7,7 @@
 
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Render\Element;
+use Drupal\Core\Template\Attribute;
 
 /**
  * Implements hook_theme().
@@ -88,9 +89,14 @@ function better_exposed_filters_preprocess_views_exposed_form(array &$variables)
 function template_preprocess_bef_checkboxes(array &$variables) {
   $element = &$variables['element'];
 
+  // Create new wrapper attributes since the element attributes will be used
+  // on the fieldset (@see template_preprocess_fieldset).
+  $variables['wrapper_attributes'] = new Attribute();
+
   $variables['children'] = Element::children($element);
   $variables['show_select_all_none'] = $element['#bef_select_all_none'] ?? FALSE;
   $variables['show_select_all_none_nested'] = $element['#bef_select_all_none_nested'] ?? FALSE;
+  $variables['display_inline'] = $element['#bef_display_inline'] ?? FALSE;
 
   // Set element name.
   $variables['attributes']['name'] = $element['#name'];
@@ -113,7 +119,12 @@ function template_preprocess_bef_checkboxes(array &$variables) {
 function template_preprocess_bef_radios(array &$variables) {
   $element = &$variables['element'];
 
+  // Create new wrapper attributes since the element attributes will be used
+  // on the fieldset (@see template_preprocess_fieldset).
+  $variables['wrapper_attributes'] = new Attribute();
+
   $variables['children'] = Element::children($element);
+  $variables['display_inline'] = $element['#bef_display_inline'] ?? FALSE;
 
   // Set element name.
   $variables['attributes']['name'] = $element['#name'];

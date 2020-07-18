@@ -21,7 +21,7 @@ class DatePickers extends FilterWidgetBase {
     /** @var \Drupal\views\Plugin\views\filter\FilterPluginBase $filter */
     $is_applicable = FALSE;
 
-    if (is_a($filter, 'Drupal\views\Plugin\views\filter\Date') || !empty($filter->date_handler)) {
+    if ((is_a($filter, 'Drupal\views\Plugin\views\filter\Date') || !empty($filter->date_handler)) && !$filter->isAGroup()) {
       $is_applicable = TRUE;
     }
 
@@ -32,18 +32,14 @@ class DatePickers extends FilterWidgetBase {
    * {@inheritdoc}
    */
   public function exposedFormAlter(array &$form, FormStateInterface $form_state) {
-    /** @var \Drupal\views\Plugin\views\filter\FilterPluginBase $filter */
-    $filter = $this->handler;
-    // Form element is designated by the element ID which is user-
-    // configurable.
-    $field_id = $filter->options['expose']['identifier'];
+    $field_id = $this->getExposedFilterFieldId();
 
     parent::exposedFormAlter($form, $form_state);
 
     // Attach the JS (@see /js/datepickers.js)
     $form['#attached']['library'][] = 'better_exposed_filters/datepickers';
 
-    // Date picker settings;
+    // Date picker settings.
     $form[$field_id]['#attached']['drupalSettings']['better_exposed_filters']['datepicker'] = TRUE;
     $form[$field_id]['#attached']['drupalSettings']['better_exposed_filters']['datepicker_options'] = [];
     $drupal_settings = &$form[$field_id]['#attached']['drupalSettings']['better_exposed_filters']['datepicker_options'];
@@ -79,7 +75,7 @@ class DatePickers extends FilterWidgetBase {
        * $form[$field_id][subfield] for two-value date fields or filters
        * with exposed operators.
        */
-      $fields = array('min', 'max', 'value');
+      $fields = ['min', 'max', 'value'];
       if (count(array_intersect($fields, array_keys($form[$field_id])))) {
         foreach ($fields as $field) {
           if (isset($form[$field_id][$field])) {
@@ -112,7 +108,6 @@ class DatePickers extends FilterWidgetBase {
   private function getjQueryUiDateFormatting() {
     return [
       /* Day */
-
       // Day of the month, 2 digits with leading zeros 01 to 31.
       'd' => 'dd',
       // A textual representation of a day, three letters  Mon through
@@ -134,12 +129,10 @@ class DatePickers extends FilterWidgetBase {
       // 'w' => ' ',
       // The day of the year (starting from 0) 0 through 365.
       'z' => 'o',
-
       /* Week */
       // ISO-8601 week number of year, weeks starting on Monday (added
       // in PHP 4.1.0) Example: 42 (the 42nd week in the year).
-      // 'W' => ' ',
-      //
+      // 'W' => ' ',.
       /* Month */
       // A full textual representation of a month, such as January or
       // March  January through December.
@@ -154,8 +147,7 @@ class DatePickers extends FilterWidgetBase {
       // through 12.
       'n' => 'm',
       // Number of days in the given month 28 through 31.
-      // 't' => ' ',
-      //
+      // 't' => ' ',.
       /* Year */
       // Whether it's a leap year  1 if it is a leap year, 0 otherwise.
       // 'L' => ' ',
@@ -190,7 +182,7 @@ class DatePickers extends FilterWidgetBase {
       // Seconds, with leading zeros 00 through 59.
       // 's' => ' ',
       // Microseconds (added in PHP 5.2.2) Example: 654321.
-      // 'u' => ' ',
+      // 'u' => ' ',.
     ];
   }
 

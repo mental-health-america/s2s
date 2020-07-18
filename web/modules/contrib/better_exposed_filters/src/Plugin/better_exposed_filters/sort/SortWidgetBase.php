@@ -2,6 +2,7 @@
 
 namespace Drupal\better_exposed_filters\Plugin\better_exposed_filters\sort;
 
+use Drupal\better_exposed_filters\BetterExposedFiltersHelper;
 use Drupal\better_exposed_filters\Plugin\BetterExposedFiltersWidgetBase;
 use Drupal\better_exposed_filters\Plugin\BetterExposedFiltersWidgetInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -20,7 +21,7 @@ abstract class SortWidgetBase extends BetterExposedFiltersWidgetBase implements 
    * @var array
    */
   protected $sortElements = [
-    'bef_sort_combined',
+    'sort_bef_combine',
     'sort_by',
     'sort_order',
   ];
@@ -84,7 +85,7 @@ Title Asc|A -> Z
 Title Desc|Z -> A</pre> Leave the replacement text blank to remove an option altogether. The order the options appear will be changed to match the order of options in this field.'),
       '#states' => [
         'visible' => [
-          ':input[name="exposed_form_options[bef][sort][advanced][combine]"]' => ['checked' => TRUE],
+          ':input[name="exposed_form_options[bef][sort][configuration][advanced][combine]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -161,16 +162,8 @@ Title Desc|Z -> A</pre> Leave the replacement text blank to remove an option alt
     // Check for combined sort_by and sort_order.
     if ($this->configuration['advanced']['combine'] && !empty($form['sort_order'])) {
       $options = [];
-
-      // Add reset sort option at the top of the list.
-      if ($this->configuration['advanced']['reset']) {
-        $options[' '] = $this->configuration['advanced']['reset_label'];
-      }
-      else {
-        $form['sort_bef_combine']['#default_value'] = '';
-      }
-
       $selected = '';
+
       foreach ($form['sort_by']['#options'] as $by_key => $by_val) {
         foreach ($form['sort_order']['#options'] as $order_key => $order_val) {
           // Use a space to separate the two keys, we'll unpack them in our
@@ -187,7 +180,7 @@ Title Desc|Z -> A</pre> Leave the replacement text blank to remove an option alt
 
       // Rewrite the option values if any were specified.
       if (!empty($this->configuration['advanced']['combine_rewrite'])) {
-        $options = $this->rewriteOptions($options, $this->configuration['advanced']['combine_rewrite'], TRUE);
+        $options = BetterExposedFiltersHelper::rewriteOptions($options, $this->configuration['advanced']['combine_rewrite'], TRUE);
         if (!isset($options[$selected])) {
           // Avoid "illegal choice" errors if the selected option is
           // eliminated by the rewrite.
@@ -195,7 +188,13 @@ Title Desc|Z -> A</pre> Leave the replacement text blank to remove an option alt
         }
       }
 
+      // Add reset sort option at the top of the list.
+      if ($this->configuration['advanced']['reset']) {
+        $options = [' ' => $this->configuration['advanced']['reset_label']] + $options;
+      }
+
       $form['sort_bef_combine'] = [
+        '#type' => 'select',
         '#options' => $options,
         '#default_value' => $selected,
         // Already sanitized by Views.
@@ -203,7 +202,7 @@ Title Desc|Z -> A</pre> Leave the replacement text blank to remove an option alt
       ];
 
       // Add our submit routine to process.
-      $form['#submit'][] = '::sortCombineSubmitForm';
+      $form['#submit'][] = [$this, 'sortCombineSubmitForm'];
 
       // Pretend we're another exposed form widget.
       $form['#info']['sort-sort_bef_combine'] = [
@@ -265,13 +264,15 @@ Title Desc|Z -> A</pre> Leave the replacement text blank to remove an option alt
    *   The current state of the form.
    */
   public function sortCombineSubmitForm(array $form, FormStateInterface $form_state) {
-    $sortBy = $sortOrder = '';
+    $sort_by = $sort_order = '';
     $combined = $form_state->getValue('sort_bef_combine');
     if (!empty($combined)) {
-      list($sortBy, $sortOrder) = array_map('trim', explode(' ', $combined));
+      $parts = explode('_', $combined);
+      $sort_order = trim(array_pop($parts));
+      $sort_by = trim(implode('_', $parts));
     }
-    $form_state->setValue('sort_by', $sortBy);
-    $form_state->setValue('sort_order', $sortOrder);
+    $form_state->setValue('sort_by', $sort_by);
+    $form_state->setValue('sort_order', $sort_order);
   }
 
 }

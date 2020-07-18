@@ -53,6 +53,10 @@ abstract class FilterWidgetBase extends BetterExposedFiltersWidgetBase implement
       }
     }
 
+    if ($filter->isAGroup()) {
+      $is_applicable = TRUE;
+    }
+
     return $is_applicable;
   }
 
@@ -101,7 +105,7 @@ abstract class FilterWidgetBase extends BetterExposedFiltersWidgetBase implement
     // Allow users to specify placeholder text.
     $supported_types = ['entity_autocomplete', 'textfield'];
     if (in_array($filter_widget_type, $supported_types)) {
-      $form['placeholder_text'] = [
+      $form['advanced']['placeholder_text'] = [
         '#type' => 'textfield',
         '#title' => $this->t('Placeholder text'),
         '#description' => $this->t('Text to be shown in the text field until it is edited. Leave blank for no placeholder to be set.'),
@@ -113,7 +117,7 @@ abstract class FilterWidgetBase extends BetterExposedFiltersWidgetBase implement
     // filters allow unlimited filter options via textfields, so we can't
     // offer rewriting for those.
     // @TODO: check other core filter types
-    if (!$filter instanceof StringFilter && !$filter instanceof NumericFilter) {
+    if ((!$filter instanceof StringFilter && !$filter instanceof NumericFilter) || $filter->isAGroup()) {
       $form['advanced']['rewrite']['filter_rewrite_values'] = [
         '#type' => 'textarea',
         '#title' => $this->t('Rewrite the text displayed'),
@@ -160,8 +164,7 @@ abstract class FilterWidgetBase extends BetterExposedFiltersWidgetBase implement
     /** @var \Drupal\views\Plugin\views\filter\FilterPluginBase $filter */
     $filter = $this->handler;
     $filter_id = $filter->options['expose']['identifier'];
-    // Form element is designated by the element ID which is user-configurable.
-    $field_id = $filter->options['expose']['identifier'];
+    $field_id = $this->getExposedFilterFieldId();
     $is_collapsible = $this->configuration['advanced']['collapsible'];
     $is_secondary = !empty($form['secondary']) && $this->configuration['advanced']['is_secondary'];
 
@@ -169,7 +172,7 @@ abstract class FilterWidgetBase extends BetterExposedFiltersWidgetBase implement
     if ($this->configuration['advanced']['sort_options']) {
       $form[$field_id]['#nested'] = $filter->options['hierarchy'] ?? FALSE;
       $form[$field_id]['#nested_delimiter'] = '-';
-      $form[$field_id]['#process'][] = [$this, 'processSortedOptions'];
+      $form[$field_id]['#pre_process'][] = [$this, 'processSortedOptions'];
     }
 
     // Check for placeholder text.
@@ -182,10 +185,21 @@ abstract class FilterWidgetBase extends BetterExposedFiltersWidgetBase implement
     if ($this->configuration['advanced']['rewrite']['filter_rewrite_values']) {
       $form[$field_id]['#options'] = BetterExposedFiltersHelper::rewriteOptions($form[$field_id]['#options'], $this->configuration['advanced']['rewrite']['filter_rewrite_values']);
       // @todo what is $selected?
-      //if (isset($selected) && !isset($form[$field_id]['#options'][$selected])) {
-        // Avoid "Illegal choice" errors.
-        //$form[$field_id]['#default_value'] = NULL;
-      //}
+      // if (isset($selected) && !isset($form[$field_id]['#options'][$selected])) {
+      // Avoid "Illegal choice" errors.
+      // $form[$field_id]['#default_value'] = NULL;
+      // }
+    }
+
+    // Identify all exposed filter elements.
+    $identifier = $filter_id;
+    $exposed_label = $filter->options['expose']['label'];
+    $exposed_description = $filter->options['expose']['description'];
+
+    if ($filter->isAGroup()) {
+      $identifier = $filter->options['group_info']['identifier'];
+      $exposed_label = $filter->options['group_info']['label'];
+      $exposed_description = $filter->options['group_info']['description'];
     }
 
     // If selected, collect our collapsible filter form element and put it in
@@ -193,7 +207,7 @@ abstract class FilterWidgetBase extends BetterExposedFiltersWidgetBase implement
     if ($is_collapsible) {
       $form[$field_id . '_collapsible'] = [
         '#type' => 'details',
-        '#title' => $filter->options['expose']['label'],
+        '#title' => $exposed_label,
       ];
 
       if ($is_secondary) {
@@ -202,13 +216,6 @@ abstract class FilterWidgetBase extends BetterExposedFiltersWidgetBase implement
       }
     }
 
-    // Identify all exposed filter elements.
-    if ($filter->options['is_grouped']) {
-      $identifier = $filter->options['group_info']['identifier'];
-    }
-    else {
-      $identifier = $filter_id;
-    }
     $filter_elements = [
       $identifier,
       $filter->options['expose']['operator_id'],
@@ -226,8 +233,8 @@ abstract class FilterWidgetBase extends BetterExposedFiltersWidgetBase implement
         $this->addElementToGroup($form, $form_state, $element, $field_id . '_collapsible');
       }
       else {
-        $form[$element]['#title'] = $filter->options['expose']['label'];
-        $form[$element]['#description'] = $filter->options['expose']['description'];
+        $form[$element]['#title'] = $exposed_label;
+        $form[$element]['#description'] = $exposed_description;
 
         // Move secondary elements.
         if ($is_secondary) {
@@ -284,6 +291,25 @@ abstract class FilterWidgetBase extends BetterExposedFiltersWidgetBase implement
   }
 
   /**
+   * Helper function to get the unique identifier for the exposed filter.
+   *
+   * Takes into account grouped filters with custom identifiers.
+   */
+  protected function getExposedFilterFieldId() {
+    /** @var \Drupal\views\Plugin\views\filter\FilterPluginBase $filter */
+    $filter = $this->handler;
+    $field_id = $filter->options['expose']['identifier'];
+    $is_grouped_filter = $filter->options['is_grouped'] ?: FALSE;
+
+    // Grouped filters store their identifier elsewhere.
+    if ($is_grouped_filter) {
+      $field_id = $filter->options['group_info']['identifier'];
+    }
+
+    return $field_id;
+  }
+
+  /**
    * Helper function to get the widget type of the exposed filter.
    *
    * @return string
@@ -294,14 +320,12 @@ abstract class FilterWidgetBase extends BetterExposedFiltersWidgetBase implement
     // form type of the filter.
     $form = [];
     $form_state = new FormState();
+    $form_state->set('exposed', TRUE);
     /** @var \Drupal\views\Plugin\views\filter\FilterPluginBase $filter */
     $filter = $this->handler;
     $filter_id = $filter->options['expose']['identifier'];
 
-    /** @var \Drupal\views\Plugin\views\filter\FilterPluginBase $filter */
-    $filter->buildExposedForm($form, $form_state);
-
-    return $form[$filter_id]['#type'] ?? $form[$filter_id]['value']['#type'];
+    return $form[$filter_id]['#type'] ?? $form[$filter_id]['value']['#type'] ?? '';
   }
 
 }

@@ -20,6 +20,56 @@ class FilterWidgetKernelTest extends BetterExposedFiltersKernelTestBase {
   public static $testViews = ['bef_test'];
 
   /**
+   * Tests grouping filter options.
+   *
+   * There is a bug in views where changing the identifier of an exposed
+   * grouped filter will cause an undefined index notice.
+   *
+   * @todo Enable test once https://www.drupal.org/project/drupal/issues/2884296
+   *   is fixed
+   */
+  /*public function testGroupedFilters() {
+  $view = Views::getView('bef_test');
+  $display = &$view->storage->getDisplay('default');
+
+  // Ensure our filter "field_bef_boolean_value" is grouped.
+  $display['display_options']['filters']['field_bef_boolean_value']['is_grouped'] = TRUE;
+  $display['display_options']['filters']['field_bef_boolean_value']['group_info'] = [
+  'plugin_id' => 'boolean',
+  'label' => 'bef_boolean (field_bef_boolean)',
+  'description' => '',
+  'identifier' => 'field_bef_boolean_value2',
+  'optional' => TRUE,
+  'widget' => 'select',
+  'multiple' => FALSE,
+  'remember' => FALSE,
+  'default_group' => 'All',
+  'default_group_multiple' => [],
+  'group_items' => [
+  1 => [
+  'title' => 'YES',
+  'operator' => '=',
+  'value' => '1',
+  ],
+  2 => [
+  'title' => 'NO',
+  'operator' => '=',
+  'value' => '0',
+  ],
+  ],
+  ];
+
+  // Render the exposed form.
+  $output = $this->getExposedFormRenderArray($view);
+
+  // Check our "FIELD_BEF_BOOLEAN" filter is rendered with id
+  // "field_bef_boolean_value2".
+  $this->assertTrue(isset($output['field_bef_boolean_value2']), 'Exposed filter "FIELD_BEF_BOOLEAN" is exposed with id "field_bef_boolean_value2".');
+
+  $view->destroy();
+  }*/
+
+  /**
    * Tests sorting filter options alphabetically.
    */
   public function testSortFilterOptions() {
@@ -86,8 +136,8 @@ class FilterWidgetKernelTest extends BetterExposedFiltersKernelTestBase {
     $this->renderExposedForm($view);
 
     // Assert our "collapsible" options detail is visible.
-    $actual = $this->xpath("//form//details[@id='edit-field-bef-email-value-collapsible']");
-    $this->assertEqual(count($actual), 1, '"Field BEF Email" option is displayed as collapsible fieldset.');
+    $actual = $this->xpath("//form//details[@data-drupal-selector='edit-field-bef-email-value-collapsible']");
+    $this->assertCount(1, $actual, '"Field BEF Email" option is displayed as collapsible fieldset.');
 
     $view->destroy();
   }

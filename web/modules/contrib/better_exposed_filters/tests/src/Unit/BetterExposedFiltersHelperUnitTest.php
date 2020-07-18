@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\better_exposed_filters\Unit;
+namespace Drupal\Tests\better_exposed_filters\Unit;
 
 use Drupal\better_exposed_filters\BetterExposedFiltersHelper;
 use Drupal\Core\StringTranslation\StringTranslationTrait;

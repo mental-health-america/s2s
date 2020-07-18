@@ -22,6 +22,7 @@ class RadioButtons extends FilterWidgetBase {
     return parent::defaultConfiguration() + [
       'select_all_none' => FALSE,
       'select_all_none_nested' => FALSE,
+      'display_inline' => FALSE,
     ];
   }
 
@@ -47,8 +48,16 @@ class RadioButtons extends FilterWidgetBase {
       '#type' => 'checkbox',
       '#title' => $this->t('Add nested all/none selection'),
       '#default_value' => !empty($this->configuration['select_all_none_nested']),
-      '#disabled' => !$filter->options['expose']['multiple'] || !$filter->options['hierarchy'],
+      '#disabled' => (!$filter->options['expose']['multiple']) || (isset($filter->options['hierarchy']) && !$filter->options['hierarchy']),
       '#description' => $this->t('When a parent checkbox is checked, check all its children. If this option is disabled, edit the filter and check "Allow multiple selections" and edit the filter settings and check "Show hierarchy in dropdown".'
+      ),
+    ];
+
+    $form['display_inline'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Display inline'),
+      '#default_value' => !empty($this->configuration['display_inline']),
+      '#description' => $this->t('Display checkbox/radio options inline.'
       ),
     ];
 
@@ -63,7 +72,7 @@ class RadioButtons extends FilterWidgetBase {
     $filter = $this->handler;
     // Form element is designated by the element ID which is user-
     // configurable.
-    $field_id = $filter->options['expose']['identifier'];
+    $field_id = $filter->options['is_grouped'] ? $filter->options['group_info']['identifier'] : $filter->options['expose']['identifier'];
 
     parent::exposedFormAlter($form, $form_state);
 
@@ -79,11 +88,13 @@ class RadioButtons extends FilterWidgetBase {
         $form[$field_id]['#bef_nested'] = TRUE;
       }
 
+      // Display inline.
+      $form[$field_id]['#bef_display_inline'] = $this->configuration['display_inline'];
+
       // Render as checkboxes if filter allows multiple selections.
       if (!empty($form[$field_id]['#multiple'])) {
         $form[$field_id]['#theme'] = 'bef_checkboxes';
         $form[$field_id]['#type'] = 'checkboxes';
-        $form[$field_id]['#process'][] = ['\Drupal\Core\Render\Element\Checkboxes', 'processCheckboxes'];
 
         // Show all/none option.
         $form[$field_id]['#bef_select_all_none'] = $this->configuration['select_all_none'];
@@ -96,7 +107,6 @@ class RadioButtons extends FilterWidgetBase {
       else {
         $form[$field_id]['#theme'] = 'bef_radios';
         $form[$field_id]['#type'] = 'radios';
-        $form[$field_id]['#process'][] = ['\Drupal\Core\Render\Element\Radios', 'processRadios'];
       }
     }
   }

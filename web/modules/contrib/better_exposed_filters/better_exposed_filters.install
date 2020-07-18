@@ -6,7 +6,7 @@
  */
 
 /**
- * Provide upgrade path from 8.x-3.x to 8.x-4.x
+ * Provide upgrade path from 8.x-3.x to 8.x-4.x.
  */
 function better_exposed_filters_update_8001() {
   $config_factory = \Drupal::configFactory();
@@ -44,7 +44,7 @@ function better_exposed_filters_update_8001() {
               ];
             }
             // Sort settings.
-            elseif($type === 'sort') {
+            elseif ($type === 'sort') {
               $bef_settings['sort'] = [
                 'plugin_id' => $option['bef_format'] ?? 'default',
                 'advanced' => [
@@ -59,7 +59,7 @@ function better_exposed_filters_update_8001() {
               ];
             }
             // Pager settings.
-            elseif($type === 'pager') {
+            elseif ($type === 'pager') {
               $bef_settings['pager'] = [
                 'plugin_id' => $option['bef_format'] ?? 'default',
                 'advanced' => [
@@ -76,21 +76,21 @@ function better_exposed_filters_update_8001() {
 
               $field_name = $type;
               $bef_settings['filter'][$field_name] = [
-                'plugin_id' => $option['bef_format'] ?? 'default'
+                'plugin_id' => $option['bef_format'] ?? 'default',
               ];
 
-              // Checkboxes/Radio buttons
+              // Checkboxes/Radio buttons.
               if ($option['bef_format'] === 'bef') {
                 $bef_settings['filter'][$field_name]['select_all_none'] = $option['more_options']['select_all_none'] ?? FALSE;
                 $bef_settings['filter'][$field_name]['select_all_none_nested'] = $option['more_options']['select_all_none_nested'] ?? FALSE;
               }
 
-              // Links
+              // Links.
               if ($option['bef_format'] === 'bef_links') {
                 $bef_settings['filter'][$field_name]['select_all_none'] = $option['more_options']['select_all_none'] ?? FALSE;
               }
 
-              // Sliders
+              // Sliders.
               if ($option['bef_format'] === 'bef_sliders') {
                 // Animate option is now split into two separate options.
                 $animate = $option['slider_options']['bef_slider_animate'];
@@ -98,7 +98,7 @@ function better_exposed_filters_update_8001() {
                 if (empty($animate)) {
                   $animate = 'none';
                 }
-                elseif(is_int($animate)) {
+                elseif (is_int($animate)) {
                   $animate = 'custom';
                   $animate_ms = $animate;
                 }

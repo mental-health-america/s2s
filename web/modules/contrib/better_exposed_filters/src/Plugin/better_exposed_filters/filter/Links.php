@@ -51,9 +51,7 @@ class Links extends FilterWidgetBase {
   public function exposedFormAlter(array &$form, FormStateInterface $form_state) {
     /** @var \Drupal\views\Plugin\views\filter\FilterPluginBase $filter */
     $filter = $this->handler;
-    // Form element is designated by the element ID which is user-
-    // configurable.
-    $field_id = $filter->options['expose']['identifier'];
+    $field_id = $this->getExposedFilterFieldId();
 
     parent::exposedFormAlter($form, $form_state);
 
