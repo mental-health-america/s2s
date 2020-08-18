@@ -1,0 +1,15 @@
+name: Crowdsourcing Comment
+type: module
+description: 'Crowdsourcing Comment module'
+package: Crowdsourcing
+# core: 8.x
+# version: 8.1.1
+
+dependencies:
+  - crowdsourcing
+  - comment
+# Information added by Drupal.org packaging script on 2016-10-21
+version: '8.x'
+core: '8.x'
+project: 'crowdsourcing'
+datestamp: 1477080903

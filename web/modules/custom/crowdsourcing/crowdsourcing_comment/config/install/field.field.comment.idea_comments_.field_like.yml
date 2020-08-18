@@ -1,0 +1,26 @@
+uuid: c5cf6ce7-facd-43c3-b5f5-0bfae64f2869
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.idea_comments_
+    - field.storage.comment.field_like
+  module:
+    - crowdsourcing
+id: comment.idea_comments_.field_like
+field_name: field_like
+entity_type: comment
+bundle: idea_comments_
+label: Like
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    likes: '0'
+    dislikes: '0'
+    clicked_by: null
+    ip_address: null
+default_value_callback: ''
+settings: {  }
+field_type: like_dislike

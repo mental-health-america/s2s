@@ -1,0 +1,46 @@
+uuid: 1710d209-28ee-4dde-992d-52eb4fb3c80b
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.idea_comments_
+    - field.field.comment.idea_comments_.field_idea_comment
+    - field.field.comment.idea_comments_.field_like
+    - field.field.comment.idea_comments_.field_report_abuse
+  module:
+    - crowdsourcing
+id: comment.idea_comments_.default
+targetEntityType: comment
+bundle: idea_comments_
+mode: default
+content:
+  field_idea_comment:
+    type: basic_string
+    weight: 0
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_like:
+    weight: 2
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: like_dislike_formatter
+    region: content
+  field_report_abuse:
+    weight: 3
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: report_abuse_formatter
+    region: content
+  links:
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true

@@ -1,0 +1,19 @@
+name: Crowdsourcing
+type: module
+description: 'Crowdsourcing module'
+package: Crowdsourcing
+# core: 8.x
+# version: 8.1.1
+
+dependencies:
+  - node
+  - field
+  - taxonomy
+  - views
+  - drupal:comment
+configure: crowdsourcing.settings
+# Information added by Drupal.org packaging script on 2016-10-21
+version: '8.x'
+core: '8.x'
+project: 'crowdsourcing'
+datestamp: 1477080903

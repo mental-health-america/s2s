@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - crowdsourcing_comment
+id: idea_comments_
+label: "Idea Comments\t"
+target_entity_type_id: node
+description: ''

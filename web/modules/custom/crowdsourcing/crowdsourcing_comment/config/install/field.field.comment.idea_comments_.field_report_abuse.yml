@@ -1,0 +1,22 @@
+uuid: be8a78d2-b0e0-4a6a-9268-688dc21a11f4
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.idea_comments_
+    - field.storage.comment.field_report_abuse
+  module:
+    - crowdsourcing
+id: comment.idea_comments_.field_report_abuse
+field_name: field_report_abuse
+entity_type: comment
+bundle: idea_comments_
+label: 'Report Abuse'
+description: ''
+required: false
+translatable: false
+default_value:
+  - {  }
+default_value_callback: ''
+settings: {  }
+field_type: report_abuse

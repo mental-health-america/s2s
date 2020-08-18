@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - crowdsourcing
+  module:
+    - entity_redirect
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+  entity_redirect:
+    personalization:
+      679:
+        destination: default
+        url: ''
+        external: ''
+    destination: default
+    url: ''
+    personalizable: true
+    redirect_edit: false
+    external: ''
+name: Idea
+type: idea
+description: ''
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: false

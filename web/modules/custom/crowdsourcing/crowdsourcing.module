@@ -1,0 +1,696 @@
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\crowdsourcing\Controller\AjaxCommentsController;
+use Drupal\crowdsourcing\FieldSettingsHelper;
+use Drupal\crowdsourcing\Utility;
+use Drupal\comment\CommentInterface;
+use Drupal\node\NodeInterface;
+use Drupal\Component\Serialization\Json;
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Ajax;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\AlertCommand;
+use Drupal\Core\Ajax\CloseDialogCommand;
+use Drupal\Core\Ajax\HtmlCommand;
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Field\FormatterInterface;
+use Drupal\Core\Form\FormBuilderInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Routing\RouteMatch;
+use Symfony\Component\HttpFoundation\Request;
+use Drupal\node\Entity\Node;
+use Drupal\comment\Entity\Comment;
+use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Core\Access\AccessResult;
+
+
+function crowdsourcing_page_attachments(array &$page) {
+  $page['#attached']['library'][] = 'crowdsourcing/crowdsourcing';
+}
+
+
+
+function idea_title_validate(&$form, \Drupal\Core\Form\FormStateInterface $form_state){
+  if ($form_state->hasValue('title')) {
+    $title = $form_state->getValue('title');
+
+    if (strlen($title[0]['value']) > 10000) {
+        $form_state->setErrorByName('title', t('Your titleexceeds the maxlength'));
+    }
+  }
+}
+/**
+ * Implements hook_help().
+ */
+function crowdsourcing_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.crowdsourcing':
+      $output = '';
+      $output .= '<h3>' . t('Like/Dislike') . '</h3>';
+      $output .= '<p>' . t('Add a Like and Dislike field on every entity (like content, comments etc) and Get instant statistics..') . '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_form_user_register_form_alter().
+ */
+function crowdsourcing_form_user_register_form_alter(&$form, &$form_state) {
+  $form['actions']['submit']['#submit'][] = 'like_dislike_registration_alter';
+}
+
+/**
+ * Callback function for handling redirect on registration.
+ */
+function crowdsourcing_registration_alter($form, &$form_state) {
+  like_dislike_redirect_to_previous_page('register');
+}
+
+/**
+ * Implements hook_user_login().
+ */
+function crowdsourcing_user_login($account) {
+  like_dislike_redirect_to_previous_page('');
+}
+
+/**
+ * Redirect to the previous page on like/dislike.
+ */
+function like_dislike_redirect_to_previous_page($status) {
+  // To be handled only if like/dislike module is installed.
+  if (\Drupal::moduleHandler()->moduleExists('crowdsourcing')) {
+    $destination = \Drupal::request()->cookies->get('Drupal_visitor_destination');
+    user_cookie_save(['destination' => '']);
+    $url = \Drupal::pathValidator()->getUrlIfValid($destination);
+    $url->setAbsolute();
+    $redirect = $url->toString();
+    if ($status == 'register') {
+      drupal_set_message('Registration completed!, kindly check your mail for further details.');
+    }
+    return (new RedirectResponse($redirect))->send();
+  }
+}
+
+/**
+*	Hook for Crowd Sourcing theme
+*/
+function crowdsourcing_theme() {
+	return [
+		'post_all' => [
+      'variables' => [
+        'post_titles' => [],
+        ],
+      ],
+      'home' => [
+        'variables' => [
+          'title' => [],
+          ],
+        ],
+      'like_dislike' => array(
+        'variables' => array(
+          'likes' => NULL,
+          'dislikes' => NULL,
+          'like_url' => NULL,
+          'dislike_url' => NULL,
+          'already_clicked' => NULL,
+          'like_img' => NULL,
+          'liked_class'=> NULL,
+          'like_count_class' => NULL
+        ),
+      ),
+      'report_abuse' => array(
+        'variables' => array(
+          'report' => NULL,
+          'unreport' => NULL,
+          'report_url' => NULL,
+          'unreport_url' => NULL,
+          'already_clicked' => NULL,
+          'report_img' => NULL,
+          'reported_class' => NULL
+        ),
+      ),
+  ];
+}
+
+
+
+
+/********************** */
+
+function crowdsourcing_comment_access(\Drupal\Core\Entity\EntityInterface $entity, $operation, \Drupal\Core\Session\AccountInterface $account) {
+  switch ($operation) {
+    case 'update':
+      if($account->id() == 0 && $entity->getOwnerId() == 0){
+        if($entity->bundle() == 'idea_comments_'){
+          $ip_address = \Drupal::request()->getClientIp();
+          if($ip_address == $entity->getHostname())
+            $access_result = AccessResult::allowedIf($entity->isPublished() && $account->hasPermission('edit own comments'))
+            ->cachePerPermissions()->cachePerUser()->addCacheableDependency($entity);
+          if (!$access_result->isAllowed()) {
+            $access_result->setReason("The 'edit own comments' permission is required, the user must be the comment author, and the comment must be published.");
+          }
+          return $access_result;
+        }
+      }
+
+  }
+}
+
+/**
+ * Implements hook_comment_links_alter().
+ *
+ * For entity bundles with ajax comments enabled, alter the comment link
+ * classes to allow ajax behaviors to be attached.
+ */
+function crowdsourcing_comment_links_alter(array &$links, CommentInterface &$entity, array &$context) {
+  $request = \Drupal::request();
+  /** @var \Drupal\crowdsourcing\FieldSettingsHelper $field_settings_helper */
+  $field_settings_helper = \Drupal::service('crowdsourcing.field_settings_helper');
+  $comment_formatter = $field_settings_helper->getFieldFormatterFromComment($entity, $context['view_mode']);
+
+  if ($field_settings_helper->isEnabled($comment_formatter)) {
+    // A little HACK for do not mark as NEW own comments.
+    if ($entity->isNew() && ($entity->getOwnerId() === \Drupal::currentUser()->id())) {
+      $entity->enforceIsNew(FALSE);
+    }
+
+    $field_name = $entity->getFieldName();
+    $wrapper_html_id = Utility::getWrapperIdFromEntity($context['commented_entity'], $field_name);
+
+    // Attach classes to comment delete links to allow ajax_comments.js
+    // to attach ajax behaviors to them.
+    if (isset($links['comment']['#links']['comment-delete'])) {
+      $classes = [
+        'use-ajax',
+        'js-use-ajax-comments',
+        'js-ajax-comments-delete',
+        'js-ajax-comments-delete-' . $entity->id(),
+      ];
+      if (empty($links['comment']['#links']['comment-delete']['attributes']['class'])) {
+        $links['comment']['#links']['comment-delete']['attributes']['class'] = $classes;
+      }
+      else {
+        $links['comment']['#links']['comment-delete']['attributes']['class'] = array_unique(array_merge($links['comment']['#links']['comment-delete']['attributes']['class'], $classes));
+      }
+      // Set the delete confirmation form to appear in a modal dialog box,
+      // if available.
+      $links['comment']['#links']['comment-delete']['attributes']['data-dialog-type'] = 'modal';
+      $links['comment']['#links']['comment-delete']['attributes']['data-dialog-options'] = Json::encode([
+        'width' => 700,
+      ]);
+      $links['comment']['#links']['comment-delete']['attributes']['data-wrapper-html-id'] = $wrapper_html_id;
+    }
+
+    // Attach classes to comment edit links to allow ajax_comments.js
+    // to attach ajax behaviors to them.
+    if (isset($links['comment']['#links']['comment-edit'])) {
+      $classes = [
+        'use-ajax',
+        'js-use-ajax-comments',
+        'js-ajax-comments-edit',
+        'js-ajax-comments-edit-' . $entity->id(),
+      ];
+      if (empty($links['comment']['#links']['comment-edit']['attributes']['class'])) {
+        $links['comment']['#links']['comment-edit']['attributes']['class'] = $classes;
+      }
+      else {
+        $links['comment']['#links']['comment-edit']['attributes']['class'] = array_unique(array_merge($links['comment']['#links']['comment-edit']['attributes']['class'], $classes));
+      }
+      $links['comment']['#links']['comment-edit']['attributes']['data-wrapper-html-id'] = $wrapper_html_id;
+      $links['comment']['#links']['comment-edit']['url'] = Url::fromRoute(
+        'crowdsourcing.edit',
+        ['comment' => $entity->id()]
+      );
+    }
+
+    // Attach classes to comment reply links to allow ajax_comments.js
+    // to attach ajax behaviors to them.
+    if (isset($links['comment']['#links']['comment-reply'])) {
+      $classes = [
+        'use-ajax',
+        'js-use-ajax-comments',
+        'js-ajax-comments-reply',
+        'js-ajax-comments-reply-' . $entity->getCommentedEntityId() . '-' . $entity->getFieldName() . '-' . $entity->id(),
+      ];
+      if (empty($links['comment']['#links']['comment-reply']['attributes']['class'])) {
+        $links['comment']['#links']['comment-reply']['attributes']['class'] = $classes;
+      }
+      else {
+        $links['comment']['#links']['comment-reply']['attributes']['class'] = array_unique(array_merge($links['comment']['#links']['comment-reply']['attributes']['class'], $classes));
+      }
+      $links['comment']['#links']['comment-reply']['attributes']['data-wrapper-html-id'] = $wrapper_html_id;
+      $links['comment']['#links']['comment-reply']['url'] = Url::fromRoute(
+        'crowdsourcing.reply',
+        [
+          'entity_type' => $entity->getCommentedEntityTypeId(),
+          'entity' => $entity->getCommentedEntityId(),
+          'field_name' => $entity->getFieldName(),
+          'pid' => $entity->id(),
+        ]
+      );
+      unset($links['comment']['#links']['comment-reply']);
+    }
+  }
+}
+
+/**
+ * Implements hook_node_links_alter().
+ */
+function crowdsourcing_node_links_alter(array &$node_links, NodeInterface $node, array &$context) {
+  // Comment links are only added to node entity type for backwards
+  // compatibility. Should you require comment links for other entity types you
+  // can do so by implementing a new field formatter.
+  $links = \Drupal::service('comment.link_builder')->buildCommentedEntityLinks($node, $context);
+  foreach ($links as $link_name => $link) {
+    $field_name = substr($link_name, strlen('comment__'));
+    $classes = ['js-use-ajax-comments', 'js-ajax-comments-reply', 'js-ajax-comments-reply-' . $node->id() . '-' . $field_name . '-0'];
+    if (!empty($link['#links']['comment-add'])) {
+      if (empty($link['#links']['comment-add']['attributes']['class'])) {
+        $links[$link_name]['#links']['comment-add']['attributes']['class'] = $classes;
+      }
+      else {
+        $links[$link_name]['comment-add']['attributes']['class'] = array_unique(array_merge($link['#links']['comment-add']['attributes']['class'], $classes));
+      }
+    }
+  }
+  $node_links += $links;
+}
+
+/**
+ * Implements hook_entity_display_build_alter().
+ */
+function crowdsourcing_entity_display_build_alter(&$build, $context) {
+  foreach ($build as $field_name => $field) {
+    if (!empty($field['#field_type']) && $field['#field_type'] === 'comment') {
+      // Check that this comment field uses Ajax Comments.
+      /** @var \Drupal\crowdsourcing\FieldSettingsHelper $field_settings_helper */
+      $field_settings_helper = \Drupal::service('crowdsourcing.field_settings_helper');
+      $field_config = $build[$field_name]['#items']->getFieldDefinition();
+      $field_formatter = $field_settings_helper->getFieldFormatter($context['display'], $field['#field_name'], $field_config, $context['display']->getMode());
+      if (!empty($field_formatter) && $field_settings_helper->isEnabled($field_formatter)) {
+        // Check if this ID is being generated in response to an Ajax request.
+        if (Utility::isAjaxRequest(\Drupal::request())) {
+          // Note that setting ajax as TRUE on Html here also fixes issue
+          // with non-unique IDs on textarea elements return through ajax,
+          // which otherwise could result in WYYSIWYG editors being
+          // incorrectly attached by Drupal.attachBehaviors().
+          Html::setIsAjax(TRUE);
+        }
+
+        $html_id = $field['#entity_type'] . '_' . $field['#bundle'] . '_' . $field['#field_name'];
+        if (isset($build[$field_name])) {
+          $build[$field_name]['#attributes']['id'] = Html::getUniqueId($html_id);
+          Utility::setEntityRenderArray($build, $context['entity'], $context['display']->getMode());
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function crowdsourcing_entity_view_alter(array &$build, ContentEntityInterface $entity, EntityViewDisplayInterface $display) {
+  $commands_added = &drupal_static(__FUNCTION__);
+  if (!isset($commands_added)) {
+    $commands_added = FALSE;
+  }
+  if(isset($build['#node'])){
+    \Drupal::service('page_cache_kill_switch')->trigger();
+    if($entity->getType() == 'idea'){
+      $title = $entity->get('title')->value;
+      if($title == "How much do you think your negative thought is true?"){
+        $form = \Drupal::formBuilder()->getForm('Drupal\crowdsourcing\Form\RadioForm', $entity);
+        $build['negative_thoughts'] = [
+            '#markup' => drupal_render($form),
+            '#weight' => '0'
+        ];
+      }
+      $userid = \Drupal::currentUser()->id();
+      $ip_address = \Drupal::request()->getClientIp();
+      if($userid == 0){
+        $cid = \Drupal::entityQuery('comment')
+           // ->condition('entity_id', $node_id)
+            ->condition('entity_type', 'node')
+            ->condition('uid', 0)
+            ->condition('hostname', $ip_address)
+            ->sort('cid', 'ASC')
+            ->range(0, 1)
+            ->execute();
+      }else{
+        $cid = \Drupal::entityQuery('comment')
+           // ->condition('entity_id', $node_id)
+            ->condition('entity_type', 'node')
+            ->condition('uid', $userid)
+            ->sort('cid', 'ASC')
+            ->range(0, 1)
+            ->execute();
+      }
+
+      if(!empty($cid)){
+        $comment = Comment::load(current($cid));
+        $cid_entity_id = $comment->get('entity_id')->target_id;
+        $current_path = \Drupal::service('path.current')->getPath();
+        $pathArgs = explode('/', $current_path);
+        if(!empty($cid_entity_id) && ($cid_entity_id != $pathArgs[2])){
+          $comment_body = '<article class="comment user_comment"><footer class="comment__meta">
+          <article class="contextual-region profile">
+            </article>
+              <p class="comment__title">
+          <strong>Your intial thought</strong>
+          </p>
+          </footer><div class="comment__content">'.$comment->get('field_idea_comment')->value.'</div></article>';
+            $build[] = array(
+              '#type' => 'markup',
+              '#markup' => $comment_body
+            );
+        }
+      }
+    }
+  }
+
+
+
+  if (!$commands_added) {
+    foreach ($entity->getFieldDefinitions() as $machine_name => $field_config) {
+      if ($field_config->getType() === 'comment') {
+        /** @var \Drupal\crowdsourcing\FieldSettingsHelper $field_settings_helper */
+        $field_settings_helper = \Drupal::service('crowdsourcing.field_settings_helper');
+        $field_formatter = $field_settings_helper->getFieldFormatter($display, $machine_name, $field_config, $display->getMode());
+        if (!empty($field_formatter) && $field_settings_helper->isEnabled($field_formatter)) {
+          $build['#attached']['library'][] = 'crowdsourcing/commands';
+          $commands_added = TRUE;
+          break;
+
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function crowdsourcing_form_comment_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  /** @var \Drupal\crowdsourcing\FieldSettingsHelper $field_settings_helper */
+  $field_settings_helper = \Drupal::service('crowdsourcing.field_settings_helper');
+  /** @var \Drupal\Core\Routing\CurrentRouteMatch $current_route */
+  $current_route = \Drupal::service('current_route_match');
+  // Ajax replies to other comments should happen on the canonical entity page
+  // (note this functionality has not been ported to D8, yet).
+  // If the user is on the standalone comment reply page, it means JavaScript
+  // is disabled or the ajax functionality is not working. Do not proceed with
+  // the form alter.
+  if (in_array($current_route->getRouteName(), ['comment.reply', 'entity.comment.edit_form'])) {
+    return;
+  }
+
+  /** @var \Drupal\comment\CommentInterface $comment */
+  $comment = $form_state->getFormObject()->getEntity();
+  /** @var \Drupal\Core\Entity\EntityInterface $commented_entity */
+  $commented_entity = $comment->getCommentedEntity();
+  $field_name = $comment->getFieldName();
+
+  // Check to see if this node type uses ajax comments.
+  $comment_formatter = $field_settings_helper->getFieldFormatterFromComment($comment, 'full');
+  if (!$field_settings_helper->isEnabled($comment_formatter)) {
+    return;
+  }
+
+  $cid = $comment->id() ? $comment->id() : 0;
+  $pid = $comment->get('pid')->target_id ? $comment->get('pid')->target_id : 0;
+  $id = 'ajax-comments-reply-form-' . $commented_entity->getEntityTypeId() . '-' . $commented_entity->id() . '-' . $comment->getFieldName() . '-' . $pid . '-' . $cid;
+  // Get comment form state class.
+  if (!empty($cid)) {
+    // This is the Comment Edit Form.
+    $form_state_class = 'ajax-comments-form-edit';
+  }
+  else {
+    if (!empty($pid)) {
+      // This is the Comment Reply Form.
+      $form_state_class = 'ajax-comments-form-reply';
+    }
+    else {
+      // This is the Add New Comment Form.
+      $form_state_class = 'ajax-comments-form-add';
+    }
+  }
+
+  $form['#attributes']['class'][] = $id;
+  $form['#attributes']['class'][] = $form_state_class;
+
+  // Set unique id (need for Views with enabled AJAX).
+  if (empty($form['actions']['submit']['#id'])) {
+    $form['actions']['submit']['#id'] = \Drupal\Component\Utility\Html::getUniqueId('edit-' . $id);
+  }
+
+  if (empty($form['actions']['submit']['#attributes'])) {
+    $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
+    $form['actions']['submit']['#value'] = 'Submit';
+  }
+
+  $form['actions']['preview']['#ajax'] = [
+    'callback' => '_ajax_comments_preview_js',
+    'wrapper' => $form['#attributes']['id'],
+    'method' => 'replace',
+    'effect' => 'fade',
+  ];
+  // Set unique id (need for Views with enabled AJAX).
+  if (empty($form['actions']['preview']['#id'])) {
+    $form['actions']['preview']['#id'] = \Drupal\Component\Utility\Html::getUniqueId('preview-' . $id);
+  }
+}
+
+/**
+ * Ajax form callback: Preview comment.
+ */
+function _ajax_comments_preview_js($form, FormStateInterface $form_state) {
+  $message = 'Comment preview';
+  $response = new AjaxResponse();
+  $response->addCommand(new AlertCommand($message));
+  return $response;
+}
+
+/**
+ * Implements template_preprocess_comment().
+ */
+function crowdsourcing_preprocess_comment(&$variables) {
+  /** @var \Drupal\comment\CommentInterface $comment */
+  $comment = $variables['elements']['#comment'];
+  $variables['attributes']['class'][] = AjaxCommentsController::$commentClassPrefix . $comment->id();
+}
+
+/**
+ * Implements template_preprocess_pager().
+ */
+function crowdsourcing_preprocess_pager(&$variables) {
+  // Query parameters are added in
+  // core/includes/pager.inc in the template_preprocess_pager(),
+  // where pager_query_add_page() calls pager_get_query_parameters(),
+  // which will pick up the ajax wrapper format from the ajax request, which breaks
+  // the pager.
+  // Unfortunately there is no way to remove this parameter before it is rendered to text,
+  // so this preprocess function removes the parameter with string replacement.
+  $items = [];
+
+  // Remove ajax wrapper format from first, previous.
+  if (isset($variables['items']['first'])) {
+    $items['first'] = ['href' => str_replace('_wrapper_format=drupal_ajax&', '', $variables['items']['first']['href'])];
+  }
+  if (isset($variables['items']['previous'])) {
+    $items['previous'] = ['href' => str_replace('_wrapper_format=drupal_ajax&', '', $variables['items']['previous']['href'])];
+  }
+
+  // Remove ajax wrapper format from specific page links.
+  if (isset($variables['items']['pages'])) {
+    foreach($variables['items']['pages'] as $key => $value) {
+      $items['pages'][$key] = ['href' => str_replace('_wrapper_format=drupal_ajax&', '', $value['href'])];
+    }
+  }
+
+  // Remove ajax wrapper format from next, last.
+  if (isset($variables['items']['next'])) {
+    $items['next'] = ['href' => str_replace('_wrapper_format=drupal_ajax&', '', $variables['items']['next']['href'])];
+  }
+  if (isset($variables['items']['last'])) {
+    $items['last'] = ['href' => str_replace('_wrapper_format=drupal_ajax&', '', $variables['items']['last']['href'])];
+  }
+
+  $variables['items'] = $items;
+}
+
+/**
+ * Implements template_preprocess_status_messages().
+ */
+function crowdsourcing_preprocess_status_messages(&$variables) {
+  $request = \Drupal::request();
+  $route_name = RouteMatch::createFromRequest($request)->getRouteName();
+  if (strpos($route_name, 'ajax_comments') !== FALSE) {
+    $variables['attributes']['class'][] = 'js-ajax-comments-messages';
+  }
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function crowdsourcing_entity_type_alter(array &$entity_types) {
+  // Alter the comment entity definition to use this module's forms.
+  $entity_types['comment']->setFormClass('default', 'Drupal\crowdsourcing\Form\AjaxCommentsForm');
+  $entity_types['comment']->setFormClass('delete', 'Drupal\crowdsourcing\Form\AjaxCommentsDeleteForm');
+}
+
+/**
+ * Implements hook_field_formatter_third_party_settings_form().
+ */
+function crowdsourcing_field_formatter_third_party_settings_form(FormatterInterface $plugin, FieldDefinitionInterface $field_definition, $view_mode, $form, FormStateInterface $form_state) {
+  $element = [];
+  if ($field_definition->getType() === 'comment') {
+    $ajax_comments_status = \Drupal::service('crowdsourcing.field_settings_helper')->isEnabled($plugin);
+    $element['enable_ajax_comments'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Enable Ajax Comments'),
+      '#default_value' => $ajax_comments_status,
+    ];
+  }
+  return $element;
+}
+
+/**
+ * Implements hook_field_formatter_settings_summary_alter().
+ */
+function crowdsourcing_field_formatter_settings_summary_alter(&$summary, $context) {
+  if ($context['field_definition']->getType() === 'comment') {
+    $status = \Drupal::service('crowdsourcing.field_settings_helper')->isEnabled($context['formatter']);
+    if ($status) {
+      $summary[] = t('Ajax comments enabled on this field.');
+    }
+    else {
+      $summary[] = t('Ajax comments disabled on this field.');
+    }
+  }
+}
+
+function crowdsourcing_query_comment_filter_alter(Drupal\Core\Database\Query\AlterableInterface $query) {
+
+  // Change comment order to DESC for 'comment' field.
+  if ($query->getMetaData('field_name') == 'field_idea_comment') {
+    $query->addJoin('left','comment__field_like','cl','c.cid = cl.entity_id');
+    $order_by = &$query->getOrderBy();
+    $expressions = &$query->getExpressions();
+    // Sorting for threaded comments.
+    if (isset($order_by['torder']) && $order_by['torder'] == 'ASC') {
+      // Get rid of the expressions that prepare the threads for ASC ordering.
+      unset($expressions['torder']);
+      unset($order_by['torder']);
+
+      //comment__field_like
+      // Simply order by the thread field.
+     $order_by['cl.field_like_likes'] = 'DESC';
+    }
+
+  }
+
+}
+
+function crowdsourcing_views_data() {
+  $data['node_radio_field'] = array();
+  $data['node_radio_field']['table'] = array();
+  $data['node_radio_field']['table']['group'] = t('Idea Radio Table');
+  $data['example_table']['table']['provider'] = 'crowdsourcing';
+
+  $data['node_radio_field']['table']['base'] = array(
+      'field' => 'id',
+      'title' => t('Idea Radio table'),
+      'help' => t('Answers of users'),
+      'weight' => -10,
+    );
+
+  $data['node_radio_field']['table']['join'] = array(
+    'node' => array(
+      'left_field' => 'nid',
+      'field' => 'entity_id',
+    ),
+  );
+
+  $data['node_radio_field']['entity_id'] = array(
+    'title' => t('Example content'),
+    'help' => t('Some example content that references a node.'),
+    'relationship' => array(
+      'base' => 'node',
+      'base field' => 'nid', // The name of the field on the joined table.
+      'id' => 'standard',
+      'label' => t('Example node'),
+    ),
+  );
+
+  $data['node_radio_field']['table']['join']['users'] = array(
+    //...to the property table
+      'left_field' => 'name',
+      'field' => 'uid',
+  );
+
+  $data['node_radio_field']['uid'] = array(
+    'title' => t('User ID'),
+    'help' => t('The user ID of the user'),
+    'relationship' => array(
+      'base' => 'users',
+      'base field' => 'uid',
+      'id' => 'standard',
+    ),
+  );
+
+  $data['node_radio_field']['table']['join']['users_field_data'] = array(
+    //...to the property table
+      'left_field' => 'uid',
+      'field' => 'uid',
+  );
+  $data['node_radio_field']['uid'] = array(
+    'title' => t('User ID'),
+    'help' => t('The user ID of the user'),
+    'relationship' => array(
+      'base' => 'users_field_data',
+      'base field' => 'uid',
+      'id' => 'standard',
+    ),
+  );
+  $data['node_radio_field']['field_radio_value'] = array(
+    'title' => t('Radio value choosed'),
+    'help' => t('Just a plain text field.'),
+    'field' => array(
+      'id' => 'standard',
+    ),
+    'sort' => array(
+      'id' => 'standard',
+    ),
+    'filter' => array(
+      'id' => 'string',
+    ),
+    'argument' => array(
+      'id' => 'string',
+    ),
+  );
+
+  $data['node_radio_field']['created'] = array(
+    'title' => t('Authored on'),
+    'help' => t('Just a timestamp field.'),
+    'field' => array(
+      'id' => 'date',
+    ),
+    'sort' => array(
+      'id' => 'date',
+    ),
+    'filter' => array(
+      'id' => 'date',
+    ),
+  );
+  return $data;
+}
+
+

@@ -1,0 +1,108 @@
+crowdsourcing.manager:
+  path: like-dislike/{clicked}/{data}
+  defaults:
+    _controller: '\Drupal\crowdsourcing\Controller\LikeDislikeController::handler'
+  requirements:
+    _permission: 'access content'
+    # _csrf_token: 'TRUE'
+
+crowdsourcing.report:
+  path: report-comment/{clicked}/{data}
+  defaults:
+    _controller: '\Drupal\crowdsourcing\Controller\ReportController::handler'
+  requirements:
+    _permission: 'access content'
+
+crowdsourcing.settings:
+  path: '/admin/config/content/ajax_comments'
+  defaults:
+    _form: '\Drupal\crowdsourcing\Form\SettingsForm'
+    _title: 'Ajax comments'
+  requirements:
+    _permission: 'administer site configuration'
+
+crowdsourcing.edit:
+  path: '/ajax_comments/{comment}/edit'
+  defaults:
+    _controller: '\Drupal\crowdsourcing\Controller\AjaxCommentsController::edit'
+  requirements:
+    _entity_access: 'comment.update'
+  options:
+    parameters:
+      comment:
+        type: entity:comment
+
+crowdsourcing.save:
+  path: '/ajax_comments/{comment}/save'
+  defaults:
+    _controller: '\Drupal\crowdsourcing\Controller\AjaxCommentsController::save'
+  requirements:
+    _entity_access: 'comment.update'
+  options:
+    parameters:
+      comment:
+        type: entity:comment
+
+crowdsourcing.save_reply:
+  path: '/ajax_comments/save_reply/{entity_type}/{entity}/{field_name}/{pid}'
+  defaults:
+    _controller: '\Drupal\crowdsourcing\Controller\AjaxCommentsController::saveReply'
+  requirements:
+    _access: 'TRUE'
+    pid: ^[0-9]+
+  options:
+    parameters:
+      entity:
+        type: entity:{entity_type}
+
+crowdsourcing.cancel:
+  path: '/ajax_comments/{cid}/cancel'
+  defaults:
+    _controller: '\Drupal\crowdsourcing\Controller\AjaxCommentsController::cancel'
+  requirements:
+    _access: 'TRUE'
+    cid: ^[0-9]+
+
+crowdsourcing.delete:
+  path: '/ajax_comments/{comment}/delete'
+  defaults:
+    _controller: '\Drupal\crowdsourcing\Controller\AjaxCommentsController::delete'
+    _title: 'Delete comment'
+  requirements:
+    _entity_access: 'comment.delete'
+  options:
+    parameters:
+      comment:
+        type: entity:comment
+
+crowdsourcing.add:
+  path: '/ajax_comments/add/{entity_type}/{entity}/{field_name}/{pid}'
+  defaults:
+    _controller: '\Drupal\crowdsourcing\Controller\AjaxCommentsController::add'
+    pid: ~
+  requirements:
+    _access: 'TRUE'
+  options:
+    parameters:
+      entity:
+        type: entity:{entity_type}
+
+crowdsourcing.reply:
+  path: '/ajax_comments/reply/{entity_type}/{entity}/{field_name}/{pid}'
+  defaults:
+    _controller: '\Drupal\crowdsourcing\Controller\AjaxCommentsController::reply'
+    pid: ~
+  requirements:
+    _access: 'TRUE'
+    pid: ^[0-9]+
+  options:
+    parameters:
+      entity:
+        type: entity:{entity_type}
+crowdsourcing.exports.comment:
+ path: '/export/comments/{node}'
+ defaults:
+   _controller: '\Drupal\crowdsourcing\Controller\CommentCSV::build'
+ requirements:
+   _permission: 'administer users'
+   node: ^[0-9]+

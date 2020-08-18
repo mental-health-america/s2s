@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a formatted like dislike field.
+ *
+ * Available variables:
+ * - like_url: like url.
+ * - dislike_url: dislike url.
+ * - likes: number of likes.
+ * - dislikes: number of dislikes.
+ *
+ * @ingroup themeable
+ */
+#}
+{% set reported = reported_class %}
+<div class="report_abuse">
+  <div class="report">
+    {% if already_clicked == 'TRUE' %}
+      <img src="{{report_img}}" alt="Already reported" typeof="Image" class="img-responsive" />
+    {% else %}
+      <a class="use-ajax {{ reported }}" href={{ report_url }}><img src="{{report_img}}" alt="Report" typeof="Image"
+        class="img-responsive" /></a>
+    {% endif %}
+    {# <span id="report" class="report_count">{{ report }}</span> #}
+  </div>
+  
+    
+      {# <div class="dislike">
+        <a class="use-ajax" href={{ dislike_url }}>Dislike</a>
+        <span id="dislike">{{ dislikes }}</span>
+    </div> #}
+</div>
+    <div id="report_abuse_status"></div>

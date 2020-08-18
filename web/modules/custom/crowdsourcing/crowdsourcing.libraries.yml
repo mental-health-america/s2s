@@ -1,0 +1,15 @@
+crowdsourcing:
+  css:
+    theme:
+      css/like_dislike.css: {}
+      css/styles.css: {}
+commands:
+  version: VERSION
+  js:
+    ajax_comments.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.form
+    - core/drupal
+    - core/drupal.ajax
+    - core/drupal.form
