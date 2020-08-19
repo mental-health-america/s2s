@@ -1,0 +1,34 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a formatted like dislike field.
+ *
+ * Available variables:
+ * - like_url: like url.
+ * - dislike_url: dislike url.
+ * - likes: number of likes.
+ * - dislikes: number of dislikes.
+ *
+ * @ingroup themeable
+ */
+#}
+{% set liked = liked_class %}
+{% set like_count = like_count_class %}
+<div class="like_dislike">
+  <div class="like">
+    {% if already_clicked == 'TRUE' %}
+      <img src="{{like_img}}" alt="Already Liked" typeof="Image" class="img-responsive" />
+    {% else %}
+      <a class="use-ajax {{ liked }}" href={{ like_url }}><img src="{{like_img}}" alt="No Like" typeof="Image"
+        class="img-responsive" /></a>
+    {% endif %}
+    <span id="like" class="{{ like_count }}">{{ likes }}</span>
+  </div>
+  
+    
+      {# <div class="dislike">
+        <a class="use-ajax" href={{ dislike_url }}>Dislike</a>
+        <span id="dislike">{{ dislikes }}</span>
+    </div> #}
+</div>
+    <div id="like_dislike_status"></div>

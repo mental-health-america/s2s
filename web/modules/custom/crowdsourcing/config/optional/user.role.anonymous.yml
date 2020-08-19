@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies: {  }
+id: anonymous
+label: 'Anonymous user'
+weight: -10
+is_admin: false
+permissions:
+  - 'access comments'
+  - 'access content'
+  - 'access news feeds'
+  - 'access site-wide contact form'
+  - 'create diy_tool_application content'
+  - 'flag bookmark'
+  - 'edit own comments'
+  - 'post comments'
+  - 'search content'
+  - 'use text format basic_html'
+  - 'view media'
+  - 'view own profile'
+  - 'view own webform submission'
+  - 'view webform submissions own node'
+  - 'skip comment approval'

@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.idea_comments_
+    - field.storage.comment.field_idea_comment
+id: comment.idea_comments_.field_idea_comment
+field_name: field_idea_comment
+entity_type: comment
+bundle: idea_comments_
+label: 'Your Thought'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

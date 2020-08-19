@@ -1,0 +1,78 @@
+<?php
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * Implements hook_uninstall().
+ */
+
+function crowdsourcing_uninstall() {
+
+  if ($field_storage = FieldStorageConfig::loadByName('node', 'field_links')) {
+    $field_storage->delete();
+  }
+  // Purge field data now to allow taxonomy and options module to be uninstalled
+  // if this is the only field remaining.
+  field_purge_batch(10);
+}
+
+/**
+ * Implements hook_schema().
+ */
+function crowdsourcing_schema() {
+  $schema['node_radio_field'] = [
+    'description' => 'Data of radio as per users',
+    'fields' => [
+      'id' => [
+        'description' => 'The primary identifier for email update',
+        'type' => 'serial',
+        'not null' => TRUE,
+        'unsigned' => TRUE,
+      ],
+      'entity_id' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The entity_id of the entity for which the statistics are compiled.',
+      ],
+      'entity_type' => [
+        'type' => 'varchar_ascii',
+        'not null' => TRUE,
+        'default' => 'node',
+        'length' => 256,
+        'description' => 'The entity_type of the entity to which this comment is a reply.',
+      ],
+      'uid' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The user id.',
+      ],
+      'ip_address' => [
+        'type' => 'varchar',
+          'length' => 256,
+          'not null' => FALSE,
+          'description' => 'IP address of users with 0 uid',
+      ],
+      'field_radio_value' => [
+        'type' => 'varchar_ascii',
+        'not null' => TRUE,
+        'default' => '',
+        'length' => 256,
+        'description' => 'The field value selctred by user.',
+      ],
+      'created' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The Unix timestamp of the last comment that was posted within this node, from {comment}.changed.',
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'created' => ['created'],
+    ],
+  ];
+
+  return $schema;
+}

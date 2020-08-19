@@ -1,0 +1,210 @@
+.comment__content > h3:nth-child(1) {
+    display: none;
+}
+
+.node__content > section:nth-child(2) > h2:nth-child(1) {
+    display: none;
+}
+
+p.no-question {
+    margin: 0 0 1.2em;
+    text-align: center;
+    padding-top: 31px;
+    font-size: 17px;
+}
+
+.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front {
+    left: 25% !important;
+    top: 2% !important;
+    width: 50% !important;
+}
+
+/*----------  IDEA CONTENT TYPE BODY  ----------*/
+
+// hide the "your thought" label which is redundant
+.comment-idea-comments__form label {
+    display: none;
+}
+
+article.idea .content {
+    display: grid;
+    grid-template-areas:
+        "initial"
+        "body"
+        "radios"
+        "comments"
+        "next";
+}
+
+article.user_comment {
+    grid-area: initial;
+    background-color: lightgoldenrodyellow;
+    padding: 0.5rem 0.5rem 0.25rem;
+    font-style: italic;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    // styling similar to <blockquote>
+    // border-left: 5px solid #eee;
+}
+
+article.idea div.field--name-body {
+    grid-area: body;
+    padding: 0;
+}
+
+form.idea-radio-form {
+    grid-area: radios;
+}
+
+article.idea section {
+    grid-area: comments;
+    display: grid;
+    grid-template-areas:
+        "enter"
+        "new";
+
+    & article.new {
+        grid-area: new;
+        background-color: lightgoldenrodyellow;
+    }
+}
+
+form.comment-idea-comments__form {
+    grid-area: enter;
+
+    & label {
+        // hide the "your thought" label which is redundant
+        display: none;
+    }
+}
+
+article.idea {
+    /*----------  COMMENTS  ----------*/
+
+    // these are currently the only .js-comment items, but nesting will future-proof it
+    & .js-comment {
+        // visually separate comments from each other and from everything else
+        border: 2px solid black;
+        border-radius: 10px;
+
+        margin-top: 1rem;
+        padding: 1rem;
+
+        // wrapper for delete, edit, reply, etc.
+        & .links.inline {
+            grid-area: links;
+            margin-bottom: 0;
+
+            // the buttons themselves
+            & li {
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
+            }
+            // generalize this button look to like and report as well?
+            & a {
+                border-radius: 5px;
+                background-color: blue;
+                color: white;
+                padding: 0.5rem;
+            }
+        }
+    }
+
+    // links to the next question
+
+    & .field--type-entity-reference {
+        grid-area: next;
+        position: sticky;
+        bottom: 0;
+        width: 100%;
+        border-top: 2px solid black;
+        border-radius: 0;
+
+        & > :first-child::before {
+            content: "Continue working with this thought:";
+            font-weight: 600;
+        }
+
+        // adapted from .btn-salmon
+        & a {
+            float: left;
+            border-radius: 10px;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            -webkit-transition: background 100ms linear;
+            -moz-transition: background 100ms linear;
+            -ms-transition: background 100ms linear;
+            -o-transition: background 100ms linear;
+            transition: background 100ms linear;
+
+            border: 2px solid black;
+
+            margin: 0.5rem 0;
+            padding: 0.75rem 1rem;
+
+            display: block;
+
+            &:hover {
+                border: 2px solid #ed6963;
+                background-color: #ed6963;
+                color: #fff;
+            }
+        }
+    }
+
+    & footer {
+        font-size: small;
+        font-style: italic;
+        margin-bottom: 10px;
+    }
+}
+
+.comment-body {
+    display: grid;
+    grid-template-columns: max-content max-content auto;
+    grid-template-areas:
+        "comment comment comment"
+        "links like report";
+    gap: 1rem;
+}
+
+/*----------  REPORT  ----------*/
+
+// a comment within the "idea" content type
+.field--name-field-idea-comment {
+    grid-area: comment;
+}
+
+.field--name-field-like {
+    grid-area: like;
+}
+
+.field--name-field-report-abuse {
+    grid-area: report;
+}
+
+/*----------  LIKE / DISLIKE  ----------*/
+
+// like and report buttons
+.like_dislike img,
+.report img {
+    // undo .img-responsive centering from theme
+    margin: unset;
+    height: 2rem;
+    width: auto;
+    max-width: unset;
+}
+
+.like_dislike .like {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 0.5rem;
+    align-items: center;
+
+    & a {
+        border: medium none !important;
+    }
+}
+
+/*----------  HIDING SOME STUFF  ----------*/

@@ -1,0 +1,29 @@
+uuid: 6393d6f9-aca1-4d5d-96c8-e3b71e659b2f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_links
+    - node.type.idea
+    - node.type.page
+id: node.idea.field_links
+field_name: field_links
+entity_type: node
+bundle: idea
+label: Links
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      page: page
+      idea: idea
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: page
+field_type: entity_reference

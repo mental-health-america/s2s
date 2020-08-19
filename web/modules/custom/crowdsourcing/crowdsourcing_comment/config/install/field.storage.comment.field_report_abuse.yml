@@ -1,0 +1,19 @@
+uuid: 4e20e3dd-c990-4b4e-92db-a73d730fbfcc
+langcode: en
+status: true
+dependencies:
+  module:
+    - comment
+    - crowdsourcing
+id: comment.field_report_abuse
+field_name: field_report_abuse
+entity_type: comment
+type: report_abuse
+settings: {  }
+module: crowdsourcing
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,7 @@
+services:
+  crowdsourcing.field_settings_helper:
+    class: Drupal\crowdsourcing\FieldSettingsHelper
+    arguments: ['@entity_type.manager', '@plugin.manager.field.formatter']
+  crowdsourcing.temp_store:
+    class: Drupal\crowdsourcing\TempStore
+    arguments: ['@user.private_tempstore']

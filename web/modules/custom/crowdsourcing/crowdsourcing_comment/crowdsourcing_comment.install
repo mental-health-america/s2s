@@ -1,0 +1,25 @@
+<?php
+
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * Implements hook_uninstall().
+ */
+function crowdsourcing_comment_uninstall() {
+  if ($field_storage = FieldStorageConfig::loadByName('node', 'field_idea_comment')) {
+    $field_storage->delete();
+  }
+  if ($field_storage = FieldStorageConfig::loadByName('comment', 'field_like')) {
+    $field_storage->delete();
+  }
+  if ($field_storage = FieldStorageConfig::loadByName('comment', 'field_report_abuse')) {
+    $field_storage->delete();
+  }
+  if ($field_storage = FieldStorageConfig::loadByName('comment', 'field_idea_comment')) {
+    $field_storage->delete();
+  }
+  \Drupal::configFactory()->getEditable('views.view.moderator_approval')->delete();
+  // Purge field data now to allow taxonomy and options module to be uninstalled
+  // if this is the only field remaining.
+  field_purge_batch(10);
+}
