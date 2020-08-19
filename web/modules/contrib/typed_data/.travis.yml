@@ -1,39 +1,23 @@
 language: php
-
-php:
-  - 5.6
-  - 7.0
-  - 7.1
-  - 7.2
-  # - 7.3
+os: linux
+dist: xenial
 
 env:
   global:
     # Make the script re-usable for other modules.
     - MODULE=typed_data
-    # Allow this many deprecation warnings (total on core 8.9 at 21 Feb 2020)
-    - SYMFONY_DEPRECATIONS_HELPER=0
-  jobs:
-    - DRUPAL_CORE=8.7.x
-    - DRUPAL_CORE=8.8.x
-    - DRUPAL_CORE=8.9.x
+    # Allow this many deprecation warnings.
+    - SYMFONY_DEPRECATIONS_HELPER=1
 
 jobs:
   fast_finish: true
-  # PHP7.0 on Core 8.7 has error "class TestDiscovery not found" so remove that.
-  # PHP7.3+ is not supported on Core 8.7 and earlier.
-  # PHP5 is not supported on Core 8.8 and later.
-  exclude:
+  include:
     - php: 7.0
-      env: DRUPAL_CORE=8.7.x
-    - php: 7.1
-      env: DRUPAL_CORE=8.7.x
-    - php: 7.2
-      env: DRUPAL_CORE=8.7.x
-    - php: 5.6
       env: DRUPAL_CORE=8.8.x
-    - php: 5.6
+    - php: 7.1
       env: DRUPAL_CORE=8.9.x
+    - php: 7.3
+      env: DRUPAL_CORE=9.0.x
 
 services:
   - mysql
@@ -82,11 +66,8 @@ before_script:
   # the installed_paths to pick up the Drupal standards.
   - $DRUPAL_ROOT/vendor/bin/phpcs --config-set installed_paths $DRUPAL_ROOT/vendor/drupal/coder/coder_sniffer
 
-  # If running Core 8.6 or 8.7 the following script will upgrade to phpunit 6
-  # which is required in PHP7. The script has now been deleted from Core 8.8.
-  - if [[ $DRUPAL_CORE == "8.6.x" || $DRUPAL_CORE == "8.7.x" ]]; then
-      travis_retry composer run-script drupal-phpunit-upgrade;
-    fi
+  # Show the allowed number of deprecation warnings.
+  - echo $SYMFONY_DEPRECATIONS_HELPER
 
   # Start a web server on port 8888, run in the background.
   - php -S localhost:8888 &
