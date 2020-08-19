@@ -135,11 +135,6 @@
         "patchLevel": {
             "drupal/core": "-p2"
         },
-        "patches": {
-            "drupal/rules": {
-                "Rules":"https://www.drupal.org/files/issues/2020-07-23/2927132-15-remove-other-conditions-from-ui.patch"
-            }
-        },
         "installer-paths": {
             "web/core": ["type:drupal-core"],
             "web/libraries/{$name}": ["type:drupal-library"],
