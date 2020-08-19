@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "73a0379c02d8d3b47c32f5f3e3cd1b94",
+    "content-hash": "96a453f56525d58a52e15b41905240d0",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -6029,6 +6029,9 @@
                     "services": {
                         "drush.services.yml": "^9"
                     }
+                },
+                "patches_applied": {
+                    "Rules": "https://www.drupal.org/files/issues/2020-07-23/2927132-15-remove-other-conditions-from-ui.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
