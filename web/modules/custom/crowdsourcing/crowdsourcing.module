@@ -150,8 +150,7 @@ function crowdsourcing_comment_access(\Drupal\Core\Entity\EntityInterface $entit
       if($account->id() == 0 && $entity->getOwnerId() == 0){
         if($entity->bundle() == 'idea_comments_'){
           $ip_address = \Drupal::request()->getClientIp();
-          if($ip_address == $entity->getHostname())
-            $access_result = AccessResult::allowedIf($entity->isPublished() && $account->hasPermission('edit own comments'))
+            $access_result = AccessResult::allowedIf($entity->isPublished() && $account->hasPermission('edit own comments') && $ip_address == $entity->getHostname())
             ->cachePerPermissions()->cachePerUser()->addCacheableDependency($entity);
           if (!$access_result->isAllowed()) {
             $access_result->setReason("The 'edit own comments' permission is required, the user must be the comment author, and the comment must be published.");
