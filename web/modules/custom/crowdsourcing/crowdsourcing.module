@@ -578,7 +578,15 @@ function crowdsourcing_field_formatter_settings_summary_alter(&$summary, $contex
 }
 
 function crowdsourcing_query_comment_filter_alter(Drupal\Core\Database\Query\AlterableInterface $query) {
-
+  if (\Drupal::currentUser()->hasPermission('view own comments only') && !\Drupal::currentUser()->hasPermission('administer comments')) {
+    if(\Drupal::currentUser()->id() == 0){
+      $ip_address = \Drupal::request()->getClientIp();
+      $query->condition('c.uid', 0);
+      $query->condition('c.hostname', $ip_address);
+    }else{
+      $query->condition('c.uid', \Drupal::currentUser()->id());
+    }
+  }
   // Change comment order to DESC for 'comment' field.
   if ($query->getMetaData('field_name') == 'field_idea_comment') {
     $query->addJoin('left','comment__field_like','cl','c.cid = cl.entity_id');
