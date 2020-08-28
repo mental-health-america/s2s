@@ -161,9 +161,9 @@ article.idea footer {
 .comment-body {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: max-content max-content auto;
-      grid-template-columns: -webkit-max-content -webkit-max-content auto;
-      grid-template-columns: max-content max-content auto;
+  -ms-grid-columns: fit-content(8.5rem) min-content auto;
+      grid-template-columns: fit-content(8.5rem) -webkit-min-content auto;
+      grid-template-columns: fit-content(8.5rem) min-content auto;
       grid-template-areas: "comment comment comment" "links like report";
   gap: 1rem;
 }
