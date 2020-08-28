@@ -155,6 +155,7 @@ article.idea footer {
   font-size: small;
   font-style: italic;
   margin-bottom: 10px;
+  display: none;
 }
 
 .comment-body {
