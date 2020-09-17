@@ -1,0 +1,4 @@
+services:
+  current_ip.address:
+    class: Drupal\current_ip\GetCurrentIp
+    arguments: ['@request_stack']

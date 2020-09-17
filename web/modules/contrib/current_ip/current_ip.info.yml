@@ -1,0 +1,11 @@
+name: 'Current IP'
+description: 'Create a field type to save current IP when entity save.'
+type: module
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: Fields
+
+# Information added by Drupal.org packaging script on 2020-04-11
+version: '8.x-1.0-rc1'
+project: 'current_ip'
+datestamp: 1586626527
