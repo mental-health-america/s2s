@@ -1,0 +1,14 @@
+name: Comment IP
+description: Shows comment IP in comment overview and gives option to block IP for that comment.
+type: module
+# core: '8.x'
+
+dependencies:
+  - comment
+  - ban
+
+# Information added by Drupal.org packaging script on 2016-06-16
+version: '8.x-1.0-alpha1'
+core: '8.x'
+project: 'comment_ip'
+datestamp: 1466066344
