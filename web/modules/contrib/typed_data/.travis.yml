@@ -6,18 +6,25 @@ env:
   global:
     # Make the script re-usable for other modules.
     - MODULE=typed_data
-    # Allow this many deprecation warnings.
-    - SYMFONY_DEPRECATIONS_HELPER=1
+    # Initialise the real SYMFONY_DEPRECATIONS_HELPER variable.
+    - SYMFONY_DEPRECATIONS_HELPER=0
+    # Create a default for the allowed deprecations per branch.
+    - DEPRECATIONS=0
 
 jobs:
   fast_finish: true
   include:
-    - php: 7.0
-      env: DRUPAL_CORE=8.8.x
     - php: 7.1
+      env: DRUPAL_CORE=8.8.x
+    - php: 7.2
       env: DRUPAL_CORE=8.9.x
     - php: 7.3
       env: DRUPAL_CORE=9.0.x
+    - php: 7.4
+      env:
+        - DRUPAL_CORE=9.1.x
+        # 66 Declaring ::setUp without a void return typehint
+        - DEPRECATIONS=66
 
 services:
   - mysql
@@ -35,32 +42,28 @@ before_script:
   # We also don't care if that file exists or not on PHP 7.
   - phpenv config-rm xdebug.ini || true
 
-  # Remember the current $MODULE test directory for later use in the Drupal
-  # installation.
+  # Save the starting directory, which is where the module code is located.
   - TESTDIR=$(pwd)
-  # Navigate out of module directory to prevent blown stack by recursive module
-  # lookup.
+  - echo $TESTDIR
+  # Navigate up to prevent blown stack by recursive module lookup.
   - cd ..
 
   # Create database.
   - mysql -e "create database $MODULE"
   # Export database variable for kernel tests.
   - export SIMPLETEST_DB=mysql://root:@127.0.0.1/$MODULE
-  # Download Drupal 8 core from the Github mirror because it is faster.
+  # Download Drupal core from the Github mirror because it is faster.
   - travis_retry git clone --branch $DRUPAL_CORE --depth 1 https://github.com/drupal/drupal.git
   - cd drupal
   # Store the path to Drupal root.
   - DRUPAL_ROOT=$(pwd)
   - echo $DRUPAL_ROOT
 
-  # Reference $MODULE in build site.
+  # Create a link in /modules to the actual module source.
   - ln -s $TESTDIR modules/$MODULE
 
-  # Run composer install for Drupal 8.1 and up.
+  # Run composer self-update and install.
   - travis_retry composer self-update && travis_retry composer install
-  # Run composer install in the module directory in order to fetch dev
-  # dependencies there.
-  - travis_retry composer install -d $TESTDIR
 
   # Coder is already installed as part of composer install. We just need to set
   # the installed_paths to pick up the Drupal standards.
@@ -74,6 +77,10 @@ before_script:
 
   # Export web server URL for browser tests.
   - export SIMPLETEST_BASE_URL=http://localhost:8888
+
+  # Get the allowed number of deprecation warnings.
+  - SYMFONY_DEPRECATIONS_HELPER=$DEPRECATIONS || $SYMFONY_DEPRECATIONS_HELPER
+  - echo $SYMFONY_DEPRECATIONS_HELPER
 
 script:
   # Run the PHPUnit tests which also include the kernel tests.

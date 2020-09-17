@@ -2,26 +2,27 @@
 
 namespace Drupal\typed_data\Plugin\TypedDataFormWidget;
 
+use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Datetime\Entity\DateFormat;
 use Drupal\Core\Form\SubformStateInterface;
+use Drupal\Core\TypedData\DataDefinition;
 use Drupal\Core\TypedData\DataDefinitionInterface;
-use Drupal\Core\TypedData\ListInterface;
-use Drupal\Core\TypedData\OptionsProviderInterface;
+use Drupal\Core\TypedData\Type\DateTimeInterface;
 use Drupal\Core\TypedData\TypedDataInterface;
-use Drupal\typed_data\Context\ContextDefinition;
 use Drupal\typed_data\Form\SubformState;
 use Drupal\typed_data\Widget\FormWidgetBase;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
- * Plugin implementation of the 'select' widget.
+ * Plugin implementation of the 'datetime' widget.
  *
  * @TypedDataFormWidget(
- *   id = "select",
- *   label = @Translation("Select"),
- *   description = @Translation("A simple select box."),
+ *   id = "datetime",
+ *   label = @Translation("Datetime"),
+ *   description = @Translation("A datetime input widget."),
  * )
  */
-class SelectWidget extends FormWidgetBase {
+class DatetimeWidget extends FormWidgetBase {
 
   /**
    * {@inheritdoc}
@@ -30,7 +31,6 @@ class SelectWidget extends FormWidgetBase {
     return parent::defaultConfiguration() + [
       'label' => NULL,
       'description' => NULL,
-      'empty_option' => NULL,
     ];
   }
 
@@ -38,26 +38,29 @@ class SelectWidget extends FormWidgetBase {
    * {@inheritdoc}
    */
   public function isApplicable(DataDefinitionInterface $definition) {
-    return is_subclass_of($definition->getClass(), OptionsProviderInterface::class);
+    return is_subclass_of($definition->getClass(), DateTimeInterface::class);
   }
 
   /**
    * {@inheritdoc}
    */
   public function form(TypedDataInterface $data, SubformStateInterface $form_state) {
-    assert($data instanceof OptionsProviderInterface);
+
+    $now = \Drupal::time()->getRequestTime();
+    $date_formatter = \Drupal::service('date.formatter');
+    $params = [
+      '%timezone' => $date_formatter->format($now, 'custom', 'T (e) \U\T\CP'),
+      '%daylight_saving' => $date_formatter->format($now, 'custom', 'I') ? $this->t('currently in daylight saving mode') : $this->t('not in daylight saving mode'),
+    ];
+    $timezone_info = $this->t('Timezone : %timezone %daylight_saving.', $params);
+
     $form = SubformState::getNewSubForm();
     $form['value'] = [
-      '#type' => 'select',
+      '#type' => 'datetime',
       '#title' => $this->configuration['label'] ?: $data->getDataDefinition()->getLabel(),
-      '#description' => $this->configuration['description'] ?: $data->getDataDefinition()->getDescription(),
-      '#default_value' => $data->getValue(),
-      '#multiple' => $data instanceof ListInterface,
-      '#empty_option' => $this->configuration['empty_option'],
-      '#empty_value' => '',
+      '#description' => ($this->configuration['description'] ?: $data->getDataDefinition()->getDescription()) . '<br>' . $timezone_info,
+      '#default_value' => $this->createDefaultDateTime($data->getValue()),
       '#required' => $data->getDataDefinition()->isRequired(),
-      '#disabled' => $data->getDataDefinition()->isReadOnly(),
-      '#options' => $data->getSettableOptions(),
     ];
     return $form;
   }
@@ -66,10 +69,10 @@ class SelectWidget extends FormWidgetBase {
    * {@inheritdoc}
    */
   public function extractFormValues(TypedDataInterface $data, SubformStateInterface $form_state) {
-    // Ensure empty values correctly end up as NULL value.
     $value = $form_state->getValue('value');
-    if ($value === '') {
-      $value = NULL;
+    if ($value instanceof DrupalDateTime) {
+      $format = DateFormat::load('html_datetime')->getPattern();
+      $value = $value->format($format);
     }
     $data->setValue($value);
   }
@@ -89,13 +92,10 @@ class SelectWidget extends FormWidgetBase {
    */
   public function getConfigurationDefinitions(DataDefinitionInterface $definition) {
     return [
-      'label' => ContextDefinition::create('string')
+      'label' => DataDefinition::create('string')
         ->setLabel($this->t('Label')),
-      'description' => ContextDefinition::create('string')
+      'description' => DataDefinition::create('string')
         ->setLabel($this->t('Description')),
-      'empty_option' => ContextDefinition::create('string')
-        ->setLabel($this->t('Empty option label'))
-        ->setDescription($this->t('Allows overriding the label of the empty option')),
     ];
   }
 
