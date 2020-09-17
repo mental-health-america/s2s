@@ -12,3 +12,4 @@ function s2s_preprocess_webform_confirmation(&$variables) {
    $msg = $variables['message']['#markup'];
    $variables['message']['#markup'] = html_entity_decode($msg);
 }
+
