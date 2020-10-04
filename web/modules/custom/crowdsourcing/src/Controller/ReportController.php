@@ -14,7 +14,7 @@ use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Drupal\Core\Ajax\ReplaceCommand;
-use \Drupal\Core\Ajax\AfterCommand;
+use \Drupal\Core\Ajax\CssCommand;
 
 /**
  * Class ReportController.
@@ -100,13 +100,13 @@ class ReportController extends ControllerBase {
     $response->addCommand(new HtmlCommand('#report_abuse_status', ''));
     // Decode the url data
     $decode_data = json_decode(base64_decode($data));
-     
+
     // Load the entity content.
     $entity_data = $this->entityTypeManager
       ->getStorage($decode_data->entity_type)
       ->load($decode_data->entity_id);
     $field_name = $decode_data->field_name;
-    
+
     // Get the users who already clicked on this particular content.
     $users = json_decode($entity_data->$field_name->clicked_by);
     $users_ip_address = json_decode($entity_data->$field_name->ip_address);
@@ -151,6 +151,7 @@ class ReportController extends ControllerBase {
       $response->addCommand(
         new ReplaceCommand('.reported-'.$decode_data->entity_id, '<img src="'.$like_img.'" alt="Already reported" typeof="Image" class="img-responsive" />')
       );
+      $response->addCommand(new CssCommand('.js-ajax-comments-id-'.$decode_data->entity_id, ['display' => 'none']));
     }
     elseif ($clicked == 'unreport') {
       if (($already_clicked && $clicked != $already_clicked_status) || (!$already_clicked && !isset($already_clicked_status))) {

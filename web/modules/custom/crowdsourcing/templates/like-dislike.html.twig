@@ -17,7 +17,10 @@
 <div class="like_dislike">
   <div class="like">
     {% if already_clicked == 'TRUE' %}
-      <img src="{{like_img}}" alt="Already Liked" typeof="Image" class="img-responsive" />
+<a class="use-ajax {{ liked }}" href={{ dislike_url }}><img src="{{like_img}}" alt="Already Liked" typeof="Image"
+        class="img-responsive" /></a>
+
+      <!-- <img src="{{like_img}}" alt="Already Liked" typeof="Image" class="img-responsive" /> -->
     {% else %}
       <a class="use-ajax {{ liked }}" href={{ like_url }}><img src="{{like_img}}" alt="No Like" typeof="Image"
         class="img-responsive" /></a>

@@ -127,14 +127,15 @@ class LikeDislikeFormatter extends FormatterBase implements ContainerFactoryPlug
       'entity_id' => $entity->id(),
       'field_name' => $items->getFieldDefinition()->getName(),
     ];
-     
+    //\Drupal::logger('intial_data')->warning('<pre><code>' . print_r($initial_data, TRUE) . '</code></pre>');
     foreach ($items as $delta => $item) {
-      
+
       $initial_data['likes'] = $items[$delta]->likes;
       $initial_data['dislikes'] = $items[$delta]->dislikes;
       $initial_data['users_like'] = json_decode($items[$delta]->clicked_by);
       $initial_data['users_ip'] = json_decode($items[$delta]->ip_address);
     }
+//    \Drupal::logger('for_intial_data')->warning('<pre><code>' . print_r($initial_data, TRUE) . '</code></pre>');
     $already_clicked = 'FALSE';
     $like_img = $base_url .'/'. drupal_get_path('module', 'crowdsourcing') . '/assests/images/no_like.png';
     if(!empty($initial_data) && (isset($initial_data['users_like']) || isset($initial_data['users_ip']))){
@@ -149,7 +150,6 @@ class LikeDislikeFormatter extends FormatterBase implements ContainerFactoryPlug
       }else{
         $already_clicked = in_array($user, array_keys((array) $initial_data['users_like']));
       }
-      \Drupal::logger('some_channel_name')->warning('<pre><code>' . print_r($already_clicked, TRUE) . '</code></pre>');
       if($already_clicked){
         $like_img = $base_url .'/'. drupal_get_path('module', 'crowdsourcing') . '/assests/images/liked.png';
         $already_clicked = 'TRUE';

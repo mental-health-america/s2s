@@ -3,6 +3,8 @@ crowdsourcing:
     theme:
       css/like_dislike.css: {}
       css/styles.css: {}
+  js:
+    js/permissionalter.js: {}
 commands:
   version: VERSION
   js:

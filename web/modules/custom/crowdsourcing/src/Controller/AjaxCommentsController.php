@@ -121,6 +121,7 @@ class AjaxCommentsController extends ControllerBase {
    *   A render array for the updated comment field.
    */
   protected function renderCommentField(EntityInterface $entity, $field_name) {
+
     $comment_field = $entity->get($field_name);
     // Load the display settings to ensure that the field formatter
     // configuration is properly applied to the rendered field when it is
@@ -130,7 +131,6 @@ class AjaxCommentsController extends ControllerBase {
       ->load($entity->getEntityTypeId() . '.' . $entity->bundle() . '.default')
       ->getComponent($field_name);
     $comment_display = $comment_field->view($display_options);
-
     // To avoid infinite nesting of #theme_wrappers elements on subsequent
     // ajax responses, unset them here.
     unset($comment_display['#theme_wrappers']);
@@ -160,8 +160,9 @@ class AjaxCommentsController extends ControllerBase {
       $comment_display[0]['comments']['pager']['#route_name'] = $route;
       $comment_display[0]['comments']['pager']['#route_parameters'] = $entity_url->getRouteParameters();
     }
-
+    krsort($comment_display[0]['comments']['#pre_render']);
     return $comment_display;
+
   }
 
   /**
@@ -184,9 +185,10 @@ class AjaxCommentsController extends ControllerBase {
   protected function buildCommentFieldResponse(Request $request, AjaxResponse $response, EntityInterface $entity, $field_name, $pid = NULL) {
     // Build a comment field render array for the ajax response.
     $comment_display = $this->renderCommentField($entity, $field_name);
-
+    //dpr($comment_display); exit;
     // Get the wrapper HTML id selector.
     $selectors = $this->tempStore->getSelectors($request);
+
     $wrapper_html_id = $selectors['wrapper_html_id'];
 
     // Rendering the comment form below (as part of comment_display) triggers
@@ -604,8 +606,8 @@ class AjaxCommentsController extends ControllerBase {
         'field_name' => $field_name,
       ]);
     }
-    
-    
+
+
 
     // Rebuild the form to trigger form submission.
     $form = $this->entityFormBuilder()->getForm($comment);

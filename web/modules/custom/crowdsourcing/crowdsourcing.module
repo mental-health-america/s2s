@@ -599,7 +599,8 @@ function crowdsourcing_query_comment_filter_alter(Drupal\Core\Database\Query\Alt
 
       //comment__field_like
       // Simply order by the thread field.
-     $order_by['cl.field_like_likes'] = 'DESC';
+      $order_by['cl.field_like_likes'] = 'DESC';
+      $order_by['c.cid'] = 'DESC';
     }
 
   }

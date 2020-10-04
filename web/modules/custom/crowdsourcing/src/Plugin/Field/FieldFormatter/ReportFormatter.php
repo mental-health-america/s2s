@@ -2,6 +2,7 @@
 
 namespace Drupal\crowdsourcing\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
@@ -11,10 +12,10 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation;
+use \Drupal\Core\Ajax\CssCommand;
 
 /**
- * Plugin implementation of the 'like_dislike_formatter' formatter.
+ * Plugin implementation of the 'report_formatter' formatter.
  *
  * @FieldFormatter(
  *   id = "report_abuse_formatter",
@@ -127,9 +128,9 @@ class ReportFormatter extends FormatterBase implements ContainerFactoryPluginInt
       'entity_id' => $entity->id(),
       'field_name' => $items->getFieldDefinition()->getName(),
     ];
-     
+
     foreach ($items as $delta => $item) {
-      
+
       $initial_data['report'] = $items[$delta]->report;
       $initial_data['unreport'] = $items[$delta]->unreport;
       $initial_data['users_report'] = json_decode($items[$delta]->clicked_by);
@@ -150,6 +151,8 @@ class ReportFormatter extends FormatterBase implements ContainerFactoryPluginInt
         $already_clicked = in_array($user, array_keys((array) $initial_data['users_report']));
       }
       if($already_clicked){
+        // $response = new AjaxResponse();
+        //   return $response->addCommand(new CssCommand('.js-ajax-comments-id-'.$entity->id(), ['display' => 'none']));
         $report_img = $base_url .'/'. drupal_get_path('module', 'crowdsourcing') . '/assests/images/abused.png';
         $already_clicked = 'TRUE';
       }
@@ -176,7 +179,8 @@ class ReportFormatter extends FormatterBase implements ContainerFactoryPluginInt
       '#unreport_url' => $unreport_url . $destination,
       '#already_clicked' => $already_clicked,
       '#report_img' => $report_img,
-      '#reported_class' => 'reported-'.$entity->id()
+      '#reported_class' => 'reported-'.$entity->id(),
+      '#comment_id' => $entity->id()
     ];
 
     $elements['#attached']['library'][] = 'core/drupal.ajax';

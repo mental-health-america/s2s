@@ -13,21 +13,16 @@
  */
 #}
 {% set reported = reported_class %}
+{% set cid = comment_id %} 
 <div class="report_abuse">
   <div class="report">
     {% if already_clicked == 'TRUE' %}
-      <img src="{{report_img}}" alt="Already reported" typeof="Image" class="img-responsive" />
+      <img src="{{report_img}}" data-id={{ cid }} alt="Already reported" typeof="Image" id="already_reported_{{cid}}" class="img-responsive" />
     {% else %}
       <a class="use-ajax {{ reported }}" href={{ report_url }}><img src="{{report_img}}" alt="Report" typeof="Image"
         class="img-responsive" /></a>
     {% endif %}
     {# <span id="report" class="report_count">{{ report }}</span> #}
   </div>
-  
-    
-      {# <div class="dislike">
-        <a class="use-ajax" href={{ dislike_url }}>Dislike</a>
-        <span id="dislike">{{ dislikes }}</span>
-    </div> #}
 </div>
     <div id="report_abuse_status"></div>
