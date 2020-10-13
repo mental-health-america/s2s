@@ -6,7 +6,7 @@ use Drupal\Core\Datetime\Entity\DateFormat;
 use Drupal\Core\Entity\TypedData\EntityDataDefinition;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\TypedData\DataDefinition;
-use Drupal\KernelTests\Core\Entity\EntityKernelTestBase;
+use Drupal\KernelTests\KernelTestBase;
 use Drupal\file\Entity\File;
 use Drupal\filter\Entity\FilterFormat;
 use Drupal\node\Entity\Node;
@@ -18,7 +18,7 @@ use Drupal\node\Entity\Node;
  *
  * @coversDefaultClass \Drupal\typed_data\DataFilterManager
  */
-class DataFilterTest extends EntityKernelTestBase {
+class DataFilterTest extends KernelTestBase {
 
   /**
    * The typed data manager.
@@ -39,12 +39,19 @@ class DataFilterTest extends EntityKernelTestBase {
    *
    * @var array
    */
-  public static $modules = ['typed_data', 'node', 'file', 'filter'];
+  protected static $modules = [
+    'file',
+    'filter',
+    'node',
+    'system',
+    'typed_data',
+    'user',
+  ];
 
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->typedDataManager = $this->container->get('typed_data_manager');
     $this->dataFilterManager = $this->container->get('plugin.manager.typed_data_filter');
@@ -220,6 +227,9 @@ class DataFilterTest extends EntityKernelTestBase {
    * @covers \Drupal\typed_data\Plugin\TypedDataFilter\EntityUrlFilter
    */
   public function testEntityUrlFilter() {
+    $this->installEntitySchema('user');
+    $this->installEntitySchema('node');
+
     /* @var \Drupal\node\NodeInterface $node */
     $node = Node::create([
       'title' => 'Test node',

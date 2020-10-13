@@ -23,8 +23,9 @@ jobs:
     - php: 7.4
       env:
         - DRUPAL_CORE=9.1.x
-        # 66 Declaring ::setUp without a void return typehint
-        - DEPRECATIONS=66
+        # --- Remaining self deprecation notices (0)
+        # --- Remaining direct deprecation notices (0)
+        - DEPRECATIONS=0
 
 services:
   - mysql
@@ -68,9 +69,6 @@ before_script:
   # Coder is already installed as part of composer install. We just need to set
   # the installed_paths to pick up the Drupal standards.
   - $DRUPAL_ROOT/vendor/bin/phpcs --config-set installed_paths $DRUPAL_ROOT/vendor/drupal/coder/coder_sniffer
-
-  # Show the allowed number of deprecation warnings.
-  - echo $SYMFONY_DEPRECATIONS_HELPER
 
   # Start a web server on port 8888, run in the background.
   - php -S localhost:8888 &

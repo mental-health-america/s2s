@@ -16,6 +16,9 @@ class TypedDataCommands extends DrushCommands {
    * @aliases el,entity-list
    */
   public function listEntities() {
+    // Dependency injection deliberately not used. So ignore the phpcs message.
+    // @see https://www.drupal.org/project/typed_data/issues/3164489
+    // @phpcs:ignore DrupalPractice.Objects.GlobalDrupal.GlobalDrupal
     $entities = array_keys(\Drupal::entityTypeManager()->getDefinitions());
     $unique = array_unique($entities);
     sort($unique);
@@ -31,6 +34,7 @@ class TypedDataCommands extends DrushCommands {
    * @aliases cl,context-list
    */
   public function listContexts() {
+    // @phpcs:ignore DrupalPractice.Objects.GlobalDrupal.GlobalDrupal
     $contexts = array_keys(\Drupal::service('context.repository')->getAvailableContexts());
     $unique = array_unique($contexts);
     sort($unique);
@@ -46,6 +50,7 @@ class TypedDataCommands extends DrushCommands {
    * @aliases tl,datatype-list
    */
   public function listDataTypes() {
+    // @phpcs:ignore DrupalPractice.Objects.GlobalDrupal.GlobalDrupal
     $definitions = \Drupal::service('typed_data_manager')->getDefinitions();
     $datatypes = [];
     foreach ($definitions as $plugin) {
@@ -83,6 +88,7 @@ class TypedDataCommands extends DrushCommands {
    * Helper function to format command output.
    */
   protected function formatOutput($plugin_manager_service, $title, $categories = TRUE, $short = FALSE) {
+    // @phpcs:ignore DrupalPractice.Objects.GlobalDrupal.GlobalDrupal
     $definitions = \Drupal::service($plugin_manager_service)->getDefinitions();
     $plugins = [];
     foreach ($definitions as $plugin) {

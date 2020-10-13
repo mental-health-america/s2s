@@ -53,7 +53,7 @@ class DataFetcherTest extends KernelTestBase {
    *
    * @var array
    */
-  public static $modules = [
+  protected static $modules = [
     'typed_data',
     'system',
     'node',
@@ -65,7 +65,7 @@ class DataFetcherTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $this->installEntitySchema('user');
