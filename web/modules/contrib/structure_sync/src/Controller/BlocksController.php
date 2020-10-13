@@ -80,7 +80,7 @@ class BlocksController extends ControllerBase {
 
       foreach ($fields as $field) {
         $fieldName = $field->getName();
-        $customBlock['fields'][$fieldName] = $block->$fieldName->getValue()[0];
+        $customBlock['fields'][$fieldName] = $block->$fieldName->getValue();
       }
 
       $customBlocks[] = $customBlock;
