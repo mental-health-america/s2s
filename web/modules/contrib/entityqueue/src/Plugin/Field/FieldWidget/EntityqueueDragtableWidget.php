@@ -141,7 +141,14 @@ class EntityqueueDragtableWidget extends EntityReferenceAutocompleteWidget {
       // editable.
       if ($this->getSetting('link_to_edit_form') && $referenced_entities[$delta]->getEntityType()->hasLinkTemplate('edit-form')) {
         $element['_edit'] = $referenced_entities[$delta]->toLink($this->t('Edit'), 'edit-form', ['query' => ['destination' => \Drupal::service('path.current')->getPath()]])->toRenderable() + [
-          '#attributes' => ['class' => ['form-item']],
+          '#attributes' => ['class' => ['form-item', 'entityqueue-edit-item-link']],
+        ];
+        $element['#attached']['html_head'][] = [
+          [
+            '#tag' => 'style',
+            '#value' => '.js-form-wrapper .form-wrapper .form-item.entityqueue-edit-item-link { margin-left: 1em }',
+          ],
+          'entityqueue-edit-item-link'
         ];
       }
     }
@@ -291,13 +298,15 @@ class EntityqueueDragtableWidget extends EntityReferenceAutocompleteWidget {
     $parents = $element['#field_parents'];
 
     $submitted_values = NestedArray::getValue($form_state->getValues(), array_slice($button['#parents'], 0, -1));
-    $items = $form_state->getFormObject()->getEntity()->get($field_name);
-    $items->appendItem($submitted_values['new_item']);
+    if (isset($submitted_values['new_item']['target_id'])) {
+      $items = $form_state->getFormObject()->getEntity()->get($field_name);
+      $items->appendItem($submitted_values['new_item']);
 
-    // Increment the items count.
-    $field_state = static::getWidgetState($parents, $field_name, $form_state);
-    $field_state['items_count']++;
-    static::setWidgetState($parents, $field_name, $form_state, $field_state);
+      // Increment the items count.
+      $field_state = static::getWidgetState($parents, $field_name, $form_state);
+      $field_state['items_count']++;
+      static::setWidgetState($parents, $field_name, $form_state, $field_state);
+    }
 
     $form_state->setRebuild();
   }

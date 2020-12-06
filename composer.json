@@ -31,7 +31,7 @@
         "drupal/console": "^1.0.2",
         "drupal/content_sync": "^2.1",
         "drupal/contribute": "^1.0",
-        "drupal/core": "^8.9.*",
+        "drupal/core": "^8.9.11",
         "drupal/csv_serialization": "^1.4",
         "drupal/ctools": "^3.1",
         "drupal/dashboard": "^1.0",
@@ -97,7 +97,6 @@
         "zaporylie/composer-drupal-optimizations": "^1.0"
     },
     "require-dev": {
-        "webflo/drupal-core-require-dev": "^8.7.0"
     },
     "conflict": {
         "drupal/drupal": "*"
