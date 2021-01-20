@@ -85,6 +85,7 @@
         "drupal/votingapi": "^3.0",
         "drupal/webform": "^5.19",
         "drupal/webform_score": "^2.0@alpha",
+        "drupal/webform_submission_change_history": "^2.0@beta",
         "drupal/webform_views": "^5.0@alpha",
         "drupal/xmlsitemap": "^1.0",
         "drush/drush": "^9.7",
