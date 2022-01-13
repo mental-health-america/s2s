@@ -1,35 +1,66 @@
-.rate-widget-yesno ul {
+/**
+ * @file
+ * Rate yes/no widget styling.
+ *
+ */
+
+.rate-widget-yesno .item-list ul {
   list-style: none;
-  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  margin: 0;
 }
+
 .rate-widget-yesno .item-list ul li {
-  background-image: none;
   padding: 0;
 }
+
 .rate-widget-yesno ul li {
   float: left;
   list-style: none;
 }
+
 .rate-widget-yesno ul li a {
   display: block;
   float: left;
 }
+
+.rate-widget-yesno .rate-yes {
+  margin-right: 10px;
+}
+
+.rate-widget-yesno li .ajax-progress .throbber {
+  padding: 0 8px;
+}
+
+.rate-widget-yesno li .ajax-progress {
+  position: absolute;
+  right: -30px;
+  top: 0;
+}
+
 .rate-yesno-btn {
   display: inline-block;
   background: #eee;
   margin-right: 5px;
   padding: 0 2px;
-  color: #666 !important;
+  color: #666;
   border: 1px solid #ccc;
 }
+
+.rate-yesno-btn:hover,
+.rate-yesno-btn:active,
+.rate-yesno-btn:focus {
+  color: #666;
+}
+
 .rate-yesno-btn:hover {
   background: #ddd;
   text-decoration: none;
 }
+
 .rate-yesno-votes {
   display: inline-block;
   margin-right: 5px;
-  padding: 1px 2px;
-  border: 1px;
   font-size: 0.8em;
 }

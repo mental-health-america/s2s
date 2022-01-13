@@ -4,6 +4,7 @@ namespace Drupal\rate;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Messenger\MessengerTrait;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class RateBotDetector {
   use StringTranslationTrait;
+  use MessengerTrait;
 
   /**
    * Client IP.
@@ -140,7 +142,7 @@ class RateBotDetector {
    */
   protected function checkThreshold($interval) {
     $sql = 'SELECT COUNT(*) FROM {votingapi_vote} WHERE vote_source = :ip AND timestamp > :time';
-    return $this->database->query($sql, [':ip' => $this->ip, ':time' => REQUEST_TIME - $interval])->fetchField();
+    return $this->database->query($sql, [':ip' => $this->ip, ':time' => \Drupal::time()->getRequestTime() - $interval])->fetchField();
   }
 
   /**
@@ -161,13 +163,13 @@ class RateBotDetector {
         $data = (string) $response->getBody();
         $status_code = $response->getStatusCode();
         if (!empty($data) && $status_code == 200) {
-          if ($data{0} == 'Y') {
+          if (substr($data, 0, 1) === 'Y') {
             return TRUE;
           }
         }
       }
       catch (RequestException $e) {
-        drupal_set_message($this->t('An error occurred contacting BotScout.'), 'warning');
+        $this->messenger()->addMessage($this->t('An error occurred contacting BotScout.'), 'warning');
         watchdog_exception('rate', $e);
       }
     }

@@ -7,6 +7,7 @@
 
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
+use Drupal\geolocation\Plugin\migrate\field\Location;
 
 /**
  * Implements hook_help().
@@ -36,14 +37,53 @@ function geolocation_help($route_name, RouteMatchInterface $route_match) {
  */
 function geolocation_theme() {
   return [
-    'geolocation_map_formatter' => [
+    'geolocation_map_wrapper' => [
       'variables' => [
+        'attributes' => NULL,
+        'maptype' => NULL,
         'locations' => NULL,
-        'latitude' => NULL,
-        'longitude' => NULL,
-        'uniqueid' => NULL,
+        'centre' => NULL,
+        'id' => NULL,
+        'children' => NULL,
+        'controls' => NULL,
+        'context' => NULL,
       ],
-      'template' => 'geolocation-map-formatter',
+    ],
+    'geolocation_map_location' => [
+      'variables' => [
+        'attributes' => NULL,
+        'children' => NULL,
+        'title' => NULL,
+        'coordinates' => NULL,
+        'id' => NULL,
+        'hidden' => NULL,
+        'icon' => NULL,
+        'label' => NULL,
+      ],
+    ],
+    'geolocation_map_polyline' => [
+      'variables' => [
+        'attributes' => NULL,
+        'children' => NULL,
+        'title' => NULL,
+        'coordinates' => NULL,
+        'stroke_color' => NULL,
+        'stroke_width' => NULL,
+        'stroke_opacity' => NULL,
+      ],
+    ],
+    'geolocation_map_polygon' => [
+      'variables' => [
+        'attributes' => NULL,
+        'children' => NULL,
+        'title' => NULL,
+        'coordinates' => NULL,
+        'stroke_color' => NULL,
+        'stroke_width' => NULL,
+        'stroke_opacity' => NULL,
+        'fill_color' => NULL,
+        'fill_opacity' => NULL,
+      ],
     ],
     'geolocation_latlng_formatter' => [
       'variables' => [
@@ -59,39 +99,31 @@ function geolocation_theme() {
       ],
       'template' => 'geolocation-sexagesimal-formatter',
     ],
-    'geolocation_common_map_display' => [
-      'variables' => [
-        'centre' => NULL,
-        'fitbounds' => NULL,
-        'clientlocation' => NULL,
-        'locations' => NULL,
-        'id' => NULL,
-        'view' => NULL,
-      ],
-    ],
-    'geolocation_common_map_location' => [
-      'variables' => [
-        'content' => NULL,
-        'title' => NULL,
-        'position' => NULL,
-        'location_id' => NULL,
-        'disable_marker' => NULL,
-        'icon' => NULL,
-        'marker_label' => NULL,
-      ],
-    ],
   ];
 }
 
 /**
- * Implements hook_theme_suggestions_HOOK().
+ * Implements hook_migrate_field_info_alter().
  */
-function geolocation_theme_suggestions_geolocation_common_map_display(array $variables) {
-  $suggestions = [];
-
-  if (!empty($variables['view']) && $variables['view'] instanceof ViewExecutable) {
-    $suggestions = $variables['view']->buildThemeFunctions('geolocation_common_map_display');
+function geolocation_migrate_field_info_alter(&$definitions) {
+  // Defines the location-to-geolocation migrate field plugin.
+  // This code also wants to replace the location-to-address migrate field
+  // plugin of Address module: a geolocation with latitude and longitude is way
+  // more accurate than a (partial) postal address.
+  if (\Drupal::moduleHandler()->moduleExists('geolocation_address')) {
+    return;
   }
 
-  return $suggestions;
+  $definitions['location'] = [
+    'type_map' => [
+      'location' => 'geolocation',
+    ],
+    'weight' => 0,
+    'id' => 'location',
+    'core' => [7],
+    'source_module' => 'location_cck',
+    'destination_module' => 'geolocation',
+    'class' => Location::class,
+    'provider' => 'geolocation',
+  ];
 }

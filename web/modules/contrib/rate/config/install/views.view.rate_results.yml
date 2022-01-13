@@ -17,7 +17,6 @@ description: ''
 tag: ''
 base_table: votingapi_vote
 base_field: id
-core: 8.x
 display:
   default:
     display_plugin: default
@@ -470,6 +469,7 @@ display:
         fields: false
         group_by: false
         empty: false
+        sorts: false
       fields:
         value_1:
           id: value_1
@@ -609,6 +609,7 @@ display:
       group_by: true
       block_description: 'Rate Voting Summary'
       empty: {  }
+      sorts: {  }
     cache_metadata:
       max-age: -1
       contexts:

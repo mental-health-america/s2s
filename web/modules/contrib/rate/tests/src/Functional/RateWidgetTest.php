@@ -48,7 +48,8 @@ class RateWidgetTest extends BrowserTestBase {
       ->set('enabled_types_widgets.entity_test', ['entity_test' => ['widget_type' => 'number_up_down', 'use_ajax' => FALSE]])
       ->set('use_ajax', FALSE)
       ->save();
-    $display = entity_get_display('entity_test', 'entity_test', 'default');
+
+    $display = \Drupal::service('entity_display.repository')->getViewDisplay('entity_test', 'entity_test', 'default');
     $display->setComponent('rate_vote_widget', [
       'weight' => 3,
     ]);

@@ -5,6 +5,7 @@ namespace Drupal\rate;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountProxyInterface;
+use Drupal\votingapi\Entity\Vote;
 use Drupal\votingapi\VoteResultFunctionManager;
 
 /**
@@ -98,6 +99,15 @@ class RateEntityVoteWidget {
       $has_voted = (!empty($vote_ids)) ? TRUE : FALSE;
       $user_can_vote = $this->accountProxy->hasPermission('cast rate vote on ' . $entity_type_id . ' of ' . $bundle);
 
+      // Get the current user voted.
+      $user_voted = NULL;
+      if ($has_voted && ($vote_id = reset($vote_ids))) {
+        /** @var \Drupal\votingapi\Entity\Vote $vote */
+        if ($vote = Vote::load($vote_id)) {
+          $user_voted = $vote->getValue();
+        }
+      }
+
       // Set the theme variables.
       $output['rate_vote_widget'] = [
         '#theme' => $rate_theme,
@@ -105,6 +115,7 @@ class RateEntityVoteWidget {
         '#use_ajax' => $use_ajax,
         '#can_vote' => $user_can_vote,
         '#has_voted' => $has_voted,
+        '#user_voted' => $user_voted,
         '#entity_id' => $entity_id,
         '#entity_type_id' => $entity_type_id,
         '#attributes' => ['class' => ['links', 'inline']],

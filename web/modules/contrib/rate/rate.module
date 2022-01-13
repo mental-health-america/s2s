@@ -37,7 +37,7 @@ function rate_entity_extra_field_info() {
 }
 
 /**
- * Implements hook_entity_view_alter().
+ * Implements hook_entity_view().
  */
 function rate_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
   if (($widget_config = $display->getComponent('rate_vote_widget')) && $view_mode == 'full') {
@@ -108,6 +108,7 @@ function rate_theme($existing, $type, $theme, $path) {
         'use_ajax' => FALSE,
         'can_vote' => FALSE,
         'has_voted' => FALSE,
+        'user_voted' => NULL,
         'entity_id' => NULL,
         'entity_type_id' => NULL,
         'widget_type' => NULL,
@@ -120,6 +121,7 @@ function rate_theme($existing, $type, $theme, $path) {
         'use_ajax' => FALSE,
         'can_vote' => FALSE,
         'has_voted' => FALSE,
+        'user_voted' => NULL,
         'entity_id' => NULL,
         'entity_type_id' => NULL,
         'widget_type' => NULL,
@@ -132,6 +134,7 @@ function rate_theme($existing, $type, $theme, $path) {
         'use_ajax' => FALSE,
         'can_vote' => FALSE,
         'has_voted' => FALSE,
+        'user_voted' => NULL,
         'entity_id' => NULL,
         'entity_type_id' => NULL,
         'widget_type' => NULL,
@@ -144,6 +147,7 @@ function rate_theme($existing, $type, $theme, $path) {
         'use_ajax' => FALSE,
         'can_vote' => FALSE,
         'has_voted' => FALSE,
+        'user_voted' => NULL,
         'entity_id' => NULL,
         'entity_type_id' => NULL,
         'widget_type' => NULL,
@@ -156,6 +160,7 @@ function rate_theme($existing, $type, $theme, $path) {
         'use_ajax' => FALSE,
         'can_vote' => FALSE,
         'has_voted' => FALSE,
+        'user_voted' => NULL,
         'entity_id' => NULL,
         'entity_type_id' => NULL,
         'widget_type' => NULL,
@@ -253,8 +258,12 @@ function template_preprocess_rate_template_fivestar(&$variables) {
  * Implements hook_preprocess_HOOK() for rate-template-thumbs_up_down.html.twig.
  */
 function template_preprocess_rate_template_thumbs_up_down(&$variables) {
-  $vote_types = ['up', 'down'];
-  foreach ($vote_types as $vote_type) {
+  $vote_types = [
+    'up' => '1',
+    'down' => '-1',
+  ];
+
+  foreach ($vote_types as $vote_type => $value) {
     $variables[$vote_type . '_li_attributes'] = new Attribute();
     $variables[$vote_type . '_li_attributes']['class'] = [];
     $variables[$vote_type . '_li_attributes']['class'] = 'thumb-' . $vote_type;
@@ -262,6 +271,11 @@ function template_preprocess_rate_template_thumbs_up_down(&$variables) {
     $variables[$vote_type . '_attributes'] = new Attribute();
     $variables[$vote_type . '_attributes']['class'] = [];
     $variables[$vote_type . '_attributes']['class'][] = 'rate-thumbs-up-down-btn-' . $vote_type;
+
+    // Add a class if the current user has voted on this item.
+    if ($variables['user_voted'] === $value) {
+      $variables[$vote_type . '_li_attributes']['class'][] = 'rate-voted';
+    }
 
     if ($variables['use_ajax'] && !$variables['has_voted'] && $variables['can_vote']) {
       $variables[$vote_type . '_attributes']['class'][] = 'use-ajax';
@@ -316,9 +330,12 @@ function template_preprocess_rate_template_thumbs_up(&$variables) {
  * Implements hook_preprocess_HOOK() for rate-template-yes_no.html.twig.
  */
 function template_preprocess_rate_template_yesno(&$variables) {
-  $vote_types = ['yes', 'no'];
+  $vote_types = [
+    'yes' => '1',
+    'no' => '-1',
+  ];
 
-  foreach ($vote_types as $vote_type) {
+  foreach ($vote_types as $vote_type => $value) {
     $variables[$vote_type . '_li_attributes'] = new Attribute();
     $variables[$vote_type . '_li_attributes']['class'] = [];
     $variables[$vote_type . '_li_attributes']['class'][] = 'rate-' . $vote_type;
@@ -327,6 +344,11 @@ function template_preprocess_rate_template_yesno(&$variables) {
     $variables[$vote_type . '_attributes']['class'] = [];
     $variables[$vote_type . '_attributes']['class'][] = 'rate-yesno-btn';
     $variables[$vote_type . '_attributes']['class'][] = 'rate-' . $vote_type . '-btn';
+
+    // Add a class if the current user has voted on this item.
+    if ($variables['user_voted'] === $value) {
+      $variables[$vote_type . '_li_attributes']['class'][] = 'rate-voted';
+    }
 
     if ($variables['use_ajax'] && !$variables['has_voted'] && $variables['can_vote']) {
       $variables[$vote_type . '_attributes']['class'][] = 'use-ajax';

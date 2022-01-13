@@ -66,8 +66,8 @@ class GeolocationItemTest extends FieldKernelTestBase {
     $id = $entity->id();
     /** @var \Drupal\entity_test\Entity\EntityTest $entity */
     $entity = $entityTestStorage->load($id);
-    $this->assertTrue($entity->get('field_test') instanceof FieldItemListInterface, 'Field implements interface.');
-    $this->assertTrue($entity->get('field_test')[0] instanceof FieldItemInterface, 'Field item implements interface.');
+    $this->assertInstanceOf(FieldItemListInterface::class, $entity->get('field_test'), 'Field implements interface.');
+    $this->assertInstanceOf(FieldItemInterface::class, $entity->get('field_test')[0], 'Field item implements interface.');
     $this->assertEquals($entity->get('field_test')->lat, $lat, "Lat {$entity->get('field_test')->lat} is equal to lat {$lat}.");
     $this->assertEquals($entity->get('field_test')[0]->lat, $lat, "Lat {$entity->get('field_test')[0]->lat} is equal to lat {$lat}.");
     $this->assertEquals($entity->get('field_test')->lng, $lng, "Lng {$entity->get('field_test')->lng} is equal to lng {$lng}.");
@@ -89,6 +89,30 @@ class GeolocationItemTest extends FieldKernelTestBase {
     $this->assertEquals($entity->get('field_test')->lat, $new_lat, "Lat {$entity->get('field_test')->lat} is equal to new lat {$new_lat}.");
     $this->assertEquals($entity->get('field_test')->lng, $new_lng, "Lng {$entity->get('field_test')->lng} is equal to new lng {$new_lng}.");
     $this->assertEquals($entity->get('field_test')->data, $new_data, "Data is correctly updated to new data.");
+
+    // Assert that the calculated properties were updated.
+    $this->assertEquals(round($entity->get('field_test')->lat_sin, 5), round(sin(deg2rad($new_lat)), 5), "Sine for latitude calculated correctly after change.");
+    $this->assertEquals(round($entity->get('field_test')->lat_cos, 5), round(cos(deg2rad($new_lat)), 5), "Cosine for latitude calculated correctly after change.");
+    $this->assertEquals(round($entity->get('field_test')->lng_rad, 5), round(deg2rad($new_lng), 5), "Radian value for longitude calculated correctly after change.");
+
+    // Do the same by setting the values as an array.
+    $entityTestStorage->resetCache([$id]);
+    $entity = $entityTestStorage->load($id);
+
+    $entity->set('field_test', [
+      'lat' => $new_lat,
+      'lng' => $new_lng,
+      'data' => $new_data,
+    ]);
+
+    $this->assertEquals($entity->get('field_test')->lat, $new_lat, "Lat {$entity->get('field_test')->lat} is equal to new lat {$new_lat}.");
+    $this->assertEquals($entity->get('field_test')->lng, $new_lng, "Lng {$entity->get('field_test')->lng} is equal to new lng {$new_lng}.");
+    $this->assertEquals($entity->get('field_test')->data, $new_data, "Data is correctly updated to new data.");
+
+    // Assert that the calculated properties were updated.
+    $this->assertEquals(round($entity->get('field_test')->lat_sin, 5), round(sin(deg2rad($new_lat)), 5), "Sine for latitude calculated correctly after change.");
+    $this->assertEquals(round($entity->get('field_test')->lat_cos, 5), round(cos(deg2rad($new_lat)), 5), "Cosine for latitude calculated correctly after change.");
+    $this->assertEquals(round($entity->get('field_test')->lng_rad, 5), round(deg2rad($new_lng), 5), "Radian value for longitude calculated correctly after change.");
 
     // Read changed entity and assert changed values.
     $entity->save();

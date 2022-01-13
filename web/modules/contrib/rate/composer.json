@@ -5,5 +5,8 @@
   "homepage": "https://www.drupal.org/project/rate",
   "support": {
     "issues": "https://www.drupal.org/project/issues/rate"
+  },
+  "require": {
+    "drupal/votingapi": "^3.0"
   }
 }

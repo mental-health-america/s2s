@@ -218,7 +218,7 @@ class RateSettingsForm extends ConfigFormBase implements ContainerInjectionInter
           $messenger->addWarning($this->t('An empty response was returned from botscout.'));
         }
         elseif ($status_code == 200) {
-          if ($data{0} == 'Y' || $data{0} == 'N') {
+          if (in_array(substr($data, 0, 1), ['Y', 'N'], TRUE)) {
             $messenger->addStatus($this->t('Rate has succesfully contacted the BotScout server.'));
           }
           else {

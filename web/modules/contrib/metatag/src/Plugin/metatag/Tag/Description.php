@@ -16,17 +16,9 @@ namespace Drupal\metatag\Plugin\metatag\Tag;
  *   secure = FALSE,
  *   multiple = FALSE,
  *   long = TRUE,
+ *   trimmable = TRUE
  * )
  */
 class Description extends MetaNameBase {
-
-  /**
-   * {@inheritdoc}
-   */
-  public function form(array $element = []) {
-    $form = parent::form($element);
-    $form['#maxlength'] = 320;
-    return $form;
-  }
-
+  // Nothing here yet. Just a placeholder class for a plugin.
 }

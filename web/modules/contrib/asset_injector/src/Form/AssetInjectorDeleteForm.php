@@ -8,7 +8,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 
 /**
- * Builds the form to delete Css Injector entities.
+ * Builds the form to delete CSS Injector entities.
  */
 class AssetInjectorDeleteForm extends EntityConfirmFormBase {
 

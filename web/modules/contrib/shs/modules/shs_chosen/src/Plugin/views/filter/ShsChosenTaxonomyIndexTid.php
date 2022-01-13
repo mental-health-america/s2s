@@ -18,6 +18,16 @@ class ShsChosenTaxonomyIndexTid extends ShsTaxonomyIndexTid {
   /**
    * {@inheritdoc}
    */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, VocabularyStorageInterface $vocabulary_storage, TermStorageInterface $term_storage, AccountInterface $current_user = NULL) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $vocabulary_storage, $term_storage, $current_user);
+
+    // Set translation context.
+    $this->translationContext = 'shs_chosen:taxonomy_index_tid';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function buildExtraOptionsForm(&$form, FormStateInterface $form_state) {
     parent::buildExtraOptionsForm($form, $form_state);
 

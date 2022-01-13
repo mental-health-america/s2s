@@ -14,7 +14,7 @@ class MetatagManagerTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     // Core modules.
     'system',
     'field',
@@ -46,7 +46,7 @@ class MetatagManagerTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $this->entityTypeManager = $this->container->get('entity_type.manager');

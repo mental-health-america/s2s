@@ -102,6 +102,10 @@ class RateVote {
    *   If TRUE, standard Drupal message will be set.
    */
   public function vote($entity_type_id, $entity_id, $vote_type_id, $value, $show_messages = TRUE) {
+    if (!$this->validateVoteValue($vote_type_id, $value)) {
+      return;
+    }
+
     $entity = $this->entityTypeManager->getStorage($entity_type_id)->load($entity_id);
     $is_bot_vote = $this->botDetector->checkIsBot();
 
@@ -182,6 +186,25 @@ class RateVote {
         $this->messenger->addWarning($this->t('A previous vote was not found.'));
       }
     }
+  }
+
+  /**
+   * Validates whether a value is allowed for a given vote type.
+   *
+   * @param $vote_type_id
+   *   Vote type id.
+   * @param $value
+   *   The vote value.
+   *
+   * @return bool
+   *   Returns TRUE if the value is allowed, FALSE otherwise.
+   */
+  public function validateVoteValue($vote_type_id, $value) {
+    $allowed_values = [-1, 1];
+    if ($vote_type_id == 'fivestar') {
+      $allowed_values = [1, 2, 3, 4, 5];
+    }
+    return in_array($value, $allowed_values);
   }
 
 }

@@ -19,7 +19,7 @@ class NodeJsonOutput extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     // Modules for core functionality.
     'node',
     'field',
@@ -49,7 +49,7 @@ class NodeJsonOutput extends BrowserTestBase {
   public function testNode() {
     $this->provisionResource();
 
-    /* @var\Drupal\node\NodeInterface $node */
+    /** @var \Drupal\node\NodeInterface $node */
     $node = $this->createContentTypeNode('Test JSON output', 'Testing JSON output for a content type');
     $url = $node->toUrl();
 
@@ -63,7 +63,7 @@ class NodeJsonOutput extends BrowserTestBase {
     $this->assertSession()->statusCodeEquals(200);
 
     // Decode the JSON output.
-    $response = $this->getRawContent();
+    $response = $this->getSession()->getPage()->getContent();
     $this->assertNotEmpty($response);
     $json = json_decode($response);
     $this->verbose($json, 'JSON output');

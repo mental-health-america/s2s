@@ -1,65 +1,43 @@
-node.type.*.third_party.entity_redirect:
+node.type.*.third_party.entity_redirect: &settings
   type: mapping
   label: 'Entity Redirect per entity settings'
   mapping:
-    destination:
-      type: string
-      label: 'The destination that the user will be redirected to after saving an entity.'
-    personalizable:
-      type: boolean
-      label: 'Whether to enable users to personalize this setting (via their user page).'
-    redirect_edit:
-      type: boolean
-      label: 'Whether to redirect after editing as well as creating new entities.'
-    url:
-      type: string
-      label: 'A local url to redirect to.'
-    external:
-      type: string
-      label: 'An external path to redirect the form to.'
-    personalization:
-      type: sequence
-      label: 'User specific personalization of the destination'
-      sequence:
-        type: mapping
-        mapping:
-          destination:
-            type: string
-            label: 'The destination that the user will be redirected to after saving an entity.'
-          url:
-            type: string
-            label: 'A local url to redirect to.'
-          external:
-            type: string
-media_entity.bundle.*.third_party.entity_redirect:
-  type: mapping
-  label: 'Entity Redirect per entity settings'
-  mapping:
-    destination:
-      type: string
-      label: 'The destination that the user will be redirected to after saving an entity.'
-    personalizable:
-      type: boolean
-      label: 'Whether to enable users to personalize this setting (via their user page).'
-    redirect_edit:
-      type: boolean
-      label: 'Whether to redirect after editing as well as creating new entities.'
-    url:
-      type: string
-      label: 'A local url to redirect to.'
-    external:
-      type: string
-    personalization:
-      type: sequence
-      label: 'User specific personalization of the destination'
-      sequence:
-        type: mapping
-        mapping:
-          destination:
-            type: string
-            label: 'The destination that the user will be redirected to after saving an entity.'
-          url:
-            type: string
-            label: 'A local url to redirect to.'
-          external:
-            type: string
+    redirect:
+      type: mapping
+      mapping:
+        anonymous:
+          type: mapping
+          mapping: &base
+            active:
+              type: boolean
+              label: 'Whether this type of redirect is active or not.'
+            destination:
+              type: string
+              label: 'The redirect type.'
+            url:
+              type: string
+              label: 'The url to redirect to if a local url.'
+            external:
+              type: string
+              label: 'An external redirect location.'
+        add:
+          type: mapping
+          mapping: &full
+            <<: *base
+            personalizable:
+              type: boolean
+              label: 'Whether privileged users can customize this for themselves.'
+        edit:
+          type: mapping
+          mapping:
+            <<: *full
+        delete:
+          type: mapping
+          mapping:
+            <<: *full
+
+media.type.*.third_party.entity_redirect:
+  <<: *settings
+
+taxonomy.vocabulary.*.third_party.entity_redirect:
+  <<: *settings

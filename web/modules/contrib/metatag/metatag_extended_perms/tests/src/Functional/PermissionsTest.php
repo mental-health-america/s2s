@@ -80,7 +80,7 @@ class PermissionsTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     // Log in as the super admin.
@@ -104,9 +104,12 @@ class PermissionsTest extends BrowserTestBase {
     $session = $this->assertSession();
     $session->statusCodeEquals(200);
 
-    // Confirm that the page contains the standard text iddicating this is the
+    // Confirm that the page contains the standard text indicating this is the
     // permissions page.
-    $session->pageTextContains('Administer menus and menu items');
+    $session->pageTextContains('Administer modules');
+    $session->pageTextContains('Administer site configuration');
+    $session->pageTextContains('Administer themes');
+    $session->pageTextContains('Administer software updates');
 
     // Look for each of the meta tags.
     foreach ($this->permissions as $group => $perms) {
@@ -204,8 +207,8 @@ class PermissionsTest extends BrowserTestBase {
       'field_name' => 'metatag',
       'new_storage_type' => 'metatag',
     ];
-    $this->drupalPostForm(NULL, $edit, 'Save and continue');
-    $this->drupalPostForm(NULL, [], 'Save field settings');
+    $this->submitForm($edit, 'Save and continue');
+    $this->submitForm([], 'Save field settings');
 
     // Clear all settings.
     $this->container->get('entity_field.manager')->clearCachedFieldDefinitions();

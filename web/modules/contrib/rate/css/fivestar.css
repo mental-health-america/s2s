@@ -1,37 +1,53 @@
+/**
+ * @file
+ * Rate fiverstar widget styling.
+ */
+
 .rate-widget-fivestar ul {
   list-style: none;
   overflow: hidden;
 }
+
+.rate-widget-fivestar ul li {
+  float: left;
+}
+
 .rate-widget-fivestar .item-list ul li {
-  background-image: none;
   padding: 0;
   margin: 0;
 }
-.rate-widget-fivestar ul li {
-  float: left;
-  list-style: none;
-}
-.rate-widget-fivestar ul li a {
-  display: block;
-  float: left;
-}
-.rate-widget-fivestar ul li.hovering a {
-  background: url(../images/fivestar.png) no-repeat 0 -16px;
-}
-.rate-fivestar-btn-filled {
-  display: inline-block;
-  background: url(../images/fivestar.png) no-repeat 0 -16px;
-  width: 16px;
+
+.rate-widget-fivestar .item-list ul li a + .ajax-progress {
   height: 16px;
-  text-indent: -9999px;
+
+  /* Space between star and throbber */
+  padding: 0 2px;
 }
-.rate-user .rate-fivestar-btn-filled {
-  background: url(../images/fivestar.png) no-repeat 0 0;
+
+.rate-widget-fivestar .item-list ul li a + .ajax-progress .throbber {
+  padding: 7px 8px 2px;
 }
+
+.rate-widget-fivestar ul li.hovering a {
+  /* Yellow star */
+  background: url(../images/fivestar.png) no-repeat 0 -16px;
+}
+
+.rate-fivestar-btn-filled,
 .rate-fivestar-btn-empty {
   display: inline-block;
-  background: url(../images/fivestar.png) no-repeat 0 -32px;
   width: 16px;
   height: 16px;
+
+  /* Prevent overlapping text on image */
   text-indent: -9999px;
+}
+
+.rate-fivestar-btn-filled {
+  /* Yellow star */
+  background: url(../images/fivestar.png) no-repeat 0 -16px;
+}
+.rate-fivestar-btn-empty {
+  /* Gray star */
+  background: url(../images/fivestar.png) no-repeat 0 -32px;
 }

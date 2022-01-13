@@ -71,12 +71,11 @@ Optional modules:
 
 2. Configuration
 --------------------------------------------------------------------------------
-After installation, the configuration page will be available at
-admin/structure/rate. This page shows a list with available widgets. Each widget
-have an edit and delete link. You can add a tab on the form below 'Add widget'.
-In this form you have to choose a widget type. See section 3 for more
-information on this topic. Both editing and adding a widget leads to the widget
-configuration (see §2.1).
+After installation, the rate settings configuration page will be available at
+/admin/config/search/votingapi/rate. This page displays an AJAX setting, bot
+detection settings (see §2.3), and a list of content types with enabled rate
+widgets. Beside each content type is a dropdown where you can select a rate
+widget type for it. See section 3 for more information on this topic.
 
 If you want users other than admin to access the voting results page, you need
 to give them the "view rate results page" permission on admin/user/permissions.
@@ -230,12 +229,11 @@ section 4).
 Widget types can be extended by 3rd party modules. The following widget types
 are provided by the rate module:
 
-* Thumbs up
-* Thumbs up / down
-* Number up / down
 * Fivestar
-* Emotion
-* Yes / no
+* Number Up / Down
+* Thumbs Up
+* Thumbs Up / Down
+* Yes / No
 
 4. Theming
 --------------------------------------------------------------------------------
