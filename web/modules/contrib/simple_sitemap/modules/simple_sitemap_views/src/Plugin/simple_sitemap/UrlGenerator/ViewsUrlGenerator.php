@@ -8,7 +8,7 @@ use Drupal\simple_sitemap_views\SimpleSitemapViews;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Routing\RouteProviderInterface;
-use Drupal\Core\Database\Query\Condition;
+use Drupal\Core\Database\Database;
 use Drupal\simple_sitemap\Simplesitemap;
 use Drupal\simple_sitemap\EntityHelper;
 use Drupal\simple_sitemap\Logger;
@@ -127,8 +127,13 @@ class ViewsUrlGenerator extends EntityUrlGeneratorBase {
         'view_id' => $view->id(),
         'display_id' => $view->current_display,
       ];
+
+      $extender = $this->sitemapViews->getDisplayExtender($view);
+
       // View path without arguments.
-      $data_sets[] = $base_data_set + ['arguments' => NULL];
+      if (!$extender->hasRequiredArguments()) {
+        $data_sets[] = $base_data_set + ['arguments' => NULL];
+      }
 
       // Process indexed arguments.
       if ($args_ids = $this->sitemapViews->getIndexableArguments($view, $this->sitemapVariant)) {
@@ -136,7 +141,7 @@ class ViewsUrlGenerator extends EntityUrlGeneratorBase {
 
         // Form the condition according to the variants of the
         // indexable arguments.
-        $condition = new Condition('AND');
+        $condition = Database::getConnection()->condition('AND');
         $condition->condition('view_id', $view->id());
         $condition->condition('display_id', $view->current_display);
         $condition->condition('arguments_ids', $args_ids, 'IN');
@@ -212,7 +217,7 @@ class ViewsUrlGenerator extends EntityUrlGeneratorBase {
     catch (\Exception $e) {
       // Delete records about arguments that are not added to the sitemap.
       if (!empty($data_set['index_id'])) {
-        $condition = new Condition('AND');
+        $condition = Database::getConnection()->condition('AND');
         $condition->condition('id', $data_set['index_id']);
         $this->sitemapViews->removeArgumentsFromIndex($condition);
       }

@@ -26,7 +26,6 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     "label",
  *     "url",
  *     "sitemap_variants",
- *     "last_submitted",
  *   }
  * )
  */
@@ -62,13 +61,6 @@ class SearchEngine extends ConfigEntityBase {
    * @var array
    */
   public $sitemap_variants;
-
-  /**
-   * Timestamp when the sitemap was last submitted to this search engine.
-   *
-   * @var int
-   */
-  public $last_submitted;
 
   /**
    * Implements magic __toString() to simplify checkbox list building.
