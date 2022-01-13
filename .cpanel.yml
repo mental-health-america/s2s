@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/screeningmha/drupal
+    - export DEPLOYPATH=/home/dr8s2s/drupal
     - /bin/cp -R * $DEPLOYPATH
 
 
